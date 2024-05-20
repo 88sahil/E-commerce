@@ -1,5 +1,11 @@
 const express = require('express')
 const UserRoute = express.Router()
-const {createUser} = require('../Controllers/UserControllers')
+const {createUser, Login,verifyuser,changepassword,protected,forgotpassword,updatepassword} = require('../Controllers/UserControllers')
+const User = require('../models/UserModel')
 UserRoute.route('/').post(createUser)
+UserRoute.route('/login').post(Login)
+UserRoute.route('/verify').get(verifyuser)
+UserRoute.route('/forgotpassword').get(forgotpassword)
+UserRoute.route('/updatepassword/:token').patch(updatepassword)
+UserRoute.route('/changepassword').patch(protected,changepassword)
 module.exports = UserRoute

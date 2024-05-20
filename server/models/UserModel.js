@@ -1,6 +1,7 @@
 const mongoose= require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcrypt')
+const crypto = require('crypto')
 const userSchema = new mongoose.Schema({
     username:{
         type:String,
@@ -9,6 +10,7 @@ const userSchema = new mongoose.Schema({
     email:{
         type:String,
         trim:true,
+        unique:true,
         required:[true,'user must have email'],
         lowercase:true,
         validate:[validator.isEmail,'please enter valied email']
@@ -66,12 +68,16 @@ const userSchema = new mongoose.Schema({
     isactive:{
         type:Boolean,
         default:false
-    }
+    },
+    passwordResetToken:String,
+    passwordResetTokenExpires:Date,
+    passwordchangedAt:Date
 },{
     toObject:{virtuals:true},
     toJSON:{virtuals:true}
 })
 
+userSchema.index({email:1})
 //encrypt password
 userSchema.pre('save',async function(next){
     if(!this.isModified('password')) return next();
@@ -79,7 +85,18 @@ userSchema.pre('save',async function(next){
     this.conformpassword = undefined
     next()
 })
-
-
+userSchema.methods.comparepassword=async(candidatepassword,password)=>{
+    return await bcrypt.compare(candidatepassword,password)
+}
+userSchema.methods.ispasswordChanged=function(timestamp){
+    if(!this.passwordchangedAt) return false;
+    return parseInt(this.passwordchangedAt.getTime())>timestamp*1000
+}
+userSchema.methods.createPasswordReset=function(){
+    let resetByte = crypto.randomBytes(32).toString('hex')
+    this.passwordResetToken = crypto.createHash('sha256').update(resetByte).digest('hex')
+    this.passwordResetTokenExpires = Date.now()+5*60*1000
+    return resetByte
+}
 const User = mongoose.model("UserModel",userSchema)
 module.exports = User

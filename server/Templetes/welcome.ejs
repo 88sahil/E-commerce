@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            padding: 20px;
+            font-family: sans-serif;
+            text-align: justify;
+        }
+        .upperdiv{
+            background-color: aquamarine;
+            padding: 4px;
+            display: flex;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            border-radius: 15px;
+        }
+        strong{
+            color: aqua;
+        }
+        .button>button{
+            background-color:rgb(6, 15, 4);
+            border: 2px solid black;
+            width: 100px;
+            border-radius: 15px;
+            padding: 15px 5px;
+            font-weight: bolder;
+            color: wheat;
+            box-shadow: 1px 1px 1px rgb(0, 255, 81);
+        }
+        @media screen and (max-width:430px) {
+            .upperdiv>h1{
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="upperdiv">
+            <h1>Welcome to ECS Family</h1>
+        </div>
+        <div class="lowerdiv">
+            <h3>Dear <%=username%></h3>
+            <p>
+                Welcome to E-commerce Store! We're thrilled to have you join our community of savvy shoppers and valued customers.
+            </p>
+            <p>At E-commerce Store, we strive to provide an exceptional online shopping experience, offering an extensive range of high-quality products at competitive prices. Whether you're searching for the latest fashion trends, must-have gadgets, or everyday essentials, we've got you covered.</p>
+            <p>As a new member of our family, you can look forward to:</p>
+            <ol>
+                <li><strong>Exclusive Offers:</strong> Enjoy special discounts and promotions tailored just for you.</li>
+                <li><strong>Fast and Reliable Shipping:</strong> Get your orders delivered straight to your doorstep in no time.</li>
+                <li><strong>Exceptional Customer Service:</strong> Our dedicated support team is here to assist you every step of the way.</li>
+            </ol>
+            <p>To get started, feel free to browse our website and explore our diverse selection of products. And don't forget to sign up for our newsletter to stay updated on the latest arrivals and exclusive deals.</p>
+            <p>Thank you for choosing E-commerce Store. We're committed to making your shopping experience seamless and enjoyable.</p>
+            <p>
+                Happy shopping!
+                <br>
+                <br>
+                Warm regards,<br>
+                Team@ecs<br>
+                Ceo<br>
+            </p>
+        </div>
+        <a href="<%=websitelink%>" class="button">
+            <button>Explote Site</button>
+        </a>
+    </div>
+</body>
+</html>
