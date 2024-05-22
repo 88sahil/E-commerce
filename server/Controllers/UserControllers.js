@@ -5,11 +5,21 @@ const jwt = require('jsonwebtoken')
 const {promisify} = require('util')
 const Email = require('../utils/Email')
 const crypto = require('crypto')
+const {cloudupload,clouddelete} = require('../utils/cloudinary')
 const createSignInToken = (id)=>{
     let token =  jwt.sign({id:id},process.env.JWTS,{
         expiresIn:process.env.expiresIn
     })
     return token;
+}
+const fileterObj =(obj,...fields)=>{
+    let finalObj={}
+    for(let ele in obj){
+        if(fields.includes(ele)){
+            finalObj[ele] = obj[ele]
+        }
+    }
+    return finalObj
 }
 module.exports.createUser = checkasync(async(req,res,next)=>{
     let data = req.body
@@ -160,5 +170,51 @@ module.exports.updatepassword = checkasync(async(req,res,next)=>{
     res.status(200).json({
         status:'success',
         message:'hurrah password change succssfully please login'
+    })
+})
+//upload photo
+module.exports.uploadProfilephoto = checkasync(async(req,res,next)=>{
+    console.log(req.file.path)
+    let user = await User.findById(req.user._id)
+    if(!user) return next(new AppError("can't find User",404));
+    if(user.photoId){
+        let del = await clouddelete(user.photoId)
+        if(!del) return next(new AppError("fail to delete",500))
+    }
+    let response = await cloudupload(req.file.path)
+    if(!response) return next(new AppError("fail to upload photo",500));
+    user.photo = response.url
+    user.photoId = response.public_id
+    await user.save({validateBeforeSave:false})
+    require('fs').unlinkSync(req.file.path)
+    res.status(200).json({
+        status:"sucess",
+        message:"photo upload successfully",
+        user
+    })
+})
+
+module.exports.updateMe= checkasync(async(req,res,next)=>{
+    let finalObj = fileterObj(req.body,"username","email","countryCode","number","location","isactive");
+    console.log(finalObj)
+    let user = await User.findByIdAndUpdate(req.user._id,finalObj,{new:true})
+    if(!user) return next(new AppError("fail to uplode user",400));
+    res.status(200).json({
+        status:'success',
+        message:"user updated successfully",
+        user
+    })
+})
+
+module.exports.LogOut=checkasync((req,res,next)=>{
+    res.cookie("jwt","",{
+        expires:new Date(Date.now()-10*1000),
+        httpOnly:true,
+        secure:true,
+        sameSite:'none'
+    })
+    res.status(200).json({
+        status:'success',
+        message:'logged out'
     })
 })

@@ -9,7 +9,7 @@ cloudinary.config({
 const cloudupload = async(file)=>{
     try{
         if(!file) return null;
-        let response =  await cloudinary.uploader.upload(path,{
+        let response =  await cloudinary.uploader.upload(file,{
             folder:'Photos',
         })
         return response
@@ -26,3 +26,5 @@ const clouddelete = async(fileId)=>{
         console.log(err)
     }
 }
+
+module.exports = {cloudupload,clouddelete}

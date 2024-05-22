@@ -2,26 +2,24 @@ const mongoose= require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcrypt')
 const crypto = require('crypto')
+const findOrCreate = require("mongoose-findorcreate");
 const userSchema = new mongoose.Schema({
     username:{
         type:String,
-        required:[true,'user must have username']
     },
     email:{
         type:String,
         trim:true,
         unique:true,
-        required:[true,'user must have email'],
         lowercase:true,
         validate:[validator.isEmail,'please enter valied email']
     },
     countryCode:{
         type:String,
-        required:[true,'please enter country code']
     },
     number:{
         type:Number,
-        required:[true,'please enter mobail number']
+        
     },
     location:{
         type:{
@@ -43,8 +41,7 @@ const userSchema = new mongoose.Schema({
     ,
     password:{
         type:String,
-        required:[true,'user must have password'],
-        selected:false
+        select:false
     },
     conformpassword:{
         type:String,
@@ -55,6 +52,7 @@ const userSchema = new mongoose.Schema({
             message:'passwords are not some'
         }
     },
+    googleId:String,
     photo:String,
     photoId:String,
     isGoogleUser:{
@@ -69,6 +67,11 @@ const userSchema = new mongoose.Schema({
         type:Boolean,
         default:false
     },
+        likes:[{
+            type:mongoose.Schema.ObjectId,
+            ref:'items'
+        }]
+    ,
     passwordResetToken:String,
     passwordResetTokenExpires:Date,
     passwordchangedAt:Date
@@ -78,12 +81,17 @@ const userSchema = new mongoose.Schema({
 })
 
 userSchema.index({email:1})
+userSchema.plugin(findOrCreate)
 //encrypt password
 userSchema.pre('save',async function(next){
     if(!this.isModified('password')) return next();
     this.password = await bcrypt.hash(this.password,12)
     this.conformpassword = undefined
     next()
+})
+userSchema.pre(/^find/,function(next){
+    this.find({isactive:{$ne:true}})
+    next();
 })
 userSchema.methods.comparepassword=async(candidatepassword,password)=>{
     return await bcrypt.compare(candidatepassword,password)

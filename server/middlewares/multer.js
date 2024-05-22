@@ -8,4 +8,7 @@ const storage = multer.diskStorage({
 const uploader =multer({
     storage
 }).single('profile')
-module.exports =uploader
+const multiuploader = multer({
+    storage
+}).array("photos",10)
+module.exports ={uploader,multiuploader}

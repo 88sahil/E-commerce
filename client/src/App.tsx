@@ -20,6 +20,8 @@ function App() {
   return (
     <>
       <Second name="sahil" />
+      <a href="http://localhost:8000/auth/google/callback" target="_blank">Google</a>
+      <a href="http://localhost:8000/logout">Logout</a>
     </>
   )
 }
