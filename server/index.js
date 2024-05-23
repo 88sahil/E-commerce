@@ -8,6 +8,9 @@ const GlobalErrorHandle = require('./utils/GlobalErrorHandle')
 const UserRoute = require('./Routes/UserRoute')
 const ItemRoute = require('./Routes/ItemRoute')
 const passport = require('passport')
+const BrandR = require('./Routes/BrandRoute')
+const CategoryRoute = require('./Routes/CategoryRoute');
+const CartRoute = require('./Routes/Cart');
 require('./Controllers/OauthController')
 //databse
 DB()
@@ -51,6 +54,10 @@ App.use(cookieparser())
 //routes
 App.use('/api/v1/user',UserRoute)
 App.use('/api/v1/item',ItemRoute)
+App.use('/api/v1/brands',BrandR)
+App.use('/api/v1/category',CategoryRoute)
+App.use('/api/v1/cart',CartRoute)
+//error handeler
 App.use(GlobalErrorHandle)
 App.listen(process.env.port,()=>{
     console.log(`welcome to sahil's E-commerce server ${process.env.port}`)

@@ -91,6 +91,7 @@ userSchema.pre('save',async function(next){
 })
 userSchema.pre(/^find/,function(next){
     this.find({isactive:{$ne:true}})
+    this.populate({path:'likes'})
     next();
 })
 userSchema.methods.comparepassword=async(candidatepassword,password)=>{

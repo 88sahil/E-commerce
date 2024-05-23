@@ -32,12 +32,12 @@ const itemSchema = new mongoose.Schema({
         default:true
     },
     category:{
-        type:String,
-        enum:['electronics','HomeDecor','Food','medicine','fashion','Automobail']
+        type:mongoose.Schema.ObjectId,
+        ref:'category'
     },
     manufacturour:{
-        type:String,
-        required:[true,'please enter manufacturour']
+        type:mongoose.Schema.ObjectId,
+        ref:'brand'
     },
     publishedAt:{
         type:Date,
@@ -47,6 +47,15 @@ const itemSchema = new mongoose.Schema({
     toObject:{virtuals:true},
     toJSON:{virtuals:true}
 })
-
+itemSchema.pre(/^find/,function(next){
+    this.populate({
+        path:'manufacturour',
+        select:'brandname logo -_id'
+    }).populate({
+        path:'category',
+        select:'-_id -__V'
+    })
+    next();
+})
 const Item = mongoose.model("items",itemSchema)
 module.exports = Item
