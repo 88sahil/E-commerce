@@ -5,20 +5,14 @@ import './index.css'
 import {createBrowserRouter,Route,RouterProvider} from 'react-router-dom'
 import Success from './components/Success.tsx'
 import Payment from './components/Payment.tsx'
+import {Login} from  './pages/index.ts'
 const router:any = createBrowserRouter([
   {
     path:'/',
     element:<App/>
-  },
-  {
-    path:'/payments',
-    element:<Payment/>
-  }
-  ,
-
-  {
-    path:'/success',
-    element:<Success/>
+  },{
+    path:'/login',
+    element:<Login />
   }
 ])
 ReactDOM.createRoot(document.getElementById('root')!).render(
