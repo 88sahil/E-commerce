@@ -23,7 +23,7 @@ module.exports.checkout = async(req,res,next)=>{
             cancel_url:"http://localhost:5174/cancel"
         })
         res.status(200).json({
-            ses:session
+            session:session
         })
     }catch(err){
         console.log('|')

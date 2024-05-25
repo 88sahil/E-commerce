@@ -71,7 +71,6 @@ const Payment =()=>{
         try{
             console.log("hii")
             let res = await axios.post("http://localhost:8000/checkout",{item},{withCredentials:true});
-            console.log(res);
             window.open(res.data.session.url);
         }catch(err){
             console.log(err)
