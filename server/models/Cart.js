@@ -27,6 +27,11 @@ const cartSchema = new mongoose.Schema({
         type:mongoose.Schema.ObjectId,
         ref:'UserModel'
     },
+    totalbill:{
+        type:Number,
+        default:0
+    }
+    ,
     upladated:Date,
     created:{
         type:Date,
@@ -38,4 +43,12 @@ cartSchema.virtual('products',{
     localField:"_id",
     foreignField:"cartId",
 })
+cartSchema.methods.createBill = async function(products){
+    let totalItem =0;
+    for(let i=0;i<products.length;i++){
+        totalItem+= products[i].totalprice;
+    }
+    this.totalbill = totalItem
+    await this.save()
+}
 module.exports.Cart = mongoose.model("cart",cartSchema)

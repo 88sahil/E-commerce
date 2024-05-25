@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const App = express()
 const DB=require('./DB/Db');
+const cors = require('cors')
 const session = require('express-session')
 const cookieparser = require('cookie-parser')
 const GlobalErrorHandle = require('./utils/GlobalErrorHandle')
@@ -12,16 +13,26 @@ const BrandR = require('./Routes/BrandRoute')
 const CategoryRoute = require('./Routes/CategoryRoute');
 const CartRoute = require('./Routes/Cart');
 require('./Controllers/OauthController')
+const {checkout}=require('./Payments/Payment')
 //databse
 DB()
 //google auth
+App.use(express.json())
+//error middleware"
 
+//cookie parsers
+App.use(cookieparser())
+App.use(cors({
+  origin:["http://localhost:5173"],
+  credentials:true
+}))
 App.use(session({
   secret:'myname',
   resave:'false',
   saveUninitialized:true,
   cookie:{secure:false}
 }))
+App.post('/checkout',checkout)
 App.use(passport.initialize())
 App.use(passport.session())
 App.get('/auth/google',
@@ -46,11 +57,7 @@ App.get('/login',function(req,res){
 })
 
 
-App.use(express.json())
-//error middleware"
 
-//cookie parsers
-App.use(cookieparser())
 //routes
 App.use('/api/v1/user',UserRoute)
 App.use('/api/v1/item',ItemRoute)

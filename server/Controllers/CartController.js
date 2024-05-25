@@ -1,7 +1,18 @@
 const {CartItem,Cart} = require('../models/Cart')
 const checkAsync = require('./CheckAync')
 const AppError = require('../utils/AppError')
-
+module.exports.GetCart = checkAsync(async(req,res,next)=>{
+    let cart = await Cart.findOne({user:req.params.id});
+        if(!cart){
+            cart = await Cart.create({user:req.params.id});
+        }
+      cart = await cart.populate('products');
+        await cart.createBill(cart.products);
+    res.status(200).json({
+        status:'success',
+        cart
+    })
+})
 module.exports.AddToCart = checkAsync((async(req,res,next)=>{
         let cart = await Cart.findOne({user:req.params.id})
         if(!cart){
@@ -19,6 +30,7 @@ module.exports.AddToCart = checkAsync((async(req,res,next)=>{
             product = await CartItem.create(data)
         }
         await cart.populate('products')
+        await cart.createBill(cart.products);
         res.status(200).json({
             status:'success',
             cart
@@ -39,6 +51,7 @@ module.exports.removeFromcart=checkAsync(async(req,res,next)=>{
         return next(new AppError("can't find this product",404));
     }
     let cart = await Cart.findById(cartId).populate('products')
+    await cart.createBill(cart.products);
     res.status(200).json({
         status:'success',
         cart
