@@ -25,6 +25,13 @@ header{
                 font-size: 15px;
                 text-transform: capitalize;
                 font-weight: bold;
+                transition: .2s linear;
+                &:hover{
+                    color: black;
+                    padding: 5px 10px;
+                    border-radius: 15px;
+                    background-color: rgb(217, 217, 217);
+                }
             }
             @media (min-width:250px) and (max-width:950px) {
                 display: none;
@@ -56,6 +63,12 @@ header{
                 display: flex;
                 align-items: center;
                 border-radius: 15px;
+                &:hover{
+                    color: black;
+                    padding: 5px 10px;
+                    border-radius: 15px;
+                    background-color: rgb(217, 217, 217);
+                }
             }
             @media (min-width:950px) {
                 display: none;
