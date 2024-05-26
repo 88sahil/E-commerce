@@ -46,6 +46,9 @@ module.exports.Login = checkasync(async(req,res,next)=>{
         return next(new AppError("email or password missing",401))
     }
     let user = await User.findOne({email:email}).select('+password')
+    if(user.googleId){
+        return next(new AppError("you are google User please login through it",401))
+    }
     if(!user){
         return next(new AppError("please enter valid email or sign up",401))
     }
@@ -78,9 +81,7 @@ module.exports.verifyuser = checkasync(async(req,res,next)=>{
     if(!user){
         return next(new AppError("can't find user",401))
     }
-    console.log(decode.iat)
     let ispasswordchanged = user.ispasswordChanged(decode.iat)
-    console.log(ispasswordchanged)
     if(ispasswordchanged){
         return next(new AppError("password changed pleas login again",401))
     }
@@ -116,6 +117,9 @@ module.exports.changepassword=checkasync(async(req,res,next)=>{
         return next(new AppError("please login",401))
     }
     let user = await User.findById(req.user._id)
+    if(user.googleId){
+        return next(new AppError("you are google User please login through it",401))
+    }
     if(!user){
         return next(new AppError("can't find user",401))
     }
@@ -144,6 +148,9 @@ module.exports.forgotpassword=checkasync(async(req,res,next)=>{
     const {email} = req.query
     if(!email) return next(new AppError("please Enter Email",403));
     const user = await User.findOne({email:email})
+    if(user.googleId){
+        return next(new AppError("you are google User please login through it",401))
+    }
     if(!user) return next(new AppError("user not found",404));
     let resetString = user.createPasswordReset()
     let url = `http://localhost:5173/Changepassword/${resetString}`
@@ -160,6 +167,9 @@ module.exports.updatepassword = checkasync(async(req,res,next)=>{
     let {password}= req.body
     let finaltoken = crypto.createHash('sha256').update(token).digest('Hex')
     let user = await User.findOne({passwordResetToken:finaltoken})
+    if(user.googleId){
+        return next(new AppError("you are google User please login through it",401))
+    }
     if(!user) return next(new AppError("can't find user",404));
     if(user.passwordResetTokenExpires<new Date(Date.now())) return next(new AppError("token expired try again!",401));
     user.password = password
@@ -195,7 +205,7 @@ module.exports.uploadProfilephoto = checkasync(async(req,res,next)=>{
 })
 
 module.exports.updateMe= checkasync(async(req,res,next)=>{
-    let finalObj = fileterObj(req.body,"username","email","countryCode","number","location","isactive");
+    let finalObj = fileterObj(req.body,"username","countryCode","number","location","isactive");
     console.log(finalObj)
     let user = await User.findByIdAndUpdate(req.user._id,finalObj,{new:true})
     if(!user) return next(new AppError("fail to uplode user",400));

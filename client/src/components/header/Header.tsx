@@ -6,8 +6,11 @@ import { FaUserAlt } from "react-icons/fa";
 import { CiHeart } from "react-icons/ci";
 import { FaBagShopping } from "react-icons/fa6";
 import { RiBarChartHorizontalLine } from "react-icons/ri";
+import { useSelector } from "react-redux";
 const Header=()=>{
+    let user = useSelector(state=>state.)
     const [isMenuShow,setisMenuShow] = useState(false);
+    const [isUserShow,setisUserShow] = useState(true)
     return(
         <header className="w-full h-[80px]">
             {/* logo */}
@@ -30,7 +33,7 @@ const Header=()=>{
                <NavLink to={""}><FaUserAlt/></NavLink>
                <NavLink to={""}><CiHeart/></NavLink>
                <NavLink to={""}><FaBagShopping/></NavLink>
-               <button onClick={(e)=>setisMenuShow((prev)=>!prev)}><RiBarChartHorizontalLine/></button>
+               <button id="MenuShow" onClick={(e)=>setisMenuShow((prev)=>!prev)}><RiBarChartHorizontalLine/></button>
                {isMenuShow &&<div className="menu">
                <NavLink to={""}>
                     about
@@ -40,6 +43,9 @@ const Header=()=>{
                 <NavLink to={""}>Jobs</NavLink>
                 <NavLink to={""}>Products</NavLink>
                </div>}
+               <div className="usermenu">
+                    <div></div>
+               </div>
             </div>
         </header>
     )

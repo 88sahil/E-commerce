@@ -7,14 +7,19 @@ import {Provider}  from  'react-redux'
 import {createBrowserRouter,Route,RouterProvider} from 'react-router-dom'
 import Success from './components/Success.tsx'
 import Payment from './components/Payment.tsx'
-import {Login} from  './pages/index.ts'
+import {SignUpPage,LoginPage} from  './pages/index.ts'
 const router:any = createBrowserRouter([
   {
     path:'/',
     element:<App/>
-  },{
-    path:'/login',
-    element:<Login />
+  },
+  {
+    path:'/SignUp',
+    element:<SignUpPage />
+  },
+  {
+    path:'/Login',
+    element:<LoginPage/>
   }
 ])
 ReactDOM.createRoot(document.getElementById('root')!).render(

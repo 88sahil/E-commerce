@@ -1,10 +1,5 @@
 $logo-color:rgb(124, 171, 124);
 .login_form{
-    @media (min-width:600px) {
-        box-shadow: 2px 2px 2px rgb(175, 175, 175),-2px -2px 2px rgb(175, 175, 175);
-        padding: 25px;
-        border-radius: 15px;
-    }
     button{
         background: $logo-color;
         width: 100%;
@@ -68,4 +63,24 @@ $logo-color:rgb(124, 171, 124);
         font-family: sans-serif;
         font-weight: bolder;
     }
+}
+.or{
+    display: flex;
+    flex-direction: row;
+    a{
+        display: flex;
+    }
+}
+.main-2{
+    @media (min-width:600px) {
+        box-shadow: 2px 2px 2px rgb(175, 175, 175),-2px -2px 2px rgb(175, 175, 175);
+        padding: 25px;
+        border-radius: 15px;
+    }
+}
+.goggle{
+    background-color: rgb(66, 66, 132);
+    color: white;
+    font-weight: bolder;
+    padding: 8px 10px;
 }

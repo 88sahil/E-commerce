@@ -3,6 +3,7 @@ const express = require('express')
 const App = express()
 const DB=require('./DB/Db');
 const cors = require('cors')
+const jwt = require('jsonwebtoken')
 const session = require('express-session')
 const cookieparser = require('cookie-parser')
 const GlobalErrorHandle = require('./utils/GlobalErrorHandle')
@@ -13,7 +14,8 @@ const BrandR = require('./Routes/BrandRoute')
 const CategoryRoute = require('./Routes/CategoryRoute');
 const CartRoute = require('./Routes/Cart');
 require('./Controllers/OauthController')
-const {checkout}=require('./Payments/Payment')
+const {checkout}=require('./Payments/Payment');
+const AppError = require('./utils/AppError');
 //databse
 DB()
 //google auth
@@ -41,13 +43,30 @@ App.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
     // Successful authentication, redirect home.
+    
     res.redirect('/Authenticate');
+    res.status(200).json({
+      user:req.user
+    })
   });
 //body parse
-App.get('/Authenticate',function(req,res){
-    let user = req.user
-    res.send(`hello ${user.username}`)
+App.get('/Authenticate',function(req,res,next){
+    let token =  jwt.sign({id:req.user._id},process.env.JWTS,{
+      expiresIn:process.env.expiresIn
+  })
+  res.redirect('http://localhost:5173/')
+  res.cookie("jwt",token,{
+    expires:new Date(Date.now()+5*24*60*60*1000),
+    httpOnly:true,
+    secure:true,
+    sameSite:'none'
 })
+res.status(200).json({
+  user:req.user
+})
+
+})
+
 App.get('/logout',function(req,res){
     req.session.destroy()
     res.send("see you again")

@@ -12,7 +12,7 @@ const passport = require('passport')
       },
       async function(accessToken, refreshToken, profile, cb) {
             let user;
-            user = await User.findOne({googleId:profile.id})
+            user = await User.findOne({$or:[{email:profile.emails[0].value},{googleId:profile.id}]})
             if(!user){
                 user = await User.create({googleId:profile.id,username:`${profile.displayName}`,isGoogleUser:true,email:`${profile.emails[0].value}`,photo:`${profile.photos[0].value}`,password:`${profile.emails[0].value}${profile.id}`,conformpassword:`${profile.emails[0].value}${profile.id}`})
             }

@@ -1,5 +1,5 @@
 import Header from "./header/Header";
-import LoginC from "./Login/LoginC";
+import SignUp,{Login} from "./Login/LoginC";
 export {
-    Header,LoginC
+    Header,SignUp,Login
 }

@@ -78,3 +78,12 @@ header{
    
 }
 
+#MenuShow{
+    @media (min-width:1000px) {
+        display: none;
+    }
+}
+.usermenu{
+    position: absolute;
+    
+}
