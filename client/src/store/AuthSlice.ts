@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import dUser from '../assets/image/7309681.jpg'
 type user={
     username:string,
     email:string,
@@ -21,7 +22,8 @@ type inits = {
 }
 const initialState:inits = {
     user:null,
-    Active:false
+    Active:false,
+    defaultImage:dUser
 }
 
 const AuthSlice = createSlice({

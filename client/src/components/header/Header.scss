@@ -85,5 +85,20 @@ header{
 }
 .usermenu{
     position: absolute;
-    
+    z-index: 55;
+    width: 350px;
+    @media (min-width:300px) and (max-width:450px) {
+        width: 100%;
+        box-shadow: 1px 0px 2px gray;
+    }
+    .userdetail{
+        border-bottom: 1px solid rgb(185, 185, 185);
+        gap: 5px;
+        img{
+            @media (min-width:300px) and (max-width:700px){
+                width: 80px;
+                height: 80px;
+            }
+        }
+    }
 }

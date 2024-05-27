@@ -69,7 +69,12 @@ res.status(200).json({
 
 App.get('/logout',function(req,res){
     req.session.destroy()
-    res.send("see you again")
+    res.cookie("jwt","",{
+      expires:new Date(Date.now()-10*60*1000)
+    })
+    res.status(200).json({
+      status:'success'
+    })
 })
 App.get('/login',function(req,res){
     res.send('fail')

@@ -98,7 +98,6 @@ export const Login = ()=>{
         window.open("http://localhost:8000/auth/google/callback");
     }
     const handleLogin=async(data:{email:string,password:string})=>{
-        console.log(data)
         try{
             setloader(true)
             let response = await axios.post('/api/v1/user/login',data,{withCredentials:true})
