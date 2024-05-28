@@ -15,12 +15,12 @@ function App() {
           dispatch(login(response.data.user));
       }
     }catch(err){
-      navigate('/Login')
+      navigate('/')
     }
   } 
   useEffect(()=>{
     verifyUser()
-  })
+  },[])
   return (
       <div>
         <Header/>

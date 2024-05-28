@@ -14,6 +14,7 @@ import {logout} from '../../store/AuthSlice'
 const Header=()=>{
     let erro_image = useSelector(state=>state.auth.defaultImage)
     let user = useSelector((state)=>state.auth.user);
+    let isActive = useSelector(state=>state.auth.Active);
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [isMenuShow,setisMenuShow] = useState(false);
@@ -55,12 +56,12 @@ const Header=()=>{
                <button id="MenuShow" onClick={(e)=>{setisMenuShow((prev)=>!prev);setisUserShow(false)}}><RiBarChartHorizontalLine/></button>
                {isMenuShow &&<div className="menu">
                <NavLink to={""}>
-                    about
+                    <p className="w-full text-center">about</p>
                 </NavLink>
-                <NavLink to={""}>Pricing</NavLink>
-                <NavLink to={""}>Blog</NavLink>
-                <NavLink to={""}>Jobs</NavLink>
-                <NavLink to={""}>Products</NavLink>
+                <NavLink to={""} ><p className="w-full text-center">Pricing</p></NavLink>
+                <NavLink to={""}><p className="w-full text-center">Blog</p></NavLink>
+                <NavLink to={""} ><p className="w-full text-center">Jobs</p></NavLink>
+                <NavLink to={""}><p className="w-full text-center">Products</p></NavLink>
                </div>}
                {isUserShow && <div className="usermenu right-0 top-[80px] bg-gray-100">
                     <div className="">
@@ -70,14 +71,14 @@ const Header=()=>{
                                  <img src={user.photo || erro_image} className="w-[120px] h-[120px] rounded-full" alt="usernmae"></img>
                                 <p className="text-xl font-bold font-serif">{user.username || ' '}</p>
                                </div>
-                            ):(<button onClick={()=>navigate('/Login')}>Login</button>)
+                            ):(<div className="flex p-5 item-center justify-center"><button onClick={()=>navigate('/Login')} className="loginBtn">Login</button></div>)
                         }
                     </div>
                     <div>
                         <NavLink className="flex w-full justify-center items-center gap-2 py-2 border-b border-black-500"><IoSettingsOutline/>Settings</NavLink>
                         <NavLink className="flex w-full justify-center items-center gap-2 py-2 border-b border-black-500    "><BsCartCheckFill/>My Orders</NavLink>
                         <div className="w-full flex justify-center items-center p-5">
-                            <button onClick={()=>handleLogout()} className="border-red-500 border text-red-500 px-5 py-1">Logout</button>
+                           {isActive && <button onClick={()=>handleLogout()} className="border-red-500 border text-red-500 px-5 py-1">Logout</button>}
                         </div>
                     </div>
                </div>}

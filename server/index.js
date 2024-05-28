@@ -54,13 +54,14 @@ App.get('/Authenticate',function(req,res,next){
     let token =  jwt.sign({id:req.user._id},process.env.JWTS,{
       expiresIn:process.env.expiresIn
   })
-  res.redirect('http://localhost:5173/')
   res.cookie("jwt",token,{
     expires:new Date(Date.now()+5*24*60*60*1000),
     httpOnly:true,
     secure:true,
     sameSite:'none'
 })
+  res.redirect('http://localhost:5173/')
+  
 res.status(200).json({
   user:req.user
 })

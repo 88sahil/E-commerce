@@ -124,11 +124,11 @@ export const Login = ()=>{
                     <a className="text-gray-500 italic">new user? <NavLink to={"/SignUp"} className="text-blue-500">SignUp</NavLink></a>
                 </div>
                 <div>
-                    <label>Username</label>
+                    <label>Email</label>
                     <input type="email" {...register("email")} placeholder="test@yahoo.com" required></input>
                 </div>
                 <div>
-                    <label>Username</label>
+                    <label>Password</label>
                     <input type="password" {...register("password")} placeholder="Enter Password" required></input>
                 </div>
                 <button>Login</button>
@@ -138,7 +138,7 @@ export const Login = ()=>{
                     <div className="w-3/12 flex justify-center"><a className="border border-black p-[5px] text-sm justify-center flex items-center rounded-full">OR</a></div>
                     <div className="w-1/3 h-[5px] bg-gray-400"></div>
             </div>
-            <div className="goggle mt-[5px] flex justify-center items-center">
+            <div className="goggle mt-[10px] flex justify-center items-center">
                 <button className="flex items-center gap-2" onClick={googleHandle}><img className="w-[25px] h-[25px]" src={Google} alt="google"/>Login With Google</button>
             </div>
             </div>
