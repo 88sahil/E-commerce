@@ -35,7 +35,7 @@ const Header=()=>{
         <header className="w-full h-[80px]">
             {/* logo */}
             <div className="logo">
-                <a>MPF.</a>
+                <NavLink to={"/"}>MPF.</NavLink>
                 <nav>
                 <NavLink to={""}>
                     about
@@ -50,7 +50,7 @@ const Header=()=>{
             
             <div className="flex items-center gap-5 mr-[50px]">
                <button id="Search"><IoSearchSharp/></button>
-               <NavLink to={""}><CiHeart/></NavLink>
+               <NavLink to={"/likes"}><CiHeart/></NavLink>
                <NavLink to={""}><FaBagShopping/></NavLink>
                <button onClick={(e)=>{setisUserShow((prev)=>!prev);setisMenuShow(false)}}>{user?  (<img src={user?.photo || erro_image} className="w-[30px] h-[30px] rounded-full object-center" alt="user" title={user.username}/>):(<FaUserAlt/>)}</button>
                <button id="MenuShow" onClick={(e)=>{setisMenuShow((prev)=>!prev);setisUserShow(false)}}><RiBarChartHorizontalLine/></button>
@@ -75,7 +75,7 @@ const Header=()=>{
                         }
                     </div>
                     <div>
-                        <NavLink className="flex w-full justify-center items-center gap-2 py-2 border-b border-black-500"><IoSettingsOutline/>Settings</NavLink>
+                        <NavLink className="flex w-full justify-center items-center gap-2 py-2 border-b border-black-500" to={"/setting/account"}><IoSettingsOutline/>Settings</NavLink>
                         <NavLink className="flex w-full justify-center items-center gap-2 py-2 border-b border-black-500    "><BsCartCheckFill/>My Orders</NavLink>
                         <div className="w-full flex justify-center items-center p-5">
                            {isActive && <button onClick={()=>handleLogout()} className="border-red-500 border text-red-500 px-5 py-1">Logout</button>}

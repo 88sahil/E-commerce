@@ -1,0 +1,123 @@
+$bg-color:rgb(124,171,124);
+.Setting-navs{
+    display: flex;
+    background-color: $bg-color;
+    width: 200px;
+    flex-direction: column;
+    min-height: 100vh;
+    @media (max-width:800px) {
+        width: 0;
+        overflow: hidden;
+    }
+    a{
+        width: 100%;
+        color: white;
+        border-bottom: 1px solid rgb(255, 252, 252);
+        padding: 10px 15px;
+        text-align: center;
+        font-weight: bolder;
+        font-size: larger;
+    }
+    .active{
+        transition: .2s linear;
+        background-color: white;
+        color: black;
+        border-bottom: 1px solid black;
+    }
+}
+.Setting-res{
+    transition: .1s linear;
+    position: absolute;
+    left: 0;
+    z-index: 5;
+    width: 300px;
+}
+#Menu{
+    left: 0;
+   @media (min-width:800px) {
+        display: none;
+   }
+}
+.menu-active{
+    left: 300px;
+}
+.buttondiv{
+    background-color:$bg-color ;
+    button{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 50px;
+        margin-top: 10px;
+        font-weight: bolder;
+    }
+    @media (min-width:800px) {
+        display: none;
+   }
+
+}
+
+
+// account page
+.account-main{
+    height: 100vh;
+    overflow: scroll;
+    width:100%;
+    @media (max-width:800px) {
+        width:100%;
+    }
+}
+::-webkit-scrollbar{
+    display: none;
+}
+.profile-pic{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    img{
+        border-radius: 50%;
+        width: 200px;
+        height: 200px;
+    }
+
+      button{
+        background-color: $bg-color;
+        padding: 10px 15px;
+        margin-top: 10px;
+        color: white;
+        border:1px solid black;
+        transition: .2s;
+        &:hover {
+                background-color: #81ecec;
+                color: black;
+                border: 2px solid #00cec9;
+              }
+      }
+      input[type="file"] {
+        margin-top: 10px;
+        &::file-selector-button {
+          padding: 10px;
+          border-radius: 0.2em;
+          color: white;
+          margin-left: 90px;
+          background-color: $bg-color;
+          transition: .1s;
+        }
+      
+        &::file-selector-button:hover {
+          background-color: #81ecec;
+          color: black;
+          border: 2px solid #00cec9;
+        }
+      
+        &::-ms-browse:hover {
+          background-color: #81ecec;
+          border: 2px solid #00cec9;
+        }
+      
+        &::-webkit-file-upload-button:hover {
+          background-color: #81ecec;
+          border: 2px solid #00cec9;
+        }
+      }
+}

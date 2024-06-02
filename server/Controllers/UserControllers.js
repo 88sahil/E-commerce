@@ -184,7 +184,6 @@ module.exports.updatepassword = checkasync(async(req,res,next)=>{
 })
 //upload photo
 module.exports.uploadProfilephoto = checkasync(async(req,res,next)=>{
-    console.log(req.file.path)
     let user = await User.findById(req.user._id)
     if(!user) return next(new AppError("can't find User",404));
     if(user.photoId){
@@ -226,5 +225,27 @@ module.exports.LogOut=checkasync((req,res,next)=>{
     res.status(200).json({
         status:'success',
         message:'logged out'
+    })
+})
+module.exports.LikeItem=checkasync(async(req,res,next)=>{
+    let id = req.query.Itemid;
+    let user = await User.findById(req.user._id);
+    if(!user) return next(new AppError("please login",401));
+    let Item_Id = user.likes.find((ele)=>`${ele}`===id);
+    if(Item_Id){
+        user.likes.pop(Item_Id)
+    }else{
+        user.likes.push(id);
+    } 
+    await user.save();
+    res.status(200).json({status:'success'})
+
+})
+module.exports.getLikeItem = checkasync(async(req,res,next)=>{
+    let user = await User.findById(req.user._id).populate({path:'likes',select:'title _id coverphoto price discount'});
+    if(!user) return next(new AppError("please Login"));
+    res.status(200).json({
+        status:'success',
+        items:user.likes
     })
 })

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Header } from './components'
+import { Header ,Footer} from './components'
 import './App.css'
 import {login} from './store/AuthSlice'
 import { UseDispatch, useDispatch } from 'react-redux'
@@ -25,6 +25,7 @@ function App() {
       <div>
         <Header/>
         <Outlet/>
+        <Footer/>
       </div>
   )
 }

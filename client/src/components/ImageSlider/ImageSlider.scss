@@ -9,7 +9,8 @@
     }
 }
 .mainSlider{
-    @media (max-width:1000px) {
+    
+    @media (min-width:700px) and (max-width:1000px) {
         padding: 15px;
     }
 }
@@ -17,8 +18,80 @@
     background-color: rgba(116, 116, 116, 0.385);
     backdrop-filter: blur(10px);
     border-radius: 15px;
-    @media (max-width:600px) {
+    left: 45%;
+    margin-bottom: 40px;
+    @media (min-width:350px) and (max-width:600px) {
         left: 40%;
-        bottom: 45px;
+        bottom: 60px;
     }
+}
+.Activebtn{
+    animation: .2s Activebtn linear;
+    border: 2px solid black;
+    border-radius: 50%;
+    @keyframes Activebtn {
+        0%{
+            border: none;
+        }
+        50%{
+            border: 1px solid gray;
+            padding: 0;
+            border-radius: 25%;
+        }
+        100%{
+            padding: 5px;
+            border: 2px solid black;
+            border-radius: 50%;
+        }
+    }
+}
+#Next{
+    right: 120px;
+    @media (min-width:350px) and (max-width:750px) {
+        right: 15px;
+    }
+}
+
+
+.main-grid{
+    display: grid;
+    row-gap: 5px;
+    justify-content: center;
+    padding: 100px;
+    grid-template-columns: 250px 250px 250px 250px;
+    grid-template-rows: 250px 250px;
+    gap: 10px;
+    padding: 10px;
+    grid-template-areas: 'grid1 grid1 grid2 grid2''grid1 grid1 grid3 grid4';
+    div{
+        transition: .2s all;
+        &:hover{
+            opacity: .8;
+        }
+    }
+    @media (min-width:350px) and (max-width:600px) {
+        padding: 50px;
+        grid-template-areas: "grid1" "grid2" "grid3" "grid4";
+        grid-template-columns:1fr;
+        grid-template-rows:190px 190px 190px 190px;
+    } 
+    @media (min-width:600px) and (max-width:900px)   {
+        padding: 50px;
+        grid-template-areas: "grid1" "grid2" "grid3" "grid4";
+        grid-template-columns:1fr;
+        grid-template-rows:290px 290px 290px 290px;
+    }
+}
+
+.grid1{
+    grid-area: grid1;
+}
+.grid2{
+    grid-area: grid2;
+}
+.grid3{
+    grid-area: grid3;
+}
+.grid4{
+    grid-area: grid4;
 }
