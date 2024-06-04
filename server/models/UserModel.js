@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema({
             default:"Point",
             enums:['Point']
         },
-        coordinates:[Number],
+        zipcode:Number,
         address:{
             type:String
         },
@@ -65,7 +65,7 @@ const userSchema = new mongoose.Schema({
     },
     isactive:{
         type:Boolean,
-        default:false
+        default:true
     },
         likes:[{
             type:mongoose.Schema.ObjectId,
@@ -90,7 +90,7 @@ userSchema.pre('save',async function(next){
     next()
 })
 userSchema.pre(/^find/,function(next){
-    this.find({isactive:{$ne:true}})
+    this.find({isactive:{$ne:false}})
     next();
 })
 userSchema.methods.comparepassword=async(candidatepassword,password)=>{

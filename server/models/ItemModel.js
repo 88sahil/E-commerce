@@ -17,6 +17,14 @@ const itemSchema = new mongoose.Schema({
         type:String,
         require:[true,'please write description']
     },
+    AverageRating:{
+        type:Number,
+        default:0
+    },
+    NoofRating:{
+        type:Number,
+        default:0
+    },
     discount:{
         type:Number,
         default:0
@@ -42,10 +50,27 @@ const itemSchema = new mongoose.Schema({
     publishedAt:{
         type:Date,
         default:Date.now()
-    }
+    },
+    staticOfReview:[
+        {
+            Rate:{
+                type:Number,
+                default:0
+            },
+            numberofRates:{
+                type:Number,
+                default:0
+            }
+        }
+    ]
 },{
     toObject:{virtuals:true},
     toJSON:{virtuals:true}
+})
+itemSchema.virtual('reviews',{
+    localField:"_id",
+    foreignField:"product",
+    ref:"review"
 })
 itemSchema.pre(/^find/,function(next){
     this.populate({

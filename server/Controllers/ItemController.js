@@ -1,8 +1,8 @@
 const AppError= require('../utils/AppError')
 const checkasync =require('../Controllers/CheckAync')
-const Item = require('../models/ItemModel')
 const {cloudupload,clouddelete} = require('../utils/cloudinary')
 const ApiFeatures = require('./ApiFeatures')
+const Item = require('../models/ItemModel')
 const filterObj = (Obj,...fields)=>{
     let FinalObj={}
     for(let ele in Obj){
@@ -23,6 +23,16 @@ module.exports.getAllItem = checkasync(async(req,res,next)=>{
         items
     })
 
+})
+module.exports.getItem =  checkasync(async(req,res,next)=>{
+    let id = req.params.id;
+    if(!id) return next(new AppError("please request valid item",404));
+    let item = await Item.findById(id).populate('reviews');
+    if(!item) return next(new AppError("can't find this Item",404));
+    res.status(200).json({
+        status:'success',
+        item
+    })
 })
 module.exports.UploadPhoto=checkasync(async(req,res,next)=>{
     let response = await cloudupload(req.file.path);

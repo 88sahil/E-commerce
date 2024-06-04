@@ -14,11 +14,10 @@ const SettingPage=()=>{
         settoggle(prev=>!prev)
     }
     return(
-       <div className="flex">
+       <div className="flex w-full">
         <div className="buttondiv min-h-screen w-[50px]">
-        <button id="Menu" className="absolute z-10" onClick={()=>{handleNav()}}>{toggle? (<CiMenuFries fontSize={25}/>):(<MdOutlineCancel fontSize={25}/>)}</button>
+             <button id="Menu" className="absolute z-10" onClick={()=>{handleNav()}}>{toggle? (<CiMenuFries fontSize={25}/>):(<MdOutlineCancel fontSize={25}/>)}</button>
         </div>
-        
          <div className="Setting-navs" id="Setting_nav">
             <NavLink to={"/setting/account"}>Account</NavLink>
             <NavLink to={"/setting/Privacy"}>Privacy</NavLink>

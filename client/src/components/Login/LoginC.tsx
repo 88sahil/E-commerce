@@ -95,7 +95,7 @@ export const Login = ()=>{
     const navigate = useNavigate();
     const {register,handleSubmit} = useForm()
     const googleHandle =()=>{
-        window.open("http://localhost:8000/auth/google/callback");
+        window.open("http://localhost:8000/auth/google/callback","_parent");
     }
     const handleLogin=async(data:{email:string,password:string})=>{
         try{
@@ -108,7 +108,7 @@ export const Login = ()=>{
             }
         }catch(err){
             setloader(false)
-            alert("error")
+            alert(err.response.data.err)
         }
     }
     return(

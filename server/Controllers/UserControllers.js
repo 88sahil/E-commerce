@@ -45,7 +45,7 @@ module.exports.Login = checkasync(async(req,res,next)=>{
     if(!email || !password){
         return next(new AppError("email or password missing",401))
     }
-    let user = await User.findOne({email:email}).select('+password')
+    let user = await User.findOne({$and:[{email:email},{isactive:{$ne:false}}]}).select('+password')
     if(user.googleId){
         return next(new AppError("you are google User please login through it",401))
     }
@@ -116,16 +116,18 @@ module.exports.changepassword=checkasync(async(req,res,next)=>{
     if(!req.user){
         return next(new AppError("please login",401))
     }
-    let user = await User.findById(req.user._id)
+    let user = await User.findById(req.user._id).select("+password")
     if(user.googleId){
         return next(new AppError("you are google User please login through it",401))
     }
     if(!user){
         return next(new AppError("can't find user",401))
     }
-    if(!await user.comparepassword(oldpassword,user.password)){
+    let iscorrect = await user.comparepassword(oldpassword,user.password)
+    if(!iscorrect){
         return next(new AppError("please enter correct password",401))
     }
+    console.log("hello")
     user.password = newpassword
     user.conformpassword = newconformpassword
     user.passwordchangedAt = Date.now()
@@ -205,7 +207,6 @@ module.exports.uploadProfilephoto = checkasync(async(req,res,next)=>{
 
 module.exports.updateMe= checkasync(async(req,res,next)=>{
     let finalObj = fileterObj(req.body,"username","countryCode","number","location","isactive");
-    console.log(finalObj)
     let user = await User.findByIdAndUpdate(req.user._id,finalObj,{new:true})
     if(!user) return next(new AppError("fail to uplode user",400));
     res.status(200).json({

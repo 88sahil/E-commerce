@@ -13,6 +13,7 @@ const passport = require('passport')
 const BrandR = require('./Routes/BrandRoute')
 const CategoryRoute = require('./Routes/CategoryRoute');
 const CartRoute = require('./Routes/Cart');
+const ReviewRoute = require('./Routes/ReviewRoute')
 require('./Controllers/OauthController')
 const {checkout}=require('./Payments/Payment');
 const AppError = require('./utils/AppError');
@@ -89,6 +90,7 @@ App.use('/api/v1/item',ItemRoute)
 App.use('/api/v1/brands',BrandR)
 App.use('/api/v1/category',CategoryRoute)
 App.use('/api/v1/cart',CartRoute)
+App.use('/api/v1/review',ReviewRoute)
 //error handeler
 App.use(GlobalErrorHandle)
 App.listen(process.env.port,()=>{

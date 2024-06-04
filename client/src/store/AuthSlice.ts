@@ -10,7 +10,7 @@ type user={
     Address:Address
 }
 type Address = {
-    coordinates:[Number],
+    zipcode:number,
     address:String,
     City:String,
     Country:String,

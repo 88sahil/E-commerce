@@ -8,6 +8,7 @@ $bg-color:rgb(124,171,124);
     @media (max-width:800px) {
         width: 0;
         overflow: hidden;
+        
     }
     a{
         width: 100%;
@@ -43,6 +44,7 @@ $bg-color:rgb(124,171,124);
 }
 .buttondiv{
     background-color:$bg-color ;
+    width: 80px;
     button{
         display: flex;
         justify-content: center;
@@ -56,7 +58,6 @@ $bg-color:rgb(124,171,124);
    }
 
 }
-
 
 // account page
 .account-main{
@@ -76,8 +77,8 @@ $bg-color:rgb(124,171,124);
     align-items: center;
     img{
         border-radius: 50%;
-        width: 200px;
-        height: 200px;
+        width: 180px;
+        height: 180px;
     }
 
       button{
@@ -120,4 +121,37 @@ $bg-color:rgb(124,171,124);
           border: 2px solid #00cec9;
         }
       }
+}
+
+#userdetails,#useraddress,#ChangePassword{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  form{
+    
+    @media (max-width:500px) {
+      width: 300px;
+    }
+    div{  
+      button{
+        padding: 5px 10px;
+        margin-top: 10px;
+      }  
+      display: flex;
+      flex-direction: column;
+      label{
+        font-weight: bolder;
+      }
+      select{
+        background-color: rgb(249, 246, 246);
+        padding: 10px 25px
+      }
+      input{
+        width: 100%;
+        padding: 10px 25px;
+        background-color: rgb(249, 246, 246);
+      }
+    }
+  }
 }

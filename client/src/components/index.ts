@@ -8,6 +8,7 @@ import Features from "./Features/Features";
 import SettingPage from "./SettingPage/SettingPage";
 import AccountPre from "./SettingPage/AccountP";
 import Privacy from "./SettingPage/Privacy";
+import Product from "./ProductPage/Product";
 export {
-    Header,SignUp,Login,ImageSlider,Menus,CardPages,Footer,Features,SettingPage,AccountPre,Privacy
+    Header,SignUp,Login,ImageSlider,Menus,CardPages,Footer,Features,SettingPage,AccountPre,Privacy,Product
 }
