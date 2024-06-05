@@ -17,6 +17,10 @@ const ReviewRoute = require('./Routes/ReviewRoute')
 require('./Controllers/OauthController')
 const {checkout}=require('./Payments/Payment');
 const AppError = require('./utils/AppError');
+const {protected} = require('./Controllers/UserControllers')
+const {Order,OrderItem} = require('./models/OrderModel')
+const {CartItem,Cart} = require('./models/Cart')
+const checkasync = require('./Controllers/CheckAync')
 //databse
 DB()
 //google auth
@@ -35,7 +39,26 @@ App.use(session({
   saveUninitialized:true,
   cookie:{secure:false}
 }))
-App.post('/checkout',checkout)
+App.get('/success/:id',protected,checkasync(async(req,res,next)=>{
+  let order = await Order.findById(req.params.id)
+  if(!order.user.equals(req.user._id)){
+     return next(new AppError("you do not have permission to do this",401))
+  }
+  order.paymentstatus ='success'
+  order.status ='accept'
+  await order.save()
+  let cart = await  Cart.findOne({user:req.user._id})
+  let CartItems = await CartItem.deleteMany({cartId:cart._id})
+  console.log(order)
+  res.redirect('http://localhost:5173/')
+ 
+}))
+App.get('/cancel/:id',checkasync(async(req,res,next)=>{
+  let orderi = await OrderItem.deleteMany({orderId:req.params.id})
+  let order = await Order.findByIdAndDelete(req.params.id)
+  res.redirect('http://localhost:5173/cart')
+}))
+App.post('/api/v1/checkout',protected,checkout)
 App.use(passport.initialize())
 App.use(passport.session())
 App.get('/auth/google',

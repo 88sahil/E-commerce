@@ -21,7 +21,6 @@ const Header=()=>{
     const [isUserShow,setisUserShow] = useState(false);
     const [searchItem,setsearchItem] = useState([])
     const [showsblock,setshowsblock] = useState<boolean>(false)
-    console.log(searchItem)
     const iphandlesearch =(Event:React.ChangeEvent)=>{
             Event.preventDefault()
             if(Event.target.value.length>0){
@@ -92,7 +91,7 @@ const Header=()=>{
                         <input className="ip" placeholder="Search Items🔍" type="text" onChange={iphandlesearch}></input>
                 </form>
                <NavLink to={"/likes"}><CiHeart/></NavLink>
-               <NavLink to={""}><FaBagShopping/></NavLink>
+               <NavLink to={"/cart"}><FaBagShopping/></NavLink>
                <button onClick={(e)=>{setisUserShow((prev)=>!prev);setisMenuShow(false)}}>{user?  (<img src={user?.photo || erro_image} className="w-[30px] h-[30px] rounded-full object-center" alt="user" title={user.username}/>):(<FaUserAlt/>)}</button>
                <button id="MenuShow" onClick={(e)=>{setisMenuShow((prev)=>!prev);setisUserShow(false)}}><RiBarChartHorizontalLine/></button>
                {isMenuShow &&<div className="menu">

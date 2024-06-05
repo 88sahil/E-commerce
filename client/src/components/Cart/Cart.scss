@@ -1,0 +1,23 @@
+.addbtn{
+    width: 80px;
+    display: flex;
+    align-items: center;
+    border: 2px solid rgb(189, 186, 186);
+    h1{
+        width: 34%;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    button:nth-child(1){
+        width: 33%;
+        padding: 5px;
+        border-right: 2px solid rgb(189, 186, 186);
+        font-size: 18px;
+    }
+    button:nth-child(3){
+        width: 33%;
+        padding: 5px;
+        border-left: 2px solid rgb(189, 186, 186);
+        font-size: 18px;
+    }
+}

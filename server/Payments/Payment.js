@@ -1,4 +1,5 @@
 const stripe = require('stripe')(process.env.Stripe_secret);
+const {Order,OrderItem} = require('../models/OrderModel')
 const AppError = require('../utils/AppError');
 const checkasync = require('../Controllers/CheckAync');
 module.exports.checkout = async(req,res,next)=>{
@@ -15,27 +16,23 @@ module.exports.checkout = async(req,res,next)=>{
             },
             quantity:ele.quantity
         }})
+        let order = await Order.create({user:req.user.id,status:'pending',totalbill:item.totalbill,paymentstatus:'pending'})
+        let items = await Promise.all(
+            item.products.map((ele)=>(
+                OrderItem.create({orderId:order._id,item:ele.item._id,quantity:ele.quantity,pricetopay:ele.pricetopay,totalprice:ele.totalprice})
+            ))
+        )
         const session = await stripe.checkout.sessions.create({
             payment_method_types:['card'],
             mode:"payment",
             line_items:lineItems,
-            success_url:"http://localhost:5174/success",
-            cancel_url:"http://localhost:5174/cancel"
+            success_url:`http://localhost:8000/success/${order._id}`,
+            cancel_url:`http://localhost:8000/cancel/${order._id}`
         })
         res.status(200).json({
-            session:session
+            session:session.url
         })
     }catch(err){
-        console.log('|')
-        console.log('|')
-        console.log('|')
-        console.log('|')
-        console.log('|')
-        console.log('|')
-        console.log('|')
-        console.log('|')
-        console.log('|')
-        console.log('|')
         console.log(err)
     }
 }

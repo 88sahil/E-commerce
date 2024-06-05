@@ -109,7 +109,18 @@ const Product =(props:{id:string})=>{
             { id: 5, value: filerReview(5),label:"5" },
         ]
     },[])
-    console.log(item)
+    const addtocart = async()=>{
+        try{
+            setloader(true)
+            let response = await axios.post("/api/v1/cart/addItem",{item:item._id,pricetopay:item.price-item.discount},{withCredentials:true})
+            if(response.data){
+                setloader(false)
+            }
+        }catch(err){
+            console.log(err)
+            setloader(false)
+        }
+    }
     const ChangeImageOnHover = (e:React.MouseEvent<HTMLImageElement>):void=>{
             setCurrimg(e.target.currentSrc);
     }
@@ -182,7 +193,7 @@ const Product =(props:{id:string})=>{
                     <div className="left2">
                         <img src={currImg || item.coverphoto || noimg} alt="" />
                     </div>
-                    <button id="Cartbtn" className=" gap-1 flex items-center"><img className="w-[20px] h-[20px]" src={cart} alt="cart"></img>Add to cart</button>
+                    <button id="Cartbtn" className=" gap-1 flex items-center" onClick={addtocart}><img className="w-[20px] h-[20px]" src={cart} alt="cart"></img>Add to cart</button>
 
                 </section>
                 {/* right */}

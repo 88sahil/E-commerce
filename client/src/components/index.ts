@@ -10,6 +10,7 @@ import AccountPre from "./SettingPage/AccountP";
 import Privacy from "./SettingPage/Privacy";
 import AllProduct from "./AllProducts/AllProduct";
 import Product from "./ProductPage/Product";
+import Cart from "./Cart/Cart";
 export {
-    Header,SignUp,Login,ImageSlider,Menus,AllProduct,CardPages,Footer,Features,SettingPage,AccountPre,Privacy,Product
+   Cart, Header,SignUp,Login,ImageSlider,Menus,AllProduct,CardPages,Footer,Features,SettingPage,AccountPre,Privacy,Product
 }

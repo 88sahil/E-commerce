@@ -7,6 +7,7 @@ import Setting from './Setting'
 import PrivacyPage from './PrivacyPage'
 import ProductPage from './ProductPage'
 import AllProductpage from './AllProductPage'
+import CartPage from './CartPage'
 export {
-    AllProductpage,SignUpPage,LikePage,LoginPage,Home,Setting,AccountPrefference,PrivacyPage,ProductPage
+    CartPage,AllProductpage,SignUpPage,LikePage,LoginPage,Home,Setting,AccountPrefference,PrivacyPage,ProductPage
 }

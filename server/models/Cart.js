@@ -16,7 +16,7 @@ const cartItemSchema = new mongoose.Schema({
     totalprice:Number
 },{toObject:{virtuals:true}, toJSON:{virtuals:true}})
 cartItemSchema.pre(/^find/,function(next){
-    this.populate({path:'item',select:"-description -photos -isAvailable"})
+    this.populate({path:'item',select:"title price discount coverphoto"})
     next()
 })
 cartItemSchema.index({item:1,cartId:1},{unique:1})
@@ -41,7 +41,7 @@ const cartSchema = new mongoose.Schema({
 cartSchema.virtual('products',{
     ref:'cartItem',
     localField:"_id",
-    foreignField:"cartId",
+    foreignField:"cartId"
 })
 cartSchema.methods.createBill = async function(products){
     let totalItem =0;
