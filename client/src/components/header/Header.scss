@@ -128,3 +128,45 @@ header{
         }
     }
 }
+.ip{
+    border-radius: 5px;
+    border:1px solid gray;
+    padding: 5px;
+    &:focus{
+        transition: .1s;
+        border-radius: 15px;
+    }
+    &::placeholder{
+        text-align: center;
+    }
+    @media (max-width:640px) {
+        position: absolute;
+        width: 100%;
+        left: 0;
+        border-radius: 0;
+        margin-top: 41px;
+    }
+}
+.searchitems{
+    position: absolute;
+    width: 520px;
+    height: 500px;
+    background-color: white;
+    top: 79px;
+    z-index: 50000;
+    right: 0;
+    box-shadow: 1px 1px 5px gray;
+    @media (max-width:650px) {
+        width: 100%;
+        right: 0;
+    }
+    button{
+        position: absolute;
+        bottom: 10px;
+        padding: 2px 8px;
+        color: white;
+        box-shadow: 1px 1px 5px gray;
+        left: 50%;
+        background-color: red;
+    }
+}

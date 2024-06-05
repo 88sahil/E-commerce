@@ -16,9 +16,11 @@ module.exports.getAllItem = checkasync(async(req,res,next)=>{
     let queryString = req.query
     let features = new ApiFeatures(Item,queryString).filter().pagination().sort().limitFields()
     let items = await features.query
+    let totalitems = await Item.countDocuments()
     if(!items) return next(new AppError("fail to get items",404));
     res.status(200).json({
         status:'success',
+        totalitems:totalitems,
         results:items.length,
         items
     })
@@ -32,6 +34,15 @@ module.exports.getItem =  checkasync(async(req,res,next)=>{
     res.status(200).json({
         status:'success',
         item
+    })
+})
+module.exports.getlisting = checkasync(async(req,res,next)=>{
+    let title = req.query.title
+    let items = await Item.find({title:{$regex:title,$options:"i"}}).select("title coverphoto price discount")
+    res.status(200).json({
+        status:"success",
+        result:items.length,
+        items
     })
 })
 module.exports.UploadPhoto=checkasync(async(req,res,next)=>{

@@ -7,7 +7,7 @@ import {Provider}  from  'react-redux'
 import {createBrowserRouter,Route,RouterProvider} from 'react-router-dom'
 import Success from './components/Success.tsx'
 import Payment from './components/Payment.tsx'
-import {SignUpPage,LoginPage,Home,LikePage,Setting, AccountPrefference, PrivacyPage, ProductPage} from  './pages/index.ts'
+import {SignUpPage,AllProductpage,LoginPage,Home,LikePage,Setting, AccountPrefference, PrivacyPage, ProductPage} from  './pages/index.ts'
 const router:any = createBrowserRouter([
   {
     path:'/',
@@ -24,7 +24,12 @@ const router:any = createBrowserRouter([
       ,{
         path:'/likes',
         element:<LikePage/>
-      },{
+      },
+        {
+          path:'/AllProducts',
+          element:<AllProductpage/>
+        }
+      ,{
         path:'/setting',
         element:<Setting/>,
         children:[{

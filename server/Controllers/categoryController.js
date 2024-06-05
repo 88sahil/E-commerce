@@ -8,3 +8,10 @@ exports.addcategory = checkasync(async(req,res,next)=>{
         message:`${categ.value} added successfully`
     })
 })
+exports.getAllCategory = checkasync(async(req,res,next)=>{
+    let categories = await category.find().select("value")
+    res.status(200).json({
+        status:'success',
+        categories
+    })
+})

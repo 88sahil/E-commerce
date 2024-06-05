@@ -17,3 +17,10 @@ exports.deleteBrand = checkasync(async(req,res,next)=>{
         message:`${delItem.brandname} deleted successfully`
     })
 })
+exports.getAllbrands = checkasync(async(req,res,next)=>{
+    let brands = await Brand.find().select("brandname");
+    res.status(200).json({
+        status:'success',
+        brands
+    })
+})

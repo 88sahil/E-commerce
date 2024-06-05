@@ -19,6 +19,27 @@ const Header=()=>{
     const dispatch = useDispatch()
     const [isMenuShow,setisMenuShow] = useState(false);
     const [isUserShow,setisUserShow] = useState(false);
+    const [searchItem,setsearchItem] = useState([])
+    const [showsblock,setshowsblock] = useState<boolean>(false)
+    console.log(searchItem)
+    const iphandlesearch =(Event:React.ChangeEvent)=>{
+            Event.preventDefault()
+            if(Event.target.value.length>0){
+                setshowsblock(true)
+            }else{
+                setshowsblock(false)
+            }
+        setTimeout(async()=>{
+            try{
+                let searchitem = await axios.get(`/api/v1/item/getListing?title=${Event.target.value}`)
+                if(searchitem.data){
+                    setsearchItem(searchitem.data.items);
+                }
+            }catch(err){
+                console.log(err)
+            }
+        },100)
+    }
     const handleLogout =async()=>{
             try{
                 let res =await axios.get("http://localhost:8000/logout",{withCredentials:true})
@@ -43,13 +64,33 @@ const Header=()=>{
                 <NavLink to={""}>Pricing</NavLink>
                 <NavLink to={""}>Blog</NavLink>
                 <NavLink to={""}>Jobs</NavLink>
-                <NavLink to={""}>Products</NavLink>
+                <NavLink to={"/AllProducts"}>Products</NavLink>
                 <NavLink to={""}>More</NavLink>
             </nav>
             </div>
             
             <div className="flex items-center gap-5 mr-[50px]">
-               <button id="Search"><IoSearchSharp/></button>
+               {showsblock && <div className="searchitems">
+                    {
+                        searchItem.length>0?(
+                            <div className="p-5 overflow-scroll">
+                                 {
+                                searchItem.map((ele,index)=>
+                                        <NavLink to={`/product/${ele._id}`} key={index} className="flex items-center justify-between mt-4 border-b p-2 border-black">
+                                            <img src={ele.coverphoto} className="w-[100px] h-[100px]"></img>
+                                            <a>{ele.title}</a>
+                                            <a>&#x20b9;{ele.price-ele.discount}</a>
+                                        </NavLink>
+                                )
+                                }
+                            </div>   
+                        ):(<h1>no items found</h1>)
+                    }
+                    <button onClick={()=>setshowsblock(false)}>close</button>
+                </div>}
+                <form onSubmit={iphandlesearch}>  
+                        <input className="ip" placeholder="Search Items🔍" type="text" onChange={iphandlesearch}></input>
+                </form>
                <NavLink to={"/likes"}><CiHeart/></NavLink>
                <NavLink to={""}><FaBagShopping/></NavLink>
                <button onClick={(e)=>{setisUserShow((prev)=>!prev);setisMenuShow(false)}}>{user?  (<img src={user?.photo || erro_image} className="w-[30px] h-[30px] rounded-full object-center" alt="user" title={user.username}/>):(<FaUserAlt/>)}</button>
@@ -61,7 +102,7 @@ const Header=()=>{
                 <NavLink to={""} ><p className="w-full text-center">Pricing</p></NavLink>
                 <NavLink to={""}><p className="w-full text-center">Blog</p></NavLink>
                 <NavLink to={""} ><p className="w-full text-center">Jobs</p></NavLink>
-                <NavLink to={""}><p className="w-full text-center">Products</p></NavLink>
+                <NavLink to={"/AllProducts"}><p className="w-full text-center">Products</p></NavLink>
                </div>}
                {isUserShow && <div className="usermenu right-0 top-[80px] bg-gray-100">
                     <div className="">

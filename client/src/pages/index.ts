@@ -6,6 +6,7 @@ import LikePage from './Likepage'
 import Setting from './Setting'
 import PrivacyPage from './PrivacyPage'
 import ProductPage from './ProductPage'
+import AllProductpage from './AllProductPage'
 export {
-    SignUpPage,LikePage,LoginPage,Home,Setting,AccountPrefference,PrivacyPage,ProductPage
+    AllProductpage,SignUpPage,LikePage,LoginPage,Home,Setting,AccountPrefference,PrivacyPage,ProductPage
 }
