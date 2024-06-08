@@ -26,11 +26,17 @@ module.exports.checkout = async(req,res,next)=>{
             payment_method_types:['card'],
             mode:"payment",
             line_items:lineItems,
+            shipping_address_collection: {
+                allowed_countries: ['IN'],
+              },
             success_url:`http://localhost:8000/success/${order._id}`,
-            cancel_url:`http://localhost:8000/cancel/${order._id}`
+            cancel_url:`http://localhost:8000/cancel/${order._id}`,
         })
+        order.paymentsessionId = session.id;
+        await order.save();
         res.status(200).json({
-            session:session.url
+            session:session.url,
+            wholesession:session
         })
     }catch(err){
         console.log(err)

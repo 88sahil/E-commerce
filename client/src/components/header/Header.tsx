@@ -62,7 +62,7 @@ const Header=()=>{
                 </NavLink>
                 <NavLink to={""}>Pricing</NavLink>
                 <NavLink to={""}>Blog</NavLink>
-                <NavLink to={""}>Jobs</NavLink>
+                <NavLink to={"/admin"}>AdminPage</NavLink>
                 <NavLink to={"/AllProducts"}>Products</NavLink>
                 <NavLink to={""}>More</NavLink>
             </nav>
@@ -100,7 +100,7 @@ const Header=()=>{
                 </NavLink>
                 <NavLink to={""} ><p className="w-full text-center">Pricing</p></NavLink>
                 <NavLink to={""}><p className="w-full text-center">Blog</p></NavLink>
-                <NavLink to={""} ><p className="w-full text-center">Jobs</p></NavLink>
+                <NavLink to={"/admin"} ><p className="w-full text-center">AdminPage</p></NavLink>
                 <NavLink to={"/AllProducts"}><p className="w-full text-center">Products</p></NavLink>
                </div>}
                {isUserShow && <div className="usermenu right-0 top-[80px] bg-gray-100">
@@ -116,7 +116,7 @@ const Header=()=>{
                     </div>
                     <div>
                         <NavLink className="flex w-full justify-center items-center gap-2 py-2 border-b border-black-500" to={"/setting/account"}><IoSettingsOutline/>Settings</NavLink>
-                        <NavLink className="flex w-full justify-center items-center gap-2 py-2 border-b border-black-500    "><BsCartCheckFill/>My Orders</NavLink>
+                        <NavLink className="flex w-full justify-center items-center gap-2 py-2 border-b border-black-500" to={"/myorders"}><BsCartCheckFill/>My Orders</NavLink>
                         <div className="w-full flex justify-center items-center p-5">
                            {isActive && <button onClick={()=>handleLogout()} className="border-red-500 border text-red-500 px-5 py-1">Logout</button>}
                         </div>

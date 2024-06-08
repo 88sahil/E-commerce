@@ -8,6 +8,8 @@ import PrivacyPage from './PrivacyPage'
 import ProductPage from './ProductPage'
 import AllProductpage from './AllProductPage'
 import CartPage from './CartPage'
+import AdminPage from './AdminPage'
+import MyOrderPage from './myOrderPage'
 export {
-    CartPage,AllProductpage,SignUpPage,LikePage,LoginPage,Home,Setting,AccountPrefference,PrivacyPage,ProductPage
+    AdminPage,MyOrderPage,CartPage,AllProductpage,SignUpPage,LikePage,LoginPage,Home,Setting,AccountPrefference,PrivacyPage,ProductPage
 }

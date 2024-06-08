@@ -78,7 +78,7 @@ itemSchema.pre(/^find/,function(next){
         select:'brandname logo -_id'
     }).populate({
         path:'category',
-        select:'-_id -__V'
+        select:' -__V'
     })
     next();
 })

@@ -5,9 +5,9 @@ import './index.css'
 import Store from './store/Store.ts'
 import {Provider}  from  'react-redux'
 import {createBrowserRouter,Route,RouterProvider} from 'react-router-dom'
-import Success from './components/Success.tsx'
-import Payment from './components/Payment.tsx'
-import {SignUpPage,AllProductpage,LoginPage,Home,LikePage,Setting, AccountPrefference, PrivacyPage, ProductPage, CartPage} from  './pages/index.ts'
+import {SignUpPage,AllProductpage,LoginPage,Home,LikePage,Setting, AccountPrefference, PrivacyPage, ProductPage, CartPage, MyOrderPage, AdminPage} from  './pages/index.ts'
+import Success from './components/success/Succes.tsx'
+import OrderPage from './components/Orders/OrderPage.tsx'
 const router:any = createBrowserRouter([
   {
     path:'/',
@@ -16,6 +16,21 @@ const router:any = createBrowserRouter([
       {
         path:'/',
         element:<Home />
+      },{
+        path:'/admin',
+        element:<AdminPage/>
+      },
+      {
+        path:'/success/:id',
+        element:<Success/>
+      },
+      {
+        path:'/myorders',
+        element:<MyOrderPage/>
+      },
+      {
+        path:'/order/:id',
+        element:<OrderPage/>
       },
       {
         path:'/cart',
@@ -57,9 +72,7 @@ const router:any = createBrowserRouter([
   }
 ])
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
       <Provider store={Store}>
         <RouterProvider router={router} />
       </Provider>
-  </React.StrictMode>,
 )

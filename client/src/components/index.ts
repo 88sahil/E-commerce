@@ -11,6 +11,8 @@ import Privacy from "./SettingPage/Privacy";
 import AllProduct from "./AllProducts/AllProduct";
 import Product from "./ProductPage/Product";
 import Cart from "./Cart/Cart";
+import Order from "./Orders/Order";
+import AdminPanel from "./Admin/AdminPanel";
 export {
-   Cart, Header,SignUp,Login,ImageSlider,Menus,AllProduct,CardPages,Footer,Features,SettingPage,AccountPre,Privacy,Product
+   AdminPanel,Order,Cart, Header,SignUp,Login,ImageSlider,Menus,AllProduct,CardPages,Footer,Features,SettingPage,AccountPre,Privacy,Product
 }

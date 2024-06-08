@@ -83,10 +83,11 @@ const AllProduct =()=>{
         div?.classList.toggle("left-show")
         div.classList.toggle("left")
     }
+    console.log("hiited")
     useEffect(()=>{
         getBrandAndCate()
         getProducts()
-    },[])
+    },[querybrands,querycategories,sort])
     const getBrandAndCate =async():Promise<void>=>{
         try{
             setloader(true)

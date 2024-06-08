@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import './Cart.scss'
 const Cart =()=>{
     type cart={
@@ -33,6 +33,7 @@ const Cart =()=>{
         price:number,
         title:string
     }
+    const navigate = useNavigate();
     const [loader,setloader] = useState<boolean>(false)
     const [cart,setCart] = useState<cart>({});
     const getcart = async():Promise<void>=>{
@@ -117,7 +118,7 @@ const Cart =()=>{
                     </div>
                       
                    
-                ):(<div>Go and Shop</div>)
+                ):(<button className="px-4 h-[80px] py-1.5 bg-red-500 text-white" onClick={()=>navigate('/AllProducts')}>Go and Shop</button>)
             }
             {loader && <div className="loader"></div>}
         </div>

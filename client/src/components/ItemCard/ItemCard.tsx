@@ -33,7 +33,7 @@ const ItemCard = (props:{item:Item,key:number})=>{
         <NavLink to={`/product/${props.item._id}`} key={props.key} className="w-[300px] max-md:h-[300px] max-md:w-[180px] mt-3 h-[350px] bg-gray-100">
             <img src={props.item.coverphoto} alt="coverphoto" className="w-full max-md:h-[200px] h-[250px]"/>
             <h3 className=" px-2 text-xl w-full mt-[5px] text-center"><BiLike size={35} onClick={()=>handleLikebtn()} color={`${liked?"red":""}`}/></h3>
-            <h1 className="px-2 text-xl font-bold text-start">{props.item.title}</h1>
+            <h1 className="px-2 text-xl max-md:text-lg font-bold text-start">{props.item.title}</h1>
             <h1 className="px-2 text-start">&#x20b9;{props.item.price-props.item.discount}</h1>
         </NavLink>
     )

@@ -10,6 +10,7 @@ const GlobalErrorHandle = require('./utils/GlobalErrorHandle')
 const UserRoute = require('./Routes/UserRoute')
 const ItemRoute = require('./Routes/ItemRoute')
 const passport = require('passport')
+const OrderRoute = require('./Routes/OrderRoute')
 const BrandR = require('./Routes/BrandRoute')
 const CategoryRoute = require('./Routes/CategoryRoute');
 const CartRoute = require('./Routes/Cart');
@@ -21,6 +22,7 @@ const {protected} = require('./Controllers/UserControllers')
 const {Order,OrderItem} = require('./models/OrderModel')
 const {CartItem,Cart} = require('./models/Cart')
 const checkasync = require('./Controllers/CheckAync')
+const stripe = require('stripe')(process.env.Stripe_secret)
 //databse
 DB()
 //google auth
@@ -40,17 +42,21 @@ App.use(session({
   cookie:{secure:false}
 }))
 App.get('/success/:id',protected,checkasync(async(req,res,next)=>{
+  
   let order = await Order.findById(req.params.id)
+  let sessiondata = await stripe.checkout.sessions.retrieve(order.paymentsessionId)
+  const paymentIntent = await stripe.paymentIntents.retrieve(sessiondata.payment_intent);
+  if(paymentIntent.status!=='succeeded') return next(new AppError("payment failed",500));
   if(!order.user.equals(req.user._id)){
      return next(new AppError("you do not have permission to do this",401))
   }
   order.paymentstatus ='success'
   order.status ='accept'
+  order.shippingAddress = paymentIntent.shipping.address;
   await order.save()
   let cart = await  Cart.findOne({user:req.user._id})
   let CartItems = await CartItem.deleteMany({cartId:cart._id})
-  console.log(order)
-  res.redirect('http://localhost:5173/')
+  res.redirect(`http://localhost:5173/success/${req.params.id}`)
  
 }))
 App.get('/cancel/:id',checkasync(async(req,res,next)=>{
@@ -114,6 +120,7 @@ App.use('/api/v1/brands',BrandR)
 App.use('/api/v1/category',CategoryRoute)
 App.use('/api/v1/cart',CartRoute)
 App.use('/api/v1/review',ReviewRoute)
+App.use('/api/v1/Orders',OrderRoute)
 //error handeler
 App.use(GlobalErrorHandle)
 App.listen(process.env.port,()=>{

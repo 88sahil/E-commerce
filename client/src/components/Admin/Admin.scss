@@ -1,0 +1,63 @@
+$logo-color:rgb(124, 171, 124);
+#menubtn{
+   display: none;
+   width:30px;
+   background: rgb(239, 237, 237);
+   @media (max-width:768px) {
+        display: block;
+   }
+}
+.left{
+   
+    background-color: rgb(245, 245, 245);
+    @media (max-width:768px) {
+        display: none;
+   }
+   button{
+    display: none;
+   }
+    .navs{
+        background:$logo-color ;
+        color: white;
+        padding: 10px 10px;
+        border-bottom: 1px solid rgb(200, 196, 196);
+    }
+    .active{
+        transition:.1s linear;
+        color: black;
+        background: white;
+        border-bottom:1px solid rgb(62, 62, 62) ;
+    }
+}
+.left-res{
+         min-height: calc(100vh - 48px);
+        transition: .2s all;
+        background-color: rgb(245, 245, 245);
+        display: none;
+        left: 0;
+        z-index: 5;
+        position: absolute;
+        @media (max-width:768px) {
+            display: block;
+       }
+       button{
+            position: absolute;
+            display: block;
+            left: 300px;
+            background-color: red;
+            color: white;
+            padding: 5px;
+       }
+        .navs{
+            background:$logo-color ;
+            color: white;
+            padding: 10px 10px;
+            border-bottom: 1px solid rgb(200, 196, 196);
+        }
+        .active{
+            transition:.1s linear;
+            color: black;
+            background: white;
+            border-bottom:1px solid rgb(62, 62, 62) ;
+        }
+}

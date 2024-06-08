@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import './ProductPage.scss'
 import noimg from '../../assets/image/image.png'
 import cart from '../../assets/image/add-to-cart.png'
@@ -64,10 +64,11 @@ const Product =(props:{id:string})=>{
     const [item,setitem] = useState<item>({})
     const [loader,setloader]=useState<boolean>(false)
     const [currImg,setCurrimg] = useState<string>()
+    const {id} = useParams()
     const getItem =async():Promise<void>=>{
         try{
             setloader(true);
-            let response = await axios.get(`/api/v1/item/getItem/${props.id}`,{withCredentials:true})
+            let response = await axios.get(`/api/v1/item/getItem/${id}`,{withCredentials:true})
             if(response.data.item){
                 setitem(response.data.item)
                 setCurrimg(item.coverphoto)
@@ -98,6 +99,7 @@ const Product =(props:{id:string})=>{
         { id: 4, value: filerReview(4),label:"4" },
         { id: 5, value: filerReview(5),label:"5" },
     ]
+    
     useEffect(()=>{
         getItem();
         data=[
@@ -108,7 +110,7 @@ const Product =(props:{id:string})=>{
             { id: 4, value: filerReview(4),label:"4" },
             { id: 5, value: filerReview(5),label:"5" },
         ]
-    },[])
+    },[id])
     const addtocart = async()=>{
         try{
             setloader(true)
@@ -169,7 +171,7 @@ const Product =(props:{id:string})=>{
     return(
         <div className="min-h-screen">
             {/*main product div*/}
-            <div className={`flex flex-wrap`}>
+            <div className={`w-full flex flex-wrap`}>
                 {/* left */}
                 <section className={`Product-left flex ${writereview ? "opacity-70":""}`}>
                     <div className="left1 flex flex-col h-[500px] overflow-scroll gap-1">
@@ -177,7 +179,7 @@ const Product =(props:{id:string})=>{
                             item?.photos?.length>0? (
                                     item?.photos.map((ele)=>(
                                         <button className="bg-white w-[70px] h-[70px] p-2 rounded-md">
-                                            <img className="small-images" onMouseEnter={ChangeImageOnHover} onClick={ChangeImageOnClick} src={ele.photo} alt="item photo"/>
+                                            <img className="small-images" onClick={ChangeImageOnClick} src={ele.photo} alt="item photo"/>
                                         </button>
                                         
                                     )
