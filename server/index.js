@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express = require('express')
+const helmet = require('helmet')
 const App = express()
 const DB=require('./DB/Db');
 const cors = require('cors')
@@ -15,6 +16,7 @@ const BrandR = require('./Routes/BrandRoute')
 const CategoryRoute = require('./Routes/CategoryRoute');
 const CartRoute = require('./Routes/Cart');
 const ReviewRoute = require('./Routes/ReviewRoute')
+const ratelimit=require('express-rate-limit')
 require('./Controllers/OauthController')
 const {checkout}=require('./Payments/Payment');
 const AppError = require('./utils/AppError');
@@ -25,6 +27,7 @@ const checkasync = require('./Controllers/CheckAync')
 const stripe = require('stripe')(process.env.Stripe_secret)
 //databse
 DB()
+App.use(helmet())
 //google auth
 App.use(express.json())
 //error middleware"
@@ -34,6 +37,10 @@ App.use(cookieparser())
 App.use(cors({
   origin:["http://localhost:5173"],
   credentials:true
+}))
+App.use(ratelimit({
+    window:60*1000*60,
+    limit:100
 }))
 App.use(session({
   secret:'myname',
