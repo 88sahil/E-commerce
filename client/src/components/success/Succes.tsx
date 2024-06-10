@@ -46,8 +46,8 @@ const Success =()=>{
                 <polyline className="check" points="73.56 48.63 57.88 72.69 49.38 62" fill="none" stroke="hsl(155, 67%, 45%)" stroke-width="6px" stroke-linecap="round"></polyline>
                 </svg>
                 </div>
-                    <h1 className="duration-500">Order Accepted</h1>
-                    <h1>redirect to order in {count || 7}</h1>
+                    <h1 className="duration-500 text-xl font-extrabold">Order Accepted</h1>
+                    <h1>redirect to order in {count || 7}s</h1>
                 </div>):(<Loader text="checking payment"/>)
             }
             

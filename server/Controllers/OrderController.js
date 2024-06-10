@@ -31,16 +31,16 @@ exports.getAllOrder = checkasync(async(req,res,next)=>{
         let Orders;
         switch(type){
             case 'delivered':
-                Orders = await Order.find({status:"delivered"}).populate('orderItems');
+                Orders = await Order.find({status:"delivered"}).sort("date");
                 break;
             case 'accept':
-                Orders = await Order.find({status:"accept"}).populate('orderItems');
+                Orders = await Order.find({status:"accept"}).sort("date");
                 break;
             case 'rejected':
-                Orders  = await Order.find({status:"rejected"}).populate('orderItems');
+                Orders  = await Order.find({status:"rejected"}).sort("date");
                 break;
             default:
-                Orders = await Order.find().populate('orderItems');
+                Orders = await Order.find().sort("date");
         }
         let query;
         if(type){
@@ -58,8 +58,9 @@ exports.updateStatus = checkasync(async(req,res,next)=>{
     if(req.user.role !== "admin"){
         return next(new AppError("you don't have permission to do this",401))
     }
+    const {status} = req.query
     let order = await Order.findById(req.params.id);
-    switch(req.query.status){
+    switch(status){
         case 'rejected':
             order.status = 'rejected';
             order.rejectdata = Date.now();
@@ -80,7 +81,7 @@ exports.getStaticsOfOrder = checkasync(async(req,res,next)=>{
         //this year sales
         const {year} = req.query
         const {bytype} = req.query
-        let yearTotal = await OrderItem.aggregate([
+        let yearTotal = await Order.aggregate([
             {
                 $match:{
                     date:{
@@ -92,8 +93,8 @@ exports.getStaticsOfOrder = checkasync(async(req,res,next)=>{
             {
                 $group:{
                     _id:"",
-                    totalSalesbyMoney:{$sum:"$totalprice"},
-                    totalSalesbynumber:{$sum:"$quantity"}
+                    totalSalesbyMoney:{$sum:"$totalbill"},
+                    totalSalesbynumber:{$sum:1}
                 }
             }
         ])
@@ -124,6 +125,8 @@ exports.getStaticsOfOrder = checkasync(async(req,res,next)=>{
     }
 )
 exports.getStaticsofProps = checkasync(async(req,res,next)=>{
+    const {bytype} = req.query
+    const {year} = req.query
     let yearTotal = await OrderItem.aggregate([
         {
             $match:{
@@ -141,8 +144,7 @@ exports.getStaticsofProps = checkasync(async(req,res,next)=>{
             }
         }
     ])
-    const {bytype} = req.query
-    const {year} = req.query
+   
     let ByProps=[]
     switch(bytype){
         case 'category':
@@ -176,7 +178,7 @@ exports.getStaticsofProps = checkasync(async(req,res,next)=>{
                     }
                 },
                 {
-                    $project:{
+                    $addFields:{
                         shareByNumber:{$trunc:[{$multiply:[{$divide:["$totalSalesbynumber",yearTotal[0].totalSalesbynumber]},100]},2]},
                         shareBymoney:{$trunc:[{$multiply:[{$divide:["$totalSalesbyMoney",yearTotal[0].totalSalesbyMoney]},100]},2]}
                     }
@@ -218,7 +220,7 @@ exports.getStaticsofProps = checkasync(async(req,res,next)=>{
                     }
                 },
                 {
-                    $project:{
+                    $addFields:{
                         shareByNumber:{$trunc:[{$multiply:[{$divide:["$totalSalesbynumber",yearTotal[0].totalSalesbynumber]},100]},2]},
                         shareBymoney:{$trunc:[{$multiply:[{$divide:["$totalSalesbyMoney",yearTotal[0].totalSalesbyMoney]},100]},2]}
                     }

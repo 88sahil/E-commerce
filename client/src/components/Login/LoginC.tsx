@@ -6,7 +6,7 @@ import CountryCode from "../CountryCode";
 import {login,logout} from '../../store/AuthSlice'
 import {useDispatch} from 'react-redux'
 import bg  from '../../assets/image/login-bg.jpg'
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 const SignUp = ()=>{
     const dispatch = useDispatch()
@@ -132,6 +132,7 @@ export const Login = ()=>{
                     <input type="password" {...register("password")} placeholder="Enter Password" required></input>
                 </div>
                 <button>Login</button>
+                <Link to={'/forgotpassword'} className="p-2 text-blue-500">Forgot password?</Link>
             </form>
             <div className="or flex mt-[15px] items-center justify-center">
                     <div className="w-1/3 h-[5px] bg-gray-400"></div>

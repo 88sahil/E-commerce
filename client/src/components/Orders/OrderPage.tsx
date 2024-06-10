@@ -5,7 +5,9 @@ import axios from 'axios'
 import { IoArrowBackOutline } from "react-icons/io5";
 import { FaHome } from "react-icons/fa";
 import './Order.scss'
+import noimg from  '../../assets/image/7309681.jpg'
 import { Getstate, indianStates } from './States';
+import { FaUser } from "react-icons/fa";
 import Timeline from '@mui/lab/Timeline';
 import TimelineItem from '@mui/lab/TimelineItem';
 import TimelineSeparator from '@mui/lab/TimelineSeparator';
@@ -17,9 +19,11 @@ import { FaMoneyBillTransfer } from "react-icons/fa6";
 import TimelineOppositeContent, {
   timelineOppositeContentClasses,
 } from '@mui/lab/TimelineOppositeContent';
+import { useSelector } from 'react-redux';
 const OrderPage = () => {
     const {id} = useParams<string>()
     const [order,setorder] = useState<Torder>();
+    let user = useSelector((state)=>state.auth.user)
     const [loader,setloader] = useState<boolean>(false);
     const getOrder =  async():Promise<void>=>{
         try{
@@ -34,7 +38,19 @@ const OrderPage = () => {
             setloader(false)
         }
     }
-    console.log("hiited")
+    const updateOrder =async(data:string):Promise<void>=>{
+      try{
+          setloader(true)
+          let response = await axios.get(`/api/v1/orders/statusUpdate/${order?.id}?status=${data}`,{withCredentials:true})
+          if(response.data){
+            console.log(response.data)
+              setloader(false)
+              getOrder()
+          }
+      }catch(err){
+        console.log(err)
+      }
+    }
     useEffect(()=>{getOrder()},[])
   return (
     <main className='max-md:py-12 py-2 px-2'>
@@ -47,7 +63,7 @@ const OrderPage = () => {
             {
                 order?.orderItems.map((ele,index)=>(
                     <div key={index} className='orderItem flex w-[1000px] max-sm:w-full items-center justify-between'>
-                        <img className='w-[100px] h-[100px]' src={ele.item.coverphoto} alt="no photo" />
+                        <img className='w-[100px] object-contain h-[100px]' src={ele.item.coverphoto} alt="no photo" />
                         <h1>{ele.item.title} X {ele.quantity}</h1>
                         <h1>&#x20b9;{ele.pricetopay}</h1>
                     </div>    
@@ -55,11 +71,20 @@ const OrderPage = () => {
             }
         </div>
         <div className='flex p-12 max-md:p-2 flex-col items-center'>
+            <div className='w-[1000px]'>
+            <span className=' w-[200px] flex text-lg items-center px-2 py-2 border gap-2 border-black rounded-md'><FaUser size={25}/>Customer</span>
+              <span className='flex items-center p-4 gap-2'>
+                <img className='w-[50px] h-[50px] rounded-full' src={order?.user.photo || noimg}></img>
+                <h1 className='text-xl font-bold'>{order?.user.username}</h1>
+              </span>
+            </div>
+        </div>
+        <div className='flex  max-md:p-2 flex-col items-center'>
             <div className='w-[1000px] max-md:w-full'>
-            <span className=' w-[200px] flex text-lg items-center px-2 py-2 border gap-2 border-black rounded-md'><FaHome size={25}/>Shipping Addres</span>
+            <span className=' w-[200px] flex text-lg items-center px-2 py-2 border gap-2 border-black rounded-md'><FaHome size={25}/>Shipping Address</span>
                <span className='flex gap-2 mt-2'>
                     <a className='font-bold'>Address:</a>
-                    <a>{order?.shippingAddress?.line1},{order?.shippingAddress.line2? `${order?.shippingAddress.line2}`:""}</a>
+                    <a>{order?.shippingAddress?.line1},{order?.shippingAddress?.line2? `${order?.shippingAddress?.line2}`:""}</a>
                </span>
                <span className='flex gap-2'>
                     <a className='font-bold'>City:</a>
@@ -71,7 +96,7 @@ const OrderPage = () => {
                </span>
                <span className='flex gap-2'>
                     <a className='font-bold'>State:</a>
-                    <a>{Getstate(order?.shippingAddress?.state || "")},{order?.shippingAddress.country || ""}</a>
+                    <a>{Getstate(order?.shippingAddress?.state || "")},{order?.shippingAddress?.country || ""}</a>
                </span>
             </div>
            
@@ -120,7 +145,6 @@ const OrderPage = () => {
     </Timeline> 
             </div>
             </div>
-           
             <div className='w-[1000px] max-md:w-full'>
             <span className=' w-[200px] flex text-lg items-center px-2 py-2 border gap-2 border-black rounded-md'><FaMoneyBillTransfer size={25}/>Billing status</span>
             <span className='flex gap-2 mt-5'>
@@ -133,6 +157,10 @@ const OrderPage = () => {
                </span>
                <h1 className='text-gray-400 mt-5 font-extrabold italic'><sup className='text-red-800 text-lg'>*</sup>for additional information contact us on 120-120-120-120</h1>
             </div>
+          { user?. role ==="admin" && order?.status==="accept" && <div className='s-btns w-[900px] max-md:w-full'>
+              <button onClick={()=>updateOrder("delivered")}>Complete</button>
+              <button onClick={()=>updateOrder("rejected")}>Reject</button>
+            </div>}
         </div>
         {loader && <div className="loader"></div>}
     </main>

@@ -8,6 +8,15 @@ import {createBrowserRouter,Route,RouterProvider} from 'react-router-dom'
 import {SignUpPage,AllProductpage,LoginPage,Home,LikePage,Setting, AccountPrefference, PrivacyPage, ProductPage, CartPage, MyOrderPage, AdminPage} from  './pages/index.ts'
 import Success from './components/success/Succes.tsx'
 import OrderPage from './components/Orders/OrderPage.tsx'
+import Statics from './components/Admin/Statics.tsx'
+import AdminOrder from './components/Admin/Admin-Order.tsx'
+import AddItem from './components/Admin/AddItem.tsx'
+import Items from './components/Admin/Items.tsx'
+import EditItem from './components/Admin/EditItem.tsx'
+import Brands from './components/Admin/Brands.tsx'
+import Category from './components/Admin/Category.tsx'
+import ForgotPassword from './pages/ForgotPassword.tsx'
+import Changepassword from './pages/changepassword.tsx'
 const router:any = createBrowserRouter([
   {
     path:'/',
@@ -18,7 +27,32 @@ const router:any = createBrowserRouter([
         element:<Home />
       },{
         path:'/admin',
-        element:<AdminPage/>
+        element:<AdminPage/>,
+        children:[
+          {
+            path:'/admin/static',
+            element:<Statics/>
+          },{
+            path:'/admin/Orders',
+            element:<AdminOrder/>
+          },{
+            path:'/admin/AddItem',
+            element:<AddItem/>
+          },{
+            path:'/admin/Items',
+            element:<Items/>
+          },{
+            path:'/admin/EditItem/:id',
+            element:<EditItem/>
+          },
+          ,{
+            path:'/admin/brands',
+            element:<Brands/>
+          },{
+            path:'/admin/Categories',
+            element:<Category/>
+          }
+        ]
       },
       {
         path:'/success/:id',
@@ -69,6 +103,13 @@ const router:any = createBrowserRouter([
   {
     path:'/Login',
     element:<LoginPage/>
+  },{
+    path:'/forgotpassword',
+    element:<ForgotPassword/>
+  },
+  {
+    path:'/changepassword/:str',
+    element:<Changepassword/>
   }
 ])
 ReactDOM.createRoot(document.getElementById('root')!).render(

@@ -65,13 +65,13 @@ const Product =(props:{id:string})=>{
     const [loader,setloader]=useState<boolean>(false)
     const [currImg,setCurrimg] = useState<string>()
     const {id} = useParams()
+    let deimag = useSelector(state=>state.auth.defaultImage)
     const getItem =async():Promise<void>=>{
         try{
             setloader(true);
             let response = await axios.get(`/api/v1/item/getItem/${id}`,{withCredentials:true})
             if(response.data.item){
                 setitem(response.data.item)
-                setCurrimg(item.coverphoto)
                 setloader(false)
             }
         }catch(err){
@@ -179,7 +179,7 @@ const Product =(props:{id:string})=>{
                             item?.photos?.length>0? (
                                     item?.photos.map((ele)=>(
                                         <button className="bg-white w-[70px] h-[70px] p-2 rounded-md">
-                                            <img className="small-images" onClick={ChangeImageOnClick} src={ele.photo} alt="item photo"/>
+                                            <img className="small-images object-contain w-[70px] h-[50px]" onClick={ChangeImageOnClick} src={ele.photo} alt="item photo"/>
                                         </button>
                                         
                                     )
@@ -193,7 +193,7 @@ const Product =(props:{id:string})=>{
                         }
                     </div>
                     <div className="left2">
-                        <img src={currImg || item.coverphoto || noimg} alt="" />
+                        <img src={currImg || item.coverphoto || noimg} className="object-contain" alt="" />
                     </div>
                     <button id="Cartbtn" className=" gap-1 flex items-center" onClick={addtocart}><img className="w-[20px] h-[20px]" src={cart} alt="cart"></img>Add to cart</button>
 
@@ -240,7 +240,7 @@ const Product =(props:{id:string})=>{
                                                     <div className="review-card">
                                                         <div className="review-card-1">
                                                             <div className="w-1/3 max-md:w-1/2">
-                                                                <img src={ele.user.photo} alt="nophoto"></img>
+                                                                <img src={ele.user.photo || deimag} alt="nophoto"></img>
                                                                 <a className="text-gray-600 italic">@{ele.user.username || ""}</a>
                                                             </div>
                                                             <div className="flex     items-center gap-1 bg-green-600 text-white text-xl px-1">

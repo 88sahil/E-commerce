@@ -84,7 +84,7 @@ module.exports.UpdateCoverPhoto=checkasync(async(req,res,next)=>{
     let response = await cloudupload(req.file.path);
     item.coverphoto = response.url
     item.coverphotoId = response.public_id
-    await item.save
+    await item.save()
     require('fs').unlinkSync(req.file.path)
     res.status(200).json({
         status:'success',
@@ -105,6 +105,9 @@ module.exports.uploadphotos = checkasync(async(req,res,next)=>{
     }
     item.photos.push(...finalPhotos);
     await item.save();
+    for(let ele of photos){
+        require('fs').unlinkSync(ele.path);
+    }
     res.status(200).json({
         status:'success',
         message:"photos uploaded succesfully",

@@ -75,7 +75,7 @@ itemSchema.virtual('reviews',{
 itemSchema.pre(/^find/,function(next){
     this.populate({
         path:'manufacturour',
-        select:'brandname logo -_id'
+        select:'brandname logo'
     }).populate({
         path:'category',
         select:' -__V'

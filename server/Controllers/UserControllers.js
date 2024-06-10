@@ -46,7 +46,7 @@ module.exports.Login = checkasync(async(req,res,next)=>{
         return next(new AppError("email or password missing",401))
     }
     let user = await User.findOne({$and:[{email:email},{isactive:{$ne:false}}]}).select('+password')
-    if(user.googleId){
+    if(user?.googleId){
         return next(new AppError("you are google User please login through it",401))
     }
     if(!user){
@@ -150,7 +150,7 @@ module.exports.forgotpassword=checkasync(async(req,res,next)=>{
     const {email} = req.query
     if(!email) return next(new AppError("please Enter Email",403));
     const user = await User.findOne({email:email})
-    if(user.googleId){
+    if(user?.googleId){
         return next(new AppError("you are google User please login through it",401))
     }
     if(!user) return next(new AppError("user not found",404));
@@ -166,22 +166,23 @@ module.exports.forgotpassword=checkasync(async(req,res,next)=>{
 
 module.exports.updatepassword = checkasync(async(req,res,next)=>{
     let token = req.params.token
-    let {password}= req.body
+    let {password,conformpassword}= req.body
     let finaltoken = crypto.createHash('sha256').update(token).digest('Hex')
     let user = await User.findOne({passwordResetToken:finaltoken})
-    if(user.googleId){
+    if(user?.googleId){
         return next(new AppError("you are google User please login through it",401))
     }
     if(!user) return next(new AppError("can't find user",404));
     if(user.passwordResetTokenExpires<new Date(Date.now())) return next(new AppError("token expired try again!",401));
     user.password = password
+    user.conformpassword = conformpassword
     user.passwordResetToken= undefined
     user.passwordResetTokenExpires = undefined
     user.passwordchangedAt = Date.now()
-    await user.save({validateBeforeSave:false})
+    await user.save()
     res.status(200).json({
         status:'success',
-        message:'hurrah password change succssfully please login'
+        message:'hurrah password change succssfully, please login'
     })
 })
 //upload photo

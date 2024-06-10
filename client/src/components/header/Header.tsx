@@ -57,26 +57,20 @@ const Header=()=>{
             <div className="logo">
                 <NavLink to={"/"}>MPF.</NavLink>
                 <nav>
-                <NavLink to={""}>
-                    about
-                </NavLink>
-                <NavLink to={""}>Pricing</NavLink>
-                <NavLink to={""}>Blog</NavLink>
-                <NavLink to={"/admin"}>AdminPage</NavLink>
+                <NavLink to={"/admin/static"}>AdminPage</NavLink>
                 <NavLink to={"/AllProducts"}>Products</NavLink>
-                <NavLink to={""}>More</NavLink>
             </nav>
             </div>
             
             <div className="flex items-center gap-5 mr-[50px]">
-               {showsblock && <div className="searchitems">
+               {showsblock && <div className="searchitems overflow-scroll">
                     {
                         searchItem.length>0?(
                             <div className="p-5 overflow-scroll">
                                  {
                                 searchItem.map((ele,index)=>
                                         <NavLink to={`/product/${ele._id}`} key={index} className="flex items-center justify-between mt-4 border-b p-2 border-black">
-                                            <img src={ele.coverphoto} className="w-[100px] h-[100px]"></img>
+                                            <img src={ele.coverphoto} className=" object-contain w-[100px] h-[100px]"></img>
                                             <a>{ele.title}</a>
                                             <a>&#x20b9;{ele.price-ele.discount}</a>
                                         </NavLink>
@@ -95,12 +89,7 @@ const Header=()=>{
                <button onClick={(e)=>{setisUserShow((prev)=>!prev);setisMenuShow(false)}}>{user?  (<img src={user?.photo || erro_image} className="w-[30px] h-[30px] rounded-full object-center" alt="user" title={user.username}/>):(<FaUserAlt/>)}</button>
                <button id="MenuShow" onClick={(e)=>{setisMenuShow((prev)=>!prev);setisUserShow(false)}}><RiBarChartHorizontalLine/></button>
                {isMenuShow &&<div className="menu">
-               <NavLink to={""}>
-                    <p className="w-full text-center">about</p>
-                </NavLink>
-                <NavLink to={""} ><p className="w-full text-center">Pricing</p></NavLink>
-                <NavLink to={""}><p className="w-full text-center">Blog</p></NavLink>
-                <NavLink to={"/admin"} ><p className="w-full text-center">AdminPage</p></NavLink>
+                <NavLink to={"/admin/static"} ><p className="w-full text-center">AdminPage</p></NavLink>
                 <NavLink to={"/AllProducts"}><p className="w-full text-center">Products</p></NavLink>
                </div>}
                {isUserShow && <div className="usermenu right-0 top-[80px] bg-gray-100">

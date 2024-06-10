@@ -9,7 +9,7 @@ const OrderCard =(props:{item:Torder})=>{
     }
     return(
         <NavLink to={`/order/${props.item.id}`} className="ordercard flex relative max-sm:text-sm">
-            <img src={props.item.orderItems[0].item.coverphoto} alt="item"></img>
+            <img src={props.item.orderItems[0].item.coverphoto} className="object-contain" alt="item"></img>
             <div>
                 <h1>{`#${props.item.id}`}</h1>
                 <h1>items x {quantity}</h1>

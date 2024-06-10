@@ -99,7 +99,7 @@ const Cart =()=>{
                         {
                               cart?.products.map((ele)=>(
                                 <div className="mt-10 flex border-b border-gray-300 pb-2 justify-between w-[800px] max-md:w-full items-center">
-                                    <img src={ele.item.coverphoto} className="w-[100px] max-md:w-[80px] max-md:h-[80px] rounded-lg h-[100px]" alt="cartitem"></img>
+                                    <img src={ele.item.coverphoto} className=" onject-contain w-[100px] max-md:w-[80px] max-md:h-[80px] rounded-lg h-[100px]" alt="cartitem"></img>
                                     <Link to={`/product/${ele.item.id}`}>{ele.item.title}</Link>
                                     <div className="addbtn">
                                         <button className=" " onClick={()=>removeItem(ele.item.id)}>-</button>

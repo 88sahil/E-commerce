@@ -53,3 +53,21 @@
         box-shadow: 0px 1px 2px rgb(223, 221, 221);
     }
 }
+.s-btns{
+    display: flex;
+    justify-items: center;
+    gap: 15px;
+    button{
+        padding: 8px 15px;
+    }
+    button:nth-child(1){
+        background-color: rgba(37, 233, 37, 0.793);
+        color: white;
+        border-radius: 10px;
+    }
+    button:nth-child(2){
+        background-color: rgba(213, 11, 11, 0.793);
+        color: white;
+        border-radius: 10px;
+    }
+}

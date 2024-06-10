@@ -5,13 +5,15 @@ import { MdAddToQueue } from "react-icons/md";
 import { FaTruck } from "react-icons/fa6";
 import { IoMdLaptop } from "react-icons/io";
 import { MdOutlineSegment } from "react-icons/md";
+import { BiCategory } from "react-icons/bi";
+import { TbBrandAppgallery } from "react-icons/tb";
 import { NavLink, Outlet } from 'react-router-dom';
 const AdminPanel = () => {
     let Navs:{icon:React.ReactElement,link:string,title:string}[] =[
         {
             icon:<IoStatsChartOutline size={25}/>,
             link:'/admin/static',
-            title:'stitics'
+            title:'statics'
         },
         {
             icon:<FaTruck size={25}/>,
@@ -28,6 +30,16 @@ const AdminPanel = () => {
             link:'/admin/Items',
             title:'Items'
         },
+        {
+            icon:<TbBrandAppgallery size={25}/>,
+            link:'/admin/brands',
+            title:'Brands'
+        },
+        {
+            icon:<BiCategory size={25}/>,
+            link:'/admin/Categories',
+            title:'Categories'
+        }
     ]
     const toggleNav =():void=>{
         let div = document.getElementById("left")

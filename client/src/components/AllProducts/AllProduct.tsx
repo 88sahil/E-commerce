@@ -83,11 +83,10 @@ const AllProduct =()=>{
         div?.classList.toggle("left-show")
         div.classList.toggle("left")
     }
-    console.log("hiited")
     useEffect(()=>{
         getBrandAndCate()
         getProducts()
-    },[querybrands,querycategories,sort])
+    },[querybrands,querycategories,sort,page])
     const getBrandAndCate =async():Promise<void>=>{
         try{
             setloader(true)
@@ -105,13 +104,9 @@ const AllProduct =()=>{
             console.log(err)
         }
     }
-    const PageChange =(e:React.ChangeEvent,page:number)=>{
-        setpage(page)
-        getProducts()
-    }
     return(
         <section className="flex">
-               { <div className="left" id="leftdiv">
+               { <div className="leftf" id="leftdiv">
                         <div className="sort w-full p-2">
                             <h1>Sort Item</h1>
                             <input type="radio" name="sort" value="price" onChange={(e)=>checked(e)}/> <a>price:Low to High</a>
@@ -151,6 +146,13 @@ const AllProduct =()=>{
                                 </div>):(<h1>no brands found</h1>)
                             }
                         </div>
+                        <div className="flex flex-col p-4 items-center">
+                        <h1 className="text-xl font-bold">Price range</h1>
+                        <input type="Number" placeholder="from" value={lprice} max={gprice} className="w-[180px] p-2" onChange={(e)=>setlprice(e.target.value)}  />
+                        <h1 className="text-xl font-bold">to</h1>
+                            <input type="Number" placeholder="to" value={gprice} min={lprice} className="w-[180px] p-2" onChange={(e)=>setgprice(e.target.value)} />
+                        </div>
+                        
                         <button className="close" onClick={showLeft}>close</button>
                         <button id="filter" onClick={()=>getProducts()}>filter</button>
                 </div>}
@@ -166,7 +168,7 @@ const AllProduct =()=>{
                             }
                     </div> 
                     <div className="mt-2 w-full justify-center p-2">
-                        <Pagination onChange={(e,page)=>PageChange(e,page)}  count={totalproducts/20>1? (totalproducts/20):(1)}/>
+                        <Pagination onChange={(e,page)=>setpage(page)}  count={totalproducts/20>1? (totalproducts/20):(1)}/>
                     </div>
                     
                 </div>

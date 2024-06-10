@@ -59,7 +59,9 @@
         img{
             width: calc(100% - 50px);
             border-radius: 20px;
-            @media (max-width:500px) {
+            width: 600px;
+            height: 600px;
+            @media (max-width:600px) {
                 height: 300px;
                 width: 300px;
                 aspect-ratio: 1/1;

@@ -1,0 +1,97 @@
+$bg-color:rgb(124, 171, 124);
+.sel{
+    select{
+        border: 2px solid rgba(171, 162, 162, 0.883);
+        padding: 5px;
+        margin-left: 2px;
+    }
+}
+.analyze{
+    padding: 5px;
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    div{
+        display: flex;
+        border: 2px solid rgb(232, 232, 232);
+        box-shadow: 1px 1px 3px rgb(236, 234, 234);
+        padding: 10px;
+        border-radius: 20px;
+        width: 200px;
+        div{
+            padding: 0;
+            box-shadow: none;
+            border: none;
+            display: block;
+            h1:nth-child(1){
+                font-size: 20px;
+                font-weight: bolder;
+                @media (max-width:768px) {
+                    font-size: 13px
+                }
+            }
+            h1:nth-child(2){
+                font-size: 15px;
+                font-weight: bold;
+                @media (max-width:768px) {
+                    font-size: 10px
+                }
+            }
+        }
+    }
+}
+#ordertable{
+   box-shadow: .5px 1px 4px $bg-color;
+    overflow-y: scroll;
+    width: 400px;
+    border: 1px solid rgb(202, 199, 199);
+    div{ 
+        padding: 10px;
+        h1{
+            font-weight: bolder;
+        }
+    }
+    span{
+        padding: 10px;
+    }
+    span:nth-child(2n){
+        background-color: $bg-color;
+        color: white;
+    }
+    span:nth-child(2n+1){
+        background-color: rgb(255, 252, 252);
+    }
+}
+
+.top{
+    h1{
+        width: 250px;
+        padding: 5px;
+        border: 2px solid gray;
+        border-radius: 15px;    
+    }
+    div{
+        .item-c{
+            h1{
+                border: none;
+            }
+        }
+        .item-c:nth-child(2n){}
+    }
+    .top-head{
+        margin-top: 15px;
+        padding: 0 15px;
+        select{
+            border: 2px solid rgba(171, 162, 162, 0.883);
+            padding: 5px;
+            margin-left: 2px;
+        }
+    }
+
+}
+
+.p-sel{
+            border: 2px solid rgba(171, 162, 162, 0.883);
+            padding: 5px;
+            margin-left: 2px;
+}
