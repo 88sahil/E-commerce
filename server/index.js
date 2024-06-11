@@ -35,7 +35,7 @@ App.use(express.json())
 //cookie parsers
 App.use(cookieparser())
 App.use(cors({
-  origin:["https://mpfstore.vercel.app/"],
+  origin:["https://mpfstore.vercel.app"],
   credentials:true
 }))
 App.use(ratelimit({
