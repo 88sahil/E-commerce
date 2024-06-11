@@ -35,7 +35,7 @@ App.use(express.json())
 //cookie parsers
 App.use(cookieparser())
 App.use(cors({
-  origin:["http://localhost:5173"],
+  origin:["https://mpfstore.vercel.app/"],
   credentials:true
 }))
 App.use(ratelimit({
@@ -63,13 +63,13 @@ App.get('/success/:id',protected,checkasync(async(req,res,next)=>{
   await order.save()
   let cart = await  Cart.findOne({user:req.user._id})
   let CartItems = await CartItem.deleteMany({cartId:cart._id})
-  res.redirect(`http://localhost:5173/success/${req.params.id}`)
+  res.redirect(`https://mpfstore.vercel.app/success/${req.params.id}`)
  
 }))
 App.get('/cancel/:id',checkasync(async(req,res,next)=>{
   let orderi = await OrderItem.deleteMany({orderId:req.params.id})
   let order = await Order.findByIdAndDelete(req.params.id)
-  res.redirect('http://localhost:5173/cart')
+  res.redirect('https://mpfstore.vercel.app/cart')
 }))
 App.post('/api/v1/checkout',protected,checkout)
 App.use(passport.initialize())
@@ -97,7 +97,7 @@ App.get('/Authenticate',function(req,res,next){
     secure:true,
     sameSite:'none'
 })
-  res.redirect('http://localhost:5173/')
+  res.redirect('https://mpfstore.vercel.app/')
   
 res.status(200).json({
   user:req.user

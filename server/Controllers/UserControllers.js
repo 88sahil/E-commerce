@@ -155,7 +155,7 @@ module.exports.forgotpassword=checkasync(async(req,res,next)=>{
     }
     if(!user) return next(new AppError("user not found",404));
     let resetString = user.createPasswordReset()
-    let url = `http://localhost:5173/Changepassword/${resetString}`
+    let url = `https://mpfstore.vercel.app/Changepassword/${resetString}`
     await new Email(user,url).sendLink()
     await user.save({validateBeforeSave:false})
     res.status(200).json({
