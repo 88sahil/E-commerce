@@ -1,4 +1,3 @@
-import React from "react";
 import './Login.css'
 const Loader = (props:{text:string})=>{
     return(

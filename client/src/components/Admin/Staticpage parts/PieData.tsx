@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { PieChart } from '@mui/x-charts/PieChart';
 import axios from 'axios';
 const PieData = () => {
@@ -64,7 +64,7 @@ const PieData = () => {
                     <option value={"category"}>By Category</option>
                     <option value={"brand"}>By Brands</option>
                 </select>
-                <select value={year} className='p-sel' onChange={(e)=>setyear(e.target.value)}>
+                <select value={year} className='p-sel' onChange={(e)=>setyear(Number.parseInt(e.target.value))}>
                     {
                         years.map((ele)=><option value={ele}>{ele}</option>)
                     }
@@ -87,7 +87,7 @@ const PieData = () => {
             </div>
                 {
                     deriveData().map((ele,index)=>(
-                        <span className='w-[400px] flex'>
+                        <span className='w-[400px] flex' key={index}>
                             <h1 className='w-[200px] text-center'>{ele.label}</h1>
                             <a className='w-[200px] text-center'>{ele.value}</a>
                         </span>     

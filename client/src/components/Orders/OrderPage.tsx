@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Torder } from './TypeOrder'
 import axios from 'axios'
@@ -6,7 +6,7 @@ import { IoArrowBackOutline } from "react-icons/io5";
 import { FaHome } from "react-icons/fa";
 import './Order.scss'
 import noimg from  '../../assets/image/7309681.jpg'
-import { Getstate, indianStates } from './States';
+import { Getstate} from './States';
 import { FaUser } from "react-icons/fa";
 import Timeline from '@mui/lab/Timeline';
 import TimelineItem from '@mui/lab/TimelineItem';
@@ -23,7 +23,7 @@ import { useSelector } from 'react-redux';
 const OrderPage = () => {
     const {id} = useParams<string>()
     const [order,setorder] = useState<Torder>();
-    let user = useSelector((state)=>state.auth.user)
+    let user = useSelector((state:any)=>state.auth.user)
     const [loader,setloader] = useState<boolean>(false);
     const getOrder =  async():Promise<void>=>{
         try{
@@ -74,8 +74,8 @@ const OrderPage = () => {
             <div className='w-[1000px]'>
             <span className=' w-[200px] flex text-lg items-center px-2 py-2 border gap-2 border-black rounded-md'><FaUser size={25}/>Customer</span>
               <span className='flex items-center p-4 gap-2'>
-                <img className='w-[50px] h-[50px] rounded-full' src={order?.user.photo || noimg}></img>
-                <h1 className='text-xl font-bold'>{order?.user.username}</h1>
+                <img className='w-[50px] h-[50px] rounded-full' src={order?.user?.photo || noimg}></img>
+                <h1 className='text-xl font-bold'>{order?.user?.username}</h1>
               </span>
             </div>
         </div>
@@ -135,7 +135,7 @@ const OrderPage = () => {
       </TimelineItem>}
       <TimelineItem>
         <TimelineOppositeContent color="textSecondary">
-            {new Date(order?.date).toDateString()}
+          {order?.date ? new Date(order.date).toDateString() : 'No date available'}
         </TimelineOppositeContent>
         <TimelineSeparator>
           <TimelineDot color="secondary" />

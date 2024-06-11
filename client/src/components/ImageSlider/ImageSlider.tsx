@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import './ImageSlider.scss'
 import { FcNext } from "react-icons/fc";
 import { FcPrevious } from "react-icons/fc";
-const ImageSlider =(props:{images:String[]})=>{
+const ImageSlider =(props:{images:string[]})=>{
     let Images = [...props.images]
     const [curridx,setcurridx] = useState(0);
     const HandlePrev = ()=>{
@@ -37,7 +37,7 @@ const ImageSlider =(props:{images:String[]})=>{
                 <div className="dots flex gap-1 p-2 absolute bottom-0">
                     {
                         Images.map((ele,index)=>(
-                            <button  className={`${index===curridx?"Activebtn":""} h-[20px] w-[20px] duration-200 flex text-5xl items-center justify-center`} onClick={()=>HandelDots(index)}>•</button>
+                            <button  className={`${index===curridx?"Activebtn":""} h-[20px] w-[20px] duration-200 flex text-5xl items-center justify-center`} key={ele} onClick={()=>HandelDots(index)}>•</button>
                         ))
                     }
                 </div>

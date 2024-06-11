@@ -1,4 +1,4 @@
-const indianStates = {
+const indianStates:any = {
     "AP": "Andhra Pradesh",
     "AR": "Arunachal Pradesh",
     "AS": "Assam",

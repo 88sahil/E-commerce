@@ -5,14 +5,6 @@ import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import Pagination from '@mui/material/Pagination';
 const Items = () => {
-     type brand = {
-        _id:string,
-        brandname:string
-    }
-    type categories = {
-        _id:string,
-        value:string
-    }
     type item={
         category:{
             value:string
@@ -31,6 +23,7 @@ const Items = () => {
     const [loader,setloader] = useState<boolean>(false)
     const [item,setitem] =useState<item[]>([])
     const [page,setpage] = useState(0)
+    console.log(page)
     const [totalproducts,settotalproducts] = useState<number>(0)
     const getProducts = async():Promise<void>=>{
         let query = `/api/v1/item/getAllitems?page=${page}&limit=10&sort="-publishedAt"&fields=_id,price,title,coverphoto,discount`
@@ -71,7 +64,7 @@ const Items = () => {
                 }
             </div>
             <div className="mt-2 w-full justify-center p-2">
-                        <Pagination onChange={(e,page)=>setpage(page)}  count={totalproducts/10>1? (totalproducts/2):(1)}/>
+                        <Pagination onChange={(e,page)=>{e;setpage(page)}}  count={totalproducts/10>1? (totalproducts/2):(1)}/>
             </div>
         </div>
        {loader && <div className="loader"></div>}

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 import { LineChart } from '@mui/x-charts/LineChart';
 import { IoAnalyticsOutline } from "react-icons/io5";
 import axios from 'axios';
@@ -21,16 +21,8 @@ const ScatterData = () => {
     const [year,setyear] = useState<number>(currYear)
     const [lable,setlable] = useState<string>("amount")
     const [render,setrender] = useState(0);
-    const changevalue =(inx:number,data:number)=>{
-        let updatedArray = pData.map((ele,index)=>{
-            if(index === inx){
-                ele = data
-            }
-            return ele
-        })
-    }
     const [totalshares,settotalshares] = useState<{totalSalesbyMoney:number,totalSalesbynumber:number}>({})
-    const updateData = (type:string,data:Tmonthly[])=>{
+    const updateData = (type:string)=>{
         if(type=="Money"){
             setlable("amount");
             let updatedArray = [...pData]
@@ -64,12 +56,17 @@ const ScatterData = () => {
             if(response.data){
                 settotalshares(response.data.totalShareofYear[0])
                 setrender(2)
-                updateData(cate,response.data.yearState)
                 setmonthly(response.data.yearState)
+                updateData(cate)
+                
             }
         }catch(err){
             console.log(err)
         }
+    }
+    const clkHandel =(e:React.ChangeEvent<HTMLSelectElement>)=>{
+        setcate(e.target.value)
+        updateData(e.target.value)
     }
     useEffect(()=>{
         getStates()
@@ -112,7 +109,7 @@ const ScatterData = () => {
         <div className='p-2'>
         <div className='sel flex justify-end w-[900px] max-md:w-full'>
             <h1 className='w-full max-md:text-start text-xl font-extrabold'>Statics of {year}</h1>
-            <select onClick={(e)=>{setcate(e.target.value),updateData(e.target.value,monthly)}}>
+            <select onChange={(e:React.ChangeEvent<HTMLSelectElement>)=>{clkHandel(e)}}>
                 <option value="Money">Amount</option>
                 <option value="orders">Orders</option>
             </select>

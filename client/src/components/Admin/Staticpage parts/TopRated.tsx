@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { RiAwardFill } from "react-icons/ri";
 import { NavLink } from 'react-router-dom';
 const TopRated = () => {
@@ -30,7 +30,7 @@ const TopRated = () => {
     <div className='top-head w-[900px] max-md:w-full items-center flex justify-between'>
     <h1 className='text-start flex items-center text-xl'><RiAwardFill size={25}/>Top Rated Products</h1>
     <div>
-    <select value={limit} onChange={(e)=>setlimit(e.target.value)}>
+    <select value={limit} onChange={(e)=>setlimit(Number.parseInt(e.target.value))}>
         <option value={10}>Top 10</option>
         <option value={20}>Top 20</option>
         <option value={50}>Top 50</option>

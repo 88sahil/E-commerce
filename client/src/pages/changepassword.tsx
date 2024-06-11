@@ -1,6 +1,6 @@
 import axios from 'axios'
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import  { useState } from 'react'
+import { FieldValues, useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
 
 const Changepassword = () => {
@@ -8,7 +8,7 @@ const Changepassword = () => {
         const {handleSubmit,register} = useForm()
         const [loader,setloader] = useState<boolean>(false)
         const navigate = useNavigate()
-        const forgotpassword=async(data)=>{
+        const forgotpassword=async(data:FieldValues):Promise<void>=>{
             try{
                 setloader(true)
                 let response = await axios.patch(`/api/v1/user/updatepassword/${str}`,data,{withCredentials:true})
@@ -17,7 +17,7 @@ const Changepassword = () => {
                     alert(response.data.message)
                     navigate('/Login')
                 }
-            }catch(err){
+            }catch(err:any){
                 setloader(false)
                 alert(err.response.data.err)
                 console.log(err)

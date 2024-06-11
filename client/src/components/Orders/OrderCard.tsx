@@ -1,4 +1,3 @@
-import React from "react";
 import { Torder } from "./TypeOrder";
 import './Order.scss'
 import { NavLink } from "react-router-dom";

@@ -1,4 +1,3 @@
-import { Container } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { FaFilter } from "react-icons/fa";
 import './AllProduct.scss'
@@ -40,10 +39,10 @@ const AllProduct =()=>{
     const [loader,setloader] = useState<boolean>(false)
     const [lprice,setlprice] = useState<number>(0)
     const[gprice,setgprice]=useState<number>(10000000000)
-    const checked=(e:React.ChangeEvent):void=>{
+    const checked=(e:React.ChangeEvent<HTMLInputElement>):void=>{
         setsort(e.target.value)
     }
-    const querybrandAndcateFnc = (e,values:string[],setvalue):void=>{
+    const querybrandAndcateFnc = (e:any,values:string[],setvalue:any):void=>{
         const {value,checked} = e.target;
         if(checked){
                 setvalue([...values,value])
@@ -64,7 +63,7 @@ const AllProduct =()=>{
     }
     
     const getProducts = async():Promise<void>=>{
-        let query = `/api/v1/item/getAllitems?page=${page}&limit=20&${converttoString(querybrands,"manufacturour")}&${converttoString(querycategories,"category")}&price[gte]=${lprice}&price[lte]=${gprice}&sort=${sort}&fields=_id,price,title,coverphoto,discount`
+        let query:string = `/api/v1/item/getAllitems?page=${page}&limit=20&${converttoString(querybrands,"manufacturour")}&${converttoString(querycategories,"category")}&price[gte]=${lprice}&price[lte]=${gprice}&sort=${sort}&fields=_id,price,title,coverphoto,discount`
         try{
             setloader(true)
             let response = await axios.get(query,{withCredentials:true})
@@ -79,9 +78,9 @@ const AllProduct =()=>{
         }
     }
     const showLeft=()=>{
-        let div = document.getElementById("leftdiv")
+        let div:any | null | undefined  = document.getElementById("leftdiv")
         div?.classList.toggle("left-show")
-        div.classList.toggle("left")
+        div?.classList.toggle("left")
     }
     useEffect(()=>{
         getBrandAndCate()
@@ -148,9 +147,9 @@ const AllProduct =()=>{
                         </div>
                         <div className="flex flex-col p-4 items-center">
                         <h1 className="text-xl font-bold">Price range</h1>
-                        <input type="Number" placeholder="from" value={lprice} max={gprice} className="w-[180px] p-2" onChange={(e)=>setlprice(e.target.value)}  />
+                        <input type="Number" placeholder="from" value={lprice} max={gprice} className="w-[180px] p-2" onChange={(e)=>setlprice(Number.parseInt(e.target.value))}  />
                         <h1 className="text-xl font-bold">to</h1>
-                            <input type="Number" placeholder="to" value={gprice} min={lprice} className="w-[180px] p-2" onChange={(e)=>setgprice(e.target.value)} />
+                            <input type="Number" placeholder="to" value={gprice} min={lprice} className="w-[180px] p-2" onChange={(e)=>setgprice(Number.parseInt(e.target.value))} />
                         </div>
                         
                         <button className="close" onClick={showLeft}>close</button>
@@ -168,7 +167,7 @@ const AllProduct =()=>{
                             }
                     </div> 
                     <div className="mt-2 w-full justify-center p-2">
-                        <Pagination onChange={(e,page)=>setpage(page)}  count={totalproducts/20>1? (totalproducts/20):(1)}/>
+                        <Pagination onChange={(e,page)=>{e;setpage(page)}}  count={totalproducts/20>1? (totalproducts/20):(1)}/>
                     </div>
                     
                 </div>

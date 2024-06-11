@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import './Setting.scss'
 import { useDispatch, useSelector } from "react-redux";
 import SectionLabel from "../SectionLabel";
 import axios from "axios";
 import {login} from '../../store/AuthSlice'
 import CountryCode from "../CountryCode";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 type user={
     username:string,
     email:string,
@@ -28,11 +28,11 @@ type Address = {
 const AccountPre=()=>{
     const [isDisable,setisDisable] = useState<boolean>(true)
     const [isAdisable,setisAdisable] =useState<boolean>(true)
-    let user:user = useSelector(state=>state.auth.user)
+    let user:user = useSelector((state:any)=>state.auth.user)
     const dispatch = useDispatch();
     const [loader,setloader] = useState<Boolean>(false)
-    let ErrorPhoto:string = useSelector(state=>state.auth.defaultImage)
-    const [img,setimg]=useState<any>("")
+    let ErrorPhoto:string = useSelector((state:any)=>state.auth.defaultImage)
+    const [img,setimg]=useState<any | null>("")
     const {register,handleSubmit,reset} = useForm({
         defaultValues:{
             email:user?.email || "",
@@ -86,7 +86,7 @@ const AccountPre=()=>{
         countrycode:string,
         number:number
     }
-    const updateUserData=async(data:Tdata):Promise<void>=>{
+    const updateUserData=async(data:FieldValues):Promise<void>=>{
         console.log(data)
         try{
             setisDisable(true)
@@ -109,7 +109,7 @@ const AccountPre=()=>{
         zipcode:number,
         Country:string
     }
-    const updatelocation =async(data:Tlocation):Promise<void>=>{
+    const updatelocation =async(data:FieldValues):Promise<void>=>{
         let AddressObj:Tlocation = {
             address:data.address,
             City:data.City,
@@ -137,7 +137,7 @@ const AccountPre=()=>{
                     <SectionLabel label="Profile picture" />
                     <div className="profile-pic">
                         <img src={user?.photo || ErrorPhoto} title={user?.username  || "none" }/>
-                        <input type="file" accept="image/*" onChange={(e)=>setimg(e.target.files[0])} />
+                        <input  name="img" type="file" accept="image/*" onChange={(e:any)=>setimg(e.target.files[0])} />
                         <button onClick={()=>UploadProfile()}>Upload Profile</button>
                     </div>
                     
@@ -159,7 +159,7 @@ const AccountPre=()=>{
                                 <select   {...register("countryCode")} disabled={isDisable}>
                                     {
                                         Object.keys(CountryCode).map((ele,index)=>(
-                                            <option value={CountryCode[ele]} key={index}>{ele}</option>
+                                            <option value={Object.keys(CountryCode).includes(ele) ? `${CountryCode[ele]}` : undefined} key={index}>{ele}</option>
                                         ))
                                     }
                                 </select>
@@ -202,8 +202,8 @@ const AccountPre=()=>{
                                 </select>
                             </div>
                             <div>
-                                {isAdisable? (<button className="bg-blue-500" onClick={(e)=>{setisAdisable(false)}}>Edit</button>):(<button className="bg-blue-400">Save</button>)}
-                                <button className="bg-red-500" onClick={(e)=>{setisAdisable(true)}}>Cancel</button>
+                                {isAdisable? (<button className="bg-blue-500" onClick={()=>{setisAdisable(false)}}>Edit</button>):(<button className="bg-blue-400">Save</button>)}
+                                <button className="bg-red-500" onClick={()=>{setisAdisable(true)}}>Cancel</button>
                             </div>
                            
                         </form>

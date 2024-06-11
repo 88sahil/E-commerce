@@ -1,6 +1,6 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { set, useForm } from 'react-hook-form'
+import React, { ChangeEvent, useEffect, useState } from 'react'
+import { FieldValues, set, useForm } from 'react-hook-form'
 import './Admin.scss'
 import { useSelector } from 'react-redux'
 import noimg from '../../assets/image/image.png'
@@ -55,14 +55,14 @@ type review ={
     }
 }
 const EditItem = () => {
-    const defaultimg = useSelector(state=>state.auth.defaultImage)
+    const defaultimg = useSelector((state:any)=>state.auth.defaultImage)
     const {id} = useParams()
     const [render,setrender] = useState(1)
     const [category,setcategory] = useState<any[]>([])
-    const [photos,setphotos] = useState([])
+    const [photos,setphotos] = useState<any[] | null | undefined>([])
     const [brands,setbrands] = useState<any[]>([])
-  const [item,setitem] = useState<item>({})
-  const [photo,setphoto] = useState()
+  const [item,setitem] = useState<item>()
+  const [photo,setphoto] = useState<any | null | undefined>()
   const {reset,handleSubmit,register} = useForm({
     defaultValues:{
         title:item?.title || "",
@@ -89,10 +89,10 @@ const EditItem = () => {
         console.log(err)
     }
 }
-const updateData =async(data:FormData):Promise<void>=>{
+const updateData =async(data:FieldValues):Promise<void>=>{
     try{
         setloader(true)
-        let resposne = await axios.patch(`/api/v1/item/update/${item._id}`,data,{withCredentials:true});
+        let resposne = await axios.patch(`/api/v1/item/update/${item?._id}`,data,{withCredentials:true});
         if(resposne.data){
             setitem(resposne.data.item)
             setloader(false)
@@ -105,7 +105,7 @@ const updateData =async(data:FormData):Promise<void>=>{
 const deletephoto =async(id:string):Promise<void>=>{
     try{
         setloader(true)
-        let response = await axios.get(`/api/v1/item/removephoto/${item._id}?photoid=${id}`,{withCredentials:true})
+        let response = await axios.get(`/api/v1/item/removephoto/${item?._id}?photoid=${id}`,{withCredentials:true})
         if(response.data){
             setloader(false)
             setitem(response.data.item)
@@ -120,7 +120,7 @@ const updateCoverphoto =async():Promise<void>=>{
     if(photo){
         try{
             setloader(true)
-            let response = await axios.patch(`/api/v1/item/updateCoverphoto/${item._id}`,{profile:photo},{withCredentials:true,headers:{'Content-Type':'multipart/form-data'}})
+            let response = await axios.patch(`/api/v1/item/updateCoverphoto/${item?._id}`,{profile:photo},{withCredentials:true,headers:{'Content-Type':'multipart/form-data'}})
             if(response.data){
                 setitem(response.data.item)
                 setphoto(null);
@@ -135,15 +135,22 @@ const updateCoverphoto =async():Promise<void>=>{
     }
 }
 const updatephotos =async():Promise<void>=>{
-    if(photos.length>0){
+    if((photos? photos.length:0)>0){
         const formData = new FormData()
-        for(let ele of photos){
-              formData.append('photos',ele)
+        if(photos){
+            console.log(photos)
+            for(let ele of photos){
+                console.log(ele)
+                formData.append('photos',ele)
+            }
         }
         try{
             setloader(true)
-            let response = await axios.patch(`/api/v1/item/uploadphoto/${item._id}`,formData,{withCredentials:true,headers:{'Content-Type':'multipart/form-data'}})
+            let response = await axios.patch(`/api/v1/item/uploadphoto/${item?._id}`,formData,{withCredentials:true,headers:{
+                 'Content-Type': 'multipart/form-data',
+            }})
             if(response.data){
+                console.log(response.data)
                 setitem(response.data.item)
                 setphotos(null);
                 setloader(false)
@@ -169,6 +176,12 @@ const updatephotos =async():Promise<void>=>{
         alert("error")
         const navigate = useNavigate()
         navigate('/');
+    }
+}
+const uploadImage=(e:React.ChangeEvent<HTMLInputElement>)=>{
+    if((e.target?.files? e.target.files.length:0)>0){
+        let arr:any = (e.target?.files? (e.target.files):[])
+        setphotos(arr)
     }
 }
 
@@ -218,8 +231,8 @@ useEffect(()=>{
                     isAvailable
                 </label>
                 <select  {...register("isAvailable",{required:true})}>
-                    <option value={true}>True</option>
-                    <option value={false}>False</option>
+                    <option value={"true"}>True</option>
+                    <option value={"false"}>False</option>
                 </select>
             </span>
             <span>
@@ -251,8 +264,8 @@ useEffect(()=>{
         <div>
             <h1 className='text-gray-500 text-xl font-bolder'>ChangeCoverphoto</h1>
             <div className='w-[500px]  h-[400px] rounded-md max-md:w-[400px]'>
-                    <img className="w-[400px] rounded-md h-[350px] object-contain max-md:w-[400px]" src={photo?  (URL.createObjectURL(photo)):(item.coverphoto? (item.coverphoto):(defaultimg))}/>
-                    <input type="file" accept='image/*' onChange={(e)=>setphoto(e.target.files[0])} required/>
+                    <img className="w-[400px] rounded-md h-[350px] object-contain max-md:w-[400px]" src={photo?  (URL.createObjectURL(photo)):(item?.coverphoto? (item.coverphoto):(defaultimg))}/>
+                    <input type="file" accept='image/*' onChange={(e)=>setphoto(e.target.files? e.target.files[0]:null)} required/>
                     <button className='btn' onClick={()=>updateCoverphoto()}>changephoto</button>
             </div>
         </div>
@@ -261,7 +274,7 @@ useEffect(()=>{
         <div className=' w-full  gap-2 mt-15'>
             <div className='flex flex-wrap gap-5'>
             {
-                    item?.photos?.length>0? (
+                    (item?.photos ? item?.photos.length:0)>0? (
                         item?.photos.map((ele)=>(
                             <div className='photos border border-black p-1'>
                                 <img className='w-[250px] object-contain h-[200px]' src={ele.photo}></img>
@@ -274,7 +287,7 @@ useEffect(()=>{
                 }
             </div>
                <div className=' p-2'>
-               <input type="file" onChange={(e)=>setphotos(e.target.files)} accept='image/*' multiple/>
+               <input type="file" onChange={(e)=>uploadImage(e)} accept='image/*' multiple/>
                 <button className='btn' onClick={()=>updatephotos()}>save</button>
                </div>
               

@@ -1,4 +1,4 @@
-let CountryCode ={
+let CountryCode:any ={
     "Afghanistan": "+93",
     "Albania": "+355",
     "Algeria": "+213",
@@ -195,5 +195,4 @@ let CountryCode ={
     "Slovakia": "+421",
     "Slovenia": "+386"
 }
-
 export default CountryCode

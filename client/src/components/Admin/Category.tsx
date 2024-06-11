@@ -1,10 +1,9 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import './Admin.scss'
-import { useForm } from 'react-hook-form'
+import { FieldValues, useForm } from 'react-hook-form'
 const Category = () => {
     const [category,setcategory]=useState<{value:string,id:string}[]>([])
-    const [name,setname] = useState<string>("")
     const [loader,setloader]= useState<boolean>(false)
     const {register,handleSubmit} = useForm()
     const getCategory =async():Promise<void>=>{
@@ -20,7 +19,7 @@ const Category = () => {
             console.log(err)
         }
     }
-    const addCategory =async(data:{value:string}):Promise<void>=>{
+    const addCategory =async(data:FieldValues):Promise<void>=>{
         try{
             setloader(true)
             let response = await axios.post(`/api/v1/category`,data,{withCredentials:true})

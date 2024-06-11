@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import SectionLabel from "../SectionLabel";
-import { useForm } from "react-hook-form";
+import { FieldValues, useForm } from "react-hook-form";
 import './Setting.scss'
 import axios from "axios";
 import { useDispatch } from "react-redux";
@@ -11,12 +11,7 @@ const Privacy=()=>{
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const {register,handleSubmit} = useForm()
-    type Tpass = {
-        oldpassword:string,
-        newpassword:string,
-        newconformpassword:string
-    }
-    const changepassword =async(data:Tpass):Promise<void>=>{
+    const changepassword =async(data:FieldValues):Promise<void>=>{
         try{
             setloader(true);
             let response = await axios.patch("/api/v1/user/changepassword",data,{withCredentials:true})
@@ -24,7 +19,7 @@ const Privacy=()=>{
                 setloader(false)
                 alert("password changed successfully")
             }
-        }catch(err){
+        }catch(err:any){
             setloader(false)
             alert(err.response.data.err)
         }
@@ -38,7 +33,7 @@ const Privacy=()=>{
                 dispatch(logout())
                 navigate('/')
             }
-        }catch(err){
+        }catch(err:any){
             setloader(false)
             console.log(err)
             alert(err.repsonse.data.err)

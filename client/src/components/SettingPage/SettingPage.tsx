@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import './Setting.scss'
 import { MdOutlineCancel } from "react-icons/md";
 import { CiMenuFries } from "react-icons/ci";
 const SettingPage=()=>{
     const [toggle,settoggle] = useState<Boolean>(true);
-    let divs:HTMLBodyElement;
+    let divs:any | null;
     const handleNav=()=>{
         divs= document.getElementById("Setting_nav")
-        let btn:HTMLBodyElement = document.getElementById("Menu")
+        let btn:any | null = document.getElementById("Menu")
         btn.classList.toggle("menu-active")
         divs.classList.toggle("Setting-res")
         settoggle(prev=>!prev)

@@ -1,12 +1,10 @@
 import axios from 'axios'
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { NavLink } from 'react-router-dom'
-
+import { useState } from 'react'
+import { FieldValues, useForm } from 'react-hook-form'
 const ForgotPassword = () => {
 const {handleSubmit,register} = useForm()
 const [loader,setloader] = useState<boolean>(false)
-const forgotpassword=async(data)=>{
+const forgotpassword=async(data:FieldValues)=>{
     try{
         setloader(true)
         let response = await axios.get(`/api/v1/user/forgotpassword?email=${data.email}`,{withCredentials:true})
@@ -14,7 +12,7 @@ const forgotpassword=async(data)=>{
             setloader(false)
             alert("password reset Link successfully sent")
         }
-    }catch(err){
+    }catch(err:any){
         setloader(false)
         alert(err.response.data.err)
         console.log(err)

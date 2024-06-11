@@ -17,8 +17,9 @@ type Address = {
     type:String
 }
 type inits = {
-    user:user,
-    Active:boolean
+    user:user | null,
+    Active:boolean,
+    defaultImage:string
 }
 const initialState:inits = {
     user:null,
@@ -34,7 +35,7 @@ const AuthSlice = createSlice({
             state.user = action.payload,
             state.Active = true
         },
-        logout:(state,action)=>{
+        logout:(state)=>{
             state.user = null,
             state.Active = false
         }

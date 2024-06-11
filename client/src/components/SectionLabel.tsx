@@ -1,4 +1,3 @@
-import React from "react";
 const SectionLabel =(props:{label:string})=>{
     return(
         <div className="py-5 flex w-full items-center">

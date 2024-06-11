@@ -1,4 +1,3 @@
-import React from "react";
 import { CardPages } from "../components";
 const LikePage =()=>{
     return(

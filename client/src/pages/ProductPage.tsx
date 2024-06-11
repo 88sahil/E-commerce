@@ -1,4 +1,3 @@
-import React from "react";
 import { Product } from "../components";
 import { useParams } from "react-router-dom";
 const ProductPage =()=>{

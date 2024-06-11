@@ -1,4 +1,3 @@
-import React from "react";
 import { SettingPage } from "../components";
 const Setting=()=>{
     return(

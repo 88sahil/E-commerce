@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import './Cart.scss'
 const Cart =()=>{
@@ -35,7 +35,7 @@ const Cart =()=>{
     }
     const navigate = useNavigate();
     const [loader,setloader] = useState<boolean>(false)
-    const [cart,setCart] = useState<cart>({});
+    const [cart,setCart] = useState<cart | null | undefined>();
     const getcart = async():Promise<void>=>{
         try{
             let response = await axios.get(`api/v1/cart/getCart`,{withCredentials:true})
@@ -49,7 +49,7 @@ const Cart =()=>{
     const removeItem = async(id:string):Promise<void>=>{
         try{
             setloader(true)
-            let response = await axios.post(`/api/v1/cart/removeItem`,{itemId:id,cartId:cart._id})
+            let response = await axios.post(`/api/v1/cart/removeItem`,{itemId:id,cartId:cart?.id},{withCredentials:true})
             if(response.data){
                 setloader(false)
                 setCart(response.data.cart)
@@ -93,7 +93,7 @@ const Cart =()=>{
         <div className="p-4 max-md:px-0 max-md:p-0 max-md:mt-10 min-h-screen w-full flex  justify-center  py-5">
             
             {
-                cart?.products?.length>0? (
+                (cart?.products? (cart.products.length):(0))>0? (
                     <div className={`p-3 min-h-screen shadow-md ${loader? "opacity-60":""}`}>
                         <h1 className="text-xl font-extrabold text-start w-full">Cart</h1>
                         {

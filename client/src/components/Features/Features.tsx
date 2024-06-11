@@ -1,4 +1,3 @@
-import React from "react";
 import { FaTruck } from "react-icons/fa";
 import { RiCustomerService2Line } from "react-icons/ri";
 import { MdSecurityUpdateGood } from "react-icons/md";

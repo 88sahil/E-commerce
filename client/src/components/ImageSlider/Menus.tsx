@@ -1,10 +1,8 @@
-import React from "react";
 import './ImageSlider.scss'
 import furniture from '../../assets/image/furniture.jpg'
 import electronics from '../../assets/image/electronics.jpg'
 import fashion from '../../assets/image/fa.jpg'
 import grocery from '../../assets/image/grocery.jpg'
-import { NavLink } from "react-router-dom";
 const Menus =()=>{
     return(
         <div className="main-grid pb-10">

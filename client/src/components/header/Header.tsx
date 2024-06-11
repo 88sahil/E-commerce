@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import './Header.scss'
 import {NavLink, useNavigate} from 'react-router-dom'
-import { IoSearchSharp } from "react-icons/io5";
 import { FaUserAlt } from "react-icons/fa";
 import { CiHeart } from "react-icons/ci";
 import { FaBagShopping } from "react-icons/fa6";
@@ -12,18 +11,18 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import {logout} from '../../store/AuthSlice'
 const Header=()=>{
-    let erro_image = useSelector(state=>state.auth.defaultImage)
-    let user = useSelector((state)=>state.auth.user);
-    let isActive = useSelector(state=>state.auth.Active);
+    let erro_image = useSelector((state:any)=>state.auth.defaultImage)
+    let user = useSelector((state:any)=>state.auth.user);
+    let isActive = useSelector((state:any)=>state.auth.Active);
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const [isMenuShow,setisMenuShow] = useState(false);
     const [isUserShow,setisUserShow] = useState(false);
-    const [searchItem,setsearchItem] = useState([])
+    const [searchItem,setsearchItem] = useState<any[]>([])
     const [showsblock,setshowsblock] = useState<boolean>(false)
-    const iphandlesearch =(Event:React.ChangeEvent)=>{
+    const iphandlesearch =(Event:React.ChangeEvent<HTMLInputElement>)=>{
             Event.preventDefault()
-            if(Event.target.value.length>0){
+            if(Event.target?.value.length>0){
                 setshowsblock(true)
             }else{
                 setshowsblock(false)
@@ -41,7 +40,7 @@ const Header=()=>{
     }
     const handleLogout =async()=>{
             try{
-                let res =await axios.get("http://localhost:8000/logout",{withCredentials:true})
+                let res =await axios.get("http://13.211.135.249:8000/logout",{withCredentials:true})
                 console.log(res)
                 if(res.data){
                     dispatch(logout())
@@ -70,7 +69,7 @@ const Header=()=>{
                                  {
                                 searchItem.map((ele,index)=>
                                         <NavLink to={`/product/${ele._id}`} key={index} className="flex items-center justify-between mt-4 border-b p-2 border-black">
-                                            <img src={ele.coverphoto} className=" object-contain w-[100px] h-[100px]"></img>
+                                            <img src={ele?.coverphoto} className=" object-contain w-[100px] h-[100px]"></img>
                                             <a>{ele.title}</a>
                                             <a>&#x20b9;{ele.price-ele.discount}</a>
                                         </NavLink>
@@ -81,13 +80,13 @@ const Header=()=>{
                     }
                     <button onClick={()=>setshowsblock(false)}>close</button>
                 </div>}
-                <form onSubmit={iphandlesearch}>  
+                <form>  
                         <input className="ip" placeholder="Search Items🔍" type="text" onChange={iphandlesearch}></input>
                 </form>
                <NavLink to={"/likes"}><CiHeart/></NavLink>
                <NavLink to={"/cart"}><FaBagShopping/></NavLink>
-               <button onClick={(e)=>{setisUserShow((prev)=>!prev);setisMenuShow(false)}}>{user?  (<img src={user?.photo || erro_image} className="w-[30px] h-[30px] rounded-full object-center" alt="user" title={user.username}/>):(<FaUserAlt/>)}</button>
-               <button id="MenuShow" onClick={(e)=>{setisMenuShow((prev)=>!prev);setisUserShow(false)}}><RiBarChartHorizontalLine/></button>
+               <button onClick={()=>{setisUserShow((prev)=>!prev);setisMenuShow(false)}}>{user?  (<img src={user?.photo || erro_image} className="w-[30px] h-[30px] rounded-full object-center" alt="user" title={user?.username}/>):(<FaUserAlt/>)}</button>
+               <button id="MenuShow" onClick={()=>{setisMenuShow((prev)=>!prev);setisUserShow(false)}}><RiBarChartHorizontalLine/></button>
                {isMenuShow &&<div className="menu">
                 <NavLink to={"/admin/static"} ><p className="w-full text-center">AdminPage</p></NavLink>
                 <NavLink to={"/AllProducts"}><p className="w-full text-center">Products</p></NavLink>

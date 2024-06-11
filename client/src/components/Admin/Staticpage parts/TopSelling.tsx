@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { RiAwardFill } from "react-icons/ri";
 import './style.scss'
 import axios from 'axios';
@@ -38,14 +38,14 @@ const TopSelling = () => {
         <div className='top-head w-[900px] max-md:w-full items-center flex justify-between'>
         <h1 className='text-start flex items-center text-xl'><RiAwardFill size={25}/>Top selling Products</h1>
         <div>
-        <select value={year} onChange={(e)=>setyear(e.target.value)}>
+        <select value={year} onChange={(e)=>setyear(Number.parseInt(e.target.value))}>
             {
                 years.map((ele)=>(
                     <option value={ele}>{ele}</option>
                 ))
             }
         </select>
-        <select value={limit} onChange={(e)=>setlimit(e.target.value)}>
+        <select value={limit} onChange={(e)=>setlimit(Number.parseInt(e.target.value))}>
             <option value={10}>Top 10</option>
             <option value={20}>Top 20</option>
             <option value={50}>Top 50</option>

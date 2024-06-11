@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { Header ,Footer} from './components'
 import './App.css'
 import {login} from './store/AuthSlice'
-import { UseDispatch, useDispatch } from 'react-redux'
+import {useDispatch } from 'react-redux'
 import { Outlet, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 function App() {

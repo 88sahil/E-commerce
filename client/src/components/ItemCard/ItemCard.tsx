@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import  { useState } from "react";
 import { BiLike } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
@@ -11,10 +11,9 @@ type Item={
     discount:number
 }
 const ItemCard = (props:{item:Item,key:number})=>{
-    const userLikes = useSelector(state=>state.auth.user)
-    let isLiked = userLikes?.likes.find((ele)=>ele===props.item._id) || false;
+    const userLikes = useSelector((state:any)=>state.auth.user)
+    let isLiked = userLikes?.likes.find((ele:string)=>ele===props.item._id) || false;
     const [liked,setliked] = useState(isLiked? true:false);
-   
     const LikeItem =async(id:string)=>{
         try{
             let response = await axios.get(`/api/v1/user/LikeItem?Itemid=${id}`,{withCredentials:true})

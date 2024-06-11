@@ -16,7 +16,13 @@ type Torder={
     rejectdata:Date,
     status:string,
     totalbill:number,
-    user:string
+    user:Tuser
+}
+type Tuser={
+    email:string
+    id:string
+    photo: string
+    username:string
 }
 type OrderItems={
     id:string,

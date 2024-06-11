@@ -1,12 +1,12 @@
+import React, { MouseEventHandler, useEffect, useState } from "react";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import './ProductPage.scss'
 import noimg from '../../assets/image/image.png'
 import cart from '../../assets/image/add-to-cart.png'
 import Rating from '@mui/material/Rating';
 import { FaPencilAlt } from "react-icons/fa";
-import {useForm,Controller} from 'react-hook-form'
+import {useForm,Controller, FieldValues} from 'react-hook-form'
 import { FaStar } from "react-icons/fa6";
 import { useSelector } from "react-redux";
 import { MdDelete } from "react-icons/md";
@@ -15,8 +15,8 @@ type item={
     _id:string,
     title:string,
     publishedAt:Date,
-    price:number,
-    discount:number,
+    price:number | undefined | null,
+    discount:number | undefined | null,
     coverphoto:string,
     coverphotoId:string,
     isAvailable:boolean,
@@ -57,15 +57,15 @@ type review ={
         username:string
     }
 }
-const Product =(props:{id:string})=>{
-    let user = useSelector(state=>state.auth.user)
+const Product =()=>{
+    let user = useSelector((state:any)=>state.auth.user)
     const {handleSubmit,register,control} = useForm()
     const [writereview,setwritereview] = useState<boolean>(false);
-    const [item,setitem] = useState<item>({})
+    const [item,setitem] = useState<item | null | undefined>();
     const [loader,setloader]=useState<boolean>(false)
     const [currImg,setCurrimg] = useState<string>()
     const {id} = useParams()
-    let deimag = useSelector(state=>state.auth.defaultImage)
+    let deimag = useSelector((state:any)=>state.auth.defaultImage)
     const getItem =async():Promise<void>=>{
         try{
             setloader(true);
@@ -81,8 +81,8 @@ const Product =(props:{id:string})=>{
         }
     }
     const filerReview = (id:number):Number=>{
-        if(item?.staticOfReview?.length>0){
-                let review:staticsOfreview = item.staticOfReview.find((ele)=>ele.Rate === id)
+        if(item?.staticOfReview? item.staticOfReview.length>0:0){
+                let review:staticsOfreview | null | undefined = item?.staticOfReview.find((ele)=>ele.Rate === id)
                 if(review){
                     return review.numberofRates
                 }else{
@@ -91,7 +91,7 @@ const Product =(props:{id:string})=>{
         }
         return 0;
     }
-    let data=[
+    let data:any=[
         { id: 0, value:filerReview(0),label:"0"},
         { id: 1, value: filerReview(1),label:"1" },
         { id: 2, value: filerReview(2),label:"2" },
@@ -114,7 +114,7 @@ const Product =(props:{id:string})=>{
     const addtocart = async()=>{
         try{
             setloader(true)
-            let response = await axios.post("/api/v1/cart/addItem",{item:item._id,pricetopay:item.price-item.discount},{withCredentials:true})
+            let response = await axios.post("/api/v1/cart/addItem",{item:item?._id,pricetopay:item?.price? item.price:0-item!.discount},{withCredentials:true})
             if(response.data){
                 setloader(false)
             }
@@ -123,20 +123,13 @@ const Product =(props:{id:string})=>{
             setloader(false)
         }
     }
-    const ChangeImageOnHover = (e:React.MouseEvent<HTMLImageElement>):void=>{
-            setCurrimg(e.target.currentSrc);
+    const ChangeImageOnClick:MouseEventHandler<HTMLImageElement>  = (e):void=>{
+        setCurrimg((e.target as HTMLImageElement).src);
     }
-    const ChangeImageOnClick = (e:React.FocusEvent<HTMLImageElement>):void=>{
-        setCurrimg(e.target.currentSrc)
-    }
-    type TRdata={
-        rating:number,
-        message:string
-    }
-    const postrating =async(data:TRdata):Promise<void>=>{
+    const postrating =async(data:FieldValues):Promise<void>=>{
         try{
             setloader(true)
-            let response = await axios.post(`/api/v1/review/postreview/${item._id}`,data,{withCredentials:true})
+            let response = await axios.post(`/api/v1/review/postreview/${item?._id}`,data,{withCredentials:true})
             if(response.data){
               
                 alert("review added")
@@ -176,7 +169,7 @@ const Product =(props:{id:string})=>{
                 <section className={`Product-left flex ${writereview ? "opacity-70":""}`}>
                     <div className="left1 flex flex-col h-[500px] overflow-scroll gap-1">
                         {
-                            item?.photos?.length>0? (
+                            (item?.photos? (item?.photos.length):(0))>0? (
                                     item?.photos.map((ele)=>(
                                         <button className="bg-white w-[70px] h-[70px] p-2 rounded-md">
                                             <img className="small-images object-contain w-[70px] h-[50px]" onClick={ChangeImageOnClick} src={ele.photo} alt="item photo"/>
@@ -193,22 +186,22 @@ const Product =(props:{id:string})=>{
                         }
                     </div>
                     <div className="left2">
-                        <img src={currImg || item.coverphoto || noimg} className="object-contain" alt="" />
+                        <img src={currImg || item?.coverphoto || noimg} className="object-contain" alt="" />
                     </div>
                     <button id="Cartbtn" className=" gap-1 flex items-center" onClick={addtocart}><img className="w-[20px] h-[20px]" src={cart} alt="cart"></img>Add to cart</button>
 
                 </section>
                 {/* right */}
                 <section className="Product-right p-4">
-                        <h1 className="text-2xl font-extrabold">{item.title || ""}</h1>
-                        <h1 className="text-xl mt-4 font-bold">{item.price-item.discount}&#x20B9;<span className="text-gray-200 italic line-through">{item.price}&#x20B9;</span></h1>
+                        <h1 className="text-2xl font-extrabold">{item?.title || ""}</h1>
+                        <h1 className="text-xl mt-4 font-bold">{item?.price? item.price : 0 - (item?.discount ? item.discount : 0)}&#x20B9;<span className="text-gray-200 italic line-through">{item?.price || 0}&#x20B9;</span></h1>
                         <div className="flex items- mt-4">
-                            <Rating name="read-only" value={item.AverageRating || 0} readOnly/>
-                            <a>{item.AverageRating || 0}{`(${item.NoofRating ||0})`}</a>
+                            <Rating name="read-only" value={item?.AverageRating || 0} readOnly/>
+                            <a>{item?.AverageRating || 0}{`(${item?.NoofRating ||0})`}</a>
                         </div>
                         <div className="py-4">
                             <p className="italic  font-extrabold text-xl">About Product</p>
-                            <p className="text-justify text-black-500">{item.description || " "}</p>
+                            <p className="text-justify text-black-500">{item?.description || " "}</p>
                         </div>
                         <div className="py-4">
                             <p className="italic  font-extrabold text-xl">Manufacturour</p>
@@ -232,10 +225,10 @@ const Product =(props:{id:string})=>{
                              />
                            
                             {
-                                item?.reviews?.length>0? (
+                                (item?.reviews ? (item.reviews.length):(0))>0? (
                                     <div className="w-full">
                                         {
-                                            item.reviews.map((ele)=>{
+                                            item?.reviews.map((ele)=>{
                                                 return(
                                                     <div className="review-card">
                                                         <div className="review-card-1">

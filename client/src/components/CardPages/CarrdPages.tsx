@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ItemCard from "../ItemCard/ItemCard";
 import './CardPages.scss'
 const CardPages =(props:{query:string})=>{
@@ -24,7 +24,7 @@ const CardPages =(props:{query:string})=>{
                 Item?.length>0?(
                     Item.map((ele,index)=><ItemCard key={index} item={ele}  />)
                 ):(
-                    skel.map(ele=><div className="skeleton"></div>)
+                    skel.map(ele=><div className="skeleton" key={ele}></div>)
                 )
                 
             }

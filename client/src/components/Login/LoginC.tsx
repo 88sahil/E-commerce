@@ -1,11 +1,10 @@
-import React, { useState } from "react";
-import {useForm} from 'react-hook-form'
+import  { useState } from "react";
+import {FieldValues, useForm} from 'react-hook-form'
 import './Login.scss'
 import '../header/Header.scss'
 import CountryCode from "../CountryCode";
-import {login,logout} from '../../store/AuthSlice'
+import {login} from '../../store/AuthSlice'
 import {useDispatch} from 'react-redux'
-import bg  from '../../assets/image/login-bg.jpg'
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import axios from "axios";
 const SignUp = ()=>{
@@ -13,15 +12,7 @@ const SignUp = ()=>{
     const navigate = useNavigate()
     const [loader,setloader] = useState(false);
     let {register,handleSubmit} = useForm()
-    type inpdata ={
-        username:string,
-        email:string,
-        countrycode:string,
-        number:Number,
-        password:string,
-        conformpassword:string
-    }
-    const HandleSignUp =async(data:inpdata)=>{
+    const HandleSignUp =async(data:FieldValues)=>{
         try{
             setloader(true);
             let response = await axios.post("/api/v1/user",data,{withCredentials:true});
@@ -97,7 +88,7 @@ export const Login = ()=>{
     const googleHandle =()=>{
         window.open("http://localhost:8000/auth/google/callback","_parent");
     }
-    const handleLogin=async(data:{email:string,password:string})=>{
+    const handleLogin=async(data:FieldValues):Promise<void>=>{
         try{
             setloader(true)
             let response = await axios.post('/api/v1/user/login',data,{withCredentials:true})
@@ -106,7 +97,7 @@ export const Login = ()=>{
                 setloader(false)
                 navigate('/');
             }
-        }catch(err){
+        }catch(err:any){
             setloader(false)
             alert(err.response.data.err)
         }

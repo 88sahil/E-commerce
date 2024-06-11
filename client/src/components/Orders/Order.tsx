@@ -1,18 +1,21 @@
-import React, { useEffect, useState } from "react";
+import  { useEffect, useState } from "react";
 import {Torder} from './TypeOrder'
 import axios from "axios";
 import './Order.scss'
 import OrderCard from "./OrderCard";
 const Order =()=>{
     const [orders,setOrders] = useState<Torder[]>([])
-    const [loader,setloader]=useState<false>(false)
+    const [loader,setloader]=useState<boolean>(false)
     const getOrder =async(status:string):Promise<void>=>{
         try{
+            setloader(true)
             let response = await axios.get(`api/v1/Orders/myOrders?status=${status}`,{withCredentials:true})
             if(response.data){
                 setOrders(response.data.orders)
+                setloader(false)
             }
         }catch(err){
+            setloader(false)
             console.log(err)
         }
     }

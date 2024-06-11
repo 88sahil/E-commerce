@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import './Staticpage parts/style.scss'
 import { NavLink } from 'react-router-dom'
 import noimg from '../../assets/image/7309681.jpg'

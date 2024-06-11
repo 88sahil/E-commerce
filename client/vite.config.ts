@@ -7,11 +7,7 @@ export default defineConfig({
    server: {
     proxy: {
       '/api': {
-<<<<<<< HEAD
-        target: 'https://e-commerce-production-47b8.up.railway.app',
-=======
-        target: 'https://e-commerce-1-e86e.onrender.com',
->>>>>>> b2d04bcbeabf4e45f47ac42ea9e226227a97e4b7
+        target:"http://13.211.135.249:8000",
         changeOrigin: true,
       },
     },

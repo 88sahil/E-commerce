@@ -1,4 +1,3 @@
-import React from 'react'
 import ScatterData from './Staticpage parts/ScatterData'
 import PieData from './Staticpage parts/PieData'
 import TopSelling from './Staticpage parts/TopSelling'

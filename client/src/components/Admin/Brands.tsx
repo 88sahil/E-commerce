@@ -1,6 +1,6 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import  { useEffect, useState } from 'react'
+import { FieldValues, useForm } from 'react-hook-form'
 import { MdDeleteForever } from "react-icons/md";
 const Brands = () => {
     type Brands={
@@ -14,8 +14,8 @@ const Brands = () => {
     const [loader,setloader] = useState<boolean>(false)
     const {register,handleSubmit} = useForm()
     const [brands,setbrands] = useState<Brands[]>([])
-    const [photo,setphoto] = useState();
-    const UploadLogo =async():Promise<{url:string,id:string}>=>{
+    const [photo,setphoto] = useState<any | null | undefined>();
+    const UploadLogo =async():Promise<{url:string,id:string} | null | undefined>=>{
         if(photo){
             try{
                 let response = await axios.post(`/api/v1/brands/uploadphoto`,{profile:photo},{withCredentials:true,headers:{
@@ -60,12 +60,12 @@ const Brands = () => {
             console.log(err)
         }
     }
-    const AddBrand =async(data:FormData):Promise<void>=>{
+    const AddBrand =async(data:FieldValues):Promise<void>=>{
         if(photo){
             setloader(true)
-            let photo = await UploadLogo()
-            data.logo = photo.url
-            data.logoId = photo.id
+            let uphoto = await UploadLogo()
+            data.logo = uphoto?.url
+            data.logoId = uphoto?.id
             try{
                 let response = await axios.post(`/api/v1/brands/AddBrand`,data,{withCredentials:true})
                 if(response.data){
@@ -115,7 +115,7 @@ const Brands = () => {
                 <label>
                     Logo
                 </label>
-                <input type="file" onChange={(e)=>setphoto(e.target.files[0])} accept='image/*'  />
+                <input type="file" onChange={(e)=>setphoto(e.target.files? e.target.files[0]:null)} accept='image/*'  />
             </span>
             <button>Add Brand</button>
         </form>

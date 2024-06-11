@@ -1,13 +1,13 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useEffect, useState } from 'react'
+import { FieldValues, useForm } from 'react-hook-form'
 import './Admin.scss'
 import { useNavigate } from 'react-router-dom'
 const AddItem = () => {
     const [category,setcategory] = useState<any[]>([])
     const [brands,setbrands] = useState<any[]>([])
     const {register,handleSubmit} = useForm()
-    const [photo,setphoto]= useState()
+    const [photo,setphoto]= useState<any | null | undefined>()
     const [loader,setloader] = useState(false)
     let findCategoryAndbrand =async():Promise<void>=>{
         try{
@@ -23,7 +23,7 @@ const AddItem = () => {
             console.log(err)
         }
     }
-    const uploadPhoto = async():Promise<{url:string,id:string}>=>{
+    const uploadPhoto = async():Promise<{url:string,id:string} | null | undefined>=>{
         if(photo){
             try{
                 let response = await axios.post('/api/v1/item/uploadCoverphoto',{profile:photo},{
@@ -44,7 +44,7 @@ const AddItem = () => {
         }
     }
     const navigate = useNavigate()
-    const addItem = async(data:FormData):Promise<void>=>{
+    const addItem = async(data:FieldValues):Promise<void>=>{
         console.log(data)
             setloader(true)
             let photodata = await uploadPhoto();
@@ -106,7 +106,7 @@ const AddItem = () => {
                 <label htmlFor='photo'>
                     coverphoto
                 </label>
-                <input type="file" onChange={(e)=>setphoto(e.target.files[0])} name='photo' accept='image/*'  required/>
+                <input type="file" onChange={(e)=>setphoto(e.target.files? (e.target.files[0]):null)} name='photo' accept='image/*'  required/>
             </span>
             <span>
                 <label htmlFor='category'>

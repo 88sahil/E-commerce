@@ -1,4 +1,3 @@
-import React from "react";
 import { AccountPre } from "../components";
 const AccountPrefference=()=>{
     return(
