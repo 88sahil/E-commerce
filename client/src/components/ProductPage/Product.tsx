@@ -69,7 +69,7 @@ const Product =()=>{
     const getItem =async():Promise<void>=>{
         try{
             setloader(true);
-            let response = await axios.get(`/api/v1/item/getItem/${id}`,{withCredentials:true})
+            let response = await axios.get(`http://13.211.135.249:8000/api/v1/item/getItem/${id}`,{withCredentials:true})
             if(response.data.item){
                 setitem(response.data.item)
                 setloader(false)
@@ -114,7 +114,7 @@ const Product =()=>{
     const addtocart = async()=>{
         try{
             setloader(true)
-            let response = await axios.post("/api/v1/cart/addItem",{item:item?._id,pricetopay:item?.price? item.price:0-(item?.discount? item?.discount:0)},{withCredentials:true})
+            let response = await axios.post("http://13.211.135.249:8000/api/v1/cart/addItem",{item:item?._id,pricetopay:item?.price? item.price:0-(item?.discount? item?.discount:0)},{withCredentials:true})
             if(response.data){
                 setloader(false)
             }
@@ -129,7 +129,7 @@ const Product =()=>{
     const postrating =async(data:FieldValues):Promise<void>=>{
         try{
             setloader(true)
-            let response = await axios.post(`/api/v1/review/postreview/${item?._id}`,data,{withCredentials:true})
+            let response = await axios.post(`http://13.211.135.249:8000/api/v1/review/postreview/${item?._id}`,data,{withCredentials:true})
             if(response.data){
               
                 alert("review added")
@@ -148,7 +148,7 @@ const Product =()=>{
     const deleteReview = async(id:string):Promise<void> =>{
         try{
             setloader(true)
-            let response = await axios.get(`/api/v1/review/deleteReview/${id}`,{withCredentials:true})
+            let response = await axios.get(`http://13.211.135.249:8000/api/v1/review/deleteReview/${id}`,{withCredentials:true})
             if(response.data){
                 alert("review deleted successfully")
                 setloader(false)

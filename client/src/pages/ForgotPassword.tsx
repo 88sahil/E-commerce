@@ -7,7 +7,7 @@ const [loader,setloader] = useState<boolean>(false)
 const forgotpassword=async(data:FieldValues)=>{
     try{
         setloader(true)
-        let response = await axios.get(`/api/v1/user/forgotpassword?email=${data.email}`,{withCredentials:true})
+        let response = await axios.get(`http://13.211.135.249:8000/api/v1/user/forgotpassword?email=${data.email}`,{withCredentials:true})
         if(response.data){
             setloader(false)
             alert("password reset Link successfully sent")

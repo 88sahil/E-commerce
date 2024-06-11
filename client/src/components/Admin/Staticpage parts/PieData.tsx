@@ -38,7 +38,7 @@ const PieData = () => {
     }
     const getData = async():Promise<void>=>{
         try{
-            let response = await axios.get(`/api/v1/Orders/propstatics?bytype=${type}&year=${year}`,{withCredentials:true})
+            let response = await axios.get(`http://13.211.135.249:8000/api/v1/Orders/propstatics?bytype=${type}&year=${year}`,{withCredentials:true})
             if(response.data){
                 setResData(response.data.pie)
             }

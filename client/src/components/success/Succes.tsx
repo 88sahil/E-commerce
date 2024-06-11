@@ -20,7 +20,7 @@ const Success =()=>{
     
     const checkPayment = async():Promise<void>=>{
         try{
-            let response = await axios.get(`/api/v1/Orders/getOrder/${id}`,{withCredentials:true})
+            let response = await axios.get(`http://13.211.135.249:8000/api/v1/Orders/getOrder/${id}`,{withCredentials:true})
             if(response.data){
                 if(response.data.orders.paymentstatus==="success"){
                     setorderf(true)

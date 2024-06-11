@@ -63,7 +63,7 @@ const AllProduct =()=>{
     }
     
     const getProducts = async():Promise<void>=>{
-        let query:string = `/api/v1/item/getAllitems?page=${page}&limit=20&${converttoString(querybrands,"manufacturour")}&${converttoString(querycategories,"category")}&price[gte]=${lprice}&price[lte]=${gprice}&sort=${sort}&fields=_id,price,title,coverphoto,discount`
+        let query:string = `http://13.211.135.249:8000/api/v1/item/getAllitems?page=${page}&limit=20&${converttoString(querybrands,"manufacturour")}&${converttoString(querycategories,"category")}&price[gte]=${lprice}&price[lte]=${gprice}&sort=${sort}&fields=_id,price,title,coverphoto,discount`
         try{
             setloader(true)
             let response = await axios.get(query,{withCredentials:true})
@@ -89,11 +89,11 @@ const AllProduct =()=>{
     const getBrandAndCate =async():Promise<void>=>{
         try{
             setloader(true)
-            let brandsres = await axios.get('/api/v1/brands/getAllbrands',{withCredentials:true})
+            let brandsres = await axios.get('http://13.211.135.249:8000/api/v1/brands/getAllbrands',{withCredentials:true})
             if(brandsres.data){
                 setbrands(brandsres.data.brands);
             }
-            let categoryres = await axios.get('/api/v1/category',{withCredentials:true})
+            let categoryres = await axios.get('http://13.211.135.249:8000/api/v1/category',{withCredentials:true})
             if(categoryres.data){
                 setcategoris(categoryres.data.categories)
                 setloader(false)

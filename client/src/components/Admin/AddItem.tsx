@@ -11,11 +11,11 @@ const AddItem = () => {
     const [loader,setloader] = useState(false)
     let findCategoryAndbrand =async():Promise<void>=>{
         try{
-            let category = await axios.get(`/api/v1/category`)
+            let category = await axios.get(`http://13.211.135.249:8000/api/v1/category`)
             if(category.data){
                 setcategory(category.data.categories)
             }
-            let brands = await axios.get('/api/v1/brands/getAllbrands')
+            let brands = await axios.get('http://13.211.135.249:8000/api/v1/brands/getAllbrands')
             if(brands.data){
                 setbrands(brands.data.brands)
             }
@@ -26,7 +26,7 @@ const AddItem = () => {
     const uploadPhoto = async():Promise<{url:string,id:string} | null | undefined>=>{
         if(photo){
             try{
-                let response = await axios.post('/api/v1/item/uploadCoverphoto',{profile:photo},{
+                let response = await axios.post('http://13.211.135.249:8000/api/v1/item/uploadCoverphoto',{profile:photo},{
                     withCredentials:true,
                     headers:{
                         'Content-Type':'multipart/form-data'
@@ -53,7 +53,7 @@ const AddItem = () => {
                     data.coverphoto = photodata.url,
                     data.coverphotoId = photodata.id
                     try{
-                        let response = await axios.post(`/api/v1/item/`,data,{withCredentials:true})
+                        let response = await axios.post(`http://13.211.135.249:8000/api/v1/item/`,data,{withCredentials:true})
                         if(response.data){
                             setloader(false)
                             navigate(`/product/${response.data.item.id}`)

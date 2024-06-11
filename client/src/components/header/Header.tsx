@@ -29,7 +29,7 @@ const Header=()=>{
             }
         setTimeout(async()=>{
             try{
-                let searchitem = await axios.get(`/api/v1/item/getListing?title=${Event.target.value}`)
+                let searchitem = await axios.get(`http://13.211.135.249:8000/api/v1/item/getListing?title=${Event.target.value}`)
                 if(searchitem.data){
                     setsearchItem(searchitem.data.items);
                 }
