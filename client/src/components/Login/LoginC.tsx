@@ -86,7 +86,7 @@ export const Login = ()=>{
     const navigate = useNavigate();
     const {register,handleSubmit} = useForm()
     const googleHandle =()=>{
-        window.open("http://localhost:8000/auth/google/callback","_parent");
+        window.open("https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/auth/google/callback/auth/google/callback","_parent");
     }
     const handleLogin=async(data:FieldValues):Promise<void>=>{
         try{
