@@ -1,10 +1,9 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './index.css'
 import Store from './store/Store.ts'
 import {Provider}  from  'react-redux'
-import {createBrowserRouter,RouterProvider} from 'react-router-dom'
+import {createBrowserRouter,RouterProvider,Router} from 'react-router-dom'
 import {SignUpPage,AllProductpage,LoginPage,Home,LikePage,Setting, AccountPrefference, PrivacyPage, ProductPage, CartPage, MyOrderPage, AdminPage} from  './pages/index.ts'
 import Success from './components/success/Succes.tsx'
 import OrderPage from './components/Orders/OrderPage.tsx'
@@ -44,7 +43,7 @@ const router:any = createBrowserRouter([
           },{
             path:'/admin/EditItem/:id',
             element:<EditItem/>
-          },
+          }
           ,{
             path:'/admin/brands',
             element:<Brands/>

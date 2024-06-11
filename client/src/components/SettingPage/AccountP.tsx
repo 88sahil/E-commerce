@@ -80,12 +80,6 @@ const AccountPre=()=>{
             alert("error")
         }
     }
-    interface Tdata{
-        email:string,
-        username:string,
-        countrycode:string,
-        number:number
-    }
     const updateUserData=async(data:FieldValues):Promise<void>=>{
         console.log(data)
         try{
@@ -171,7 +165,7 @@ const AccountPre=()=>{
                         </div>
                         <div>
                         {isDisable? (<button className="bg-blue-500" onClick={(e)=>{e.preventDefault();setisDisable(false)}}>Edit</button>):(<button className="bg-blue-400">Save</button>)}
-                        <button className="bg-red-500" onClick={(e)=>{setisDisable(true)}}>Cancel</button>
+                        <button className="bg-red-500" onClick={()=>{setisDisable(true)}}>Cancel</button>
                         </div>
                        
                     </form>

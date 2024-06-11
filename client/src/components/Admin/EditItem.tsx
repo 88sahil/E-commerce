@@ -1,6 +1,6 @@
 import axios from 'axios'
-import React, { ChangeEvent, useEffect, useState } from 'react'
-import { FieldValues, set, useForm } from 'react-hook-form'
+import React, {  useEffect, useState } from 'react'
+import { FieldValues, useForm } from 'react-hook-form'
 import './Admin.scss'
 import { useSelector } from 'react-redux'
 import noimg from '../../assets/image/image.png'

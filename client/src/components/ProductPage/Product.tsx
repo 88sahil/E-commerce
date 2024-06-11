@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useEffect, useState } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import './ProductPage.scss'
@@ -114,7 +114,7 @@ const Product =()=>{
     const addtocart = async()=>{
         try{
             setloader(true)
-            let response = await axios.post("/api/v1/cart/addItem",{item:item?._id,pricetopay:item?.price? item.price:0-item!.discount},{withCredentials:true})
+            let response = await axios.post("/api/v1/cart/addItem",{item:item?._id,pricetopay:item?.price? item.price:0-(item?.discount? item?.discount:0)},{withCredentials:true})
             if(response.data){
                 setloader(false)
             }

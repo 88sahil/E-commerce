@@ -21,7 +21,7 @@ const ScatterData = () => {
     const [year,setyear] = useState<number>(currYear)
     const [lable,setlable] = useState<string>("amount")
     const [render,setrender] = useState(0);
-    const [totalshares,settotalshares] = useState<{totalSalesbyMoney:number,totalSalesbynumber:number}>({})
+    const [totalshares,settotalshares] = useState<{totalSalesbyMoney:number,totalSalesbynumber:number}>()
     const updateData = (type:string)=>{
         if(type=="Money"){
             setlable("amount");

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import  { useEffect, useState } from 'react'
 import { FaPen } from "react-icons/fa";
 import './Staticpage parts/style.scss'
 import { NavLink } from 'react-router-dom';
