@@ -22,7 +22,7 @@ const TopSelling = () => {
     const [limit,setlimit] = useState<number>(10)
     const getItems =async():Promise<void>=>{
         try{
-            let respone = await axios.get(`http://13.211.135.249:8000/api/v1/Orders/mostselling?year=${year}&limit=${limit}`)
+            let respone = await axios.get(`https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/api/v1/Orders/mostselling?year=${year}&limit=${limit}`)
             if(respone.data){
                 setproducts(respone.data.mostselling)
             }

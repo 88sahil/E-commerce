@@ -14,7 +14,7 @@ const Privacy=()=>{
     const changepassword =async(data:FieldValues):Promise<void>=>{
         try{
             setloader(true);
-            let response = await axios.patch("http://13.211.135.249:8000/api/v1/user/changepassword",data,{withCredentials:true})
+            let response = await axios.patch("https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/api/v1/user/changepassword",data,{withCredentials:true})
             if(response.data){
                 setloader(false)
                 alert("password changed successfully")
@@ -27,7 +27,7 @@ const Privacy=()=>{
     const deleteUser = async ():Promise<void>=>{
         setloader(true)
         try{
-            let response = await axios.patch('http://13.211.135.249:8000/api/v1/user/updateMe',{isactive:false},{withCredentials:true})
+            let response = await axios.patch('https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/api/v1/user/updateMe',{isactive:false},{withCredentials:true})
             if(response.data){
                 setloader(false)
                 dispatch(logout())

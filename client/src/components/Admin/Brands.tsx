@@ -18,7 +18,7 @@ const Brands = () => {
     const UploadLogo =async():Promise<{url:string,id:string} | null | undefined>=>{
         if(photo){
             try{
-                let response = await axios.post(`http://13.211.135.249:8000/api/v1/brands/uploadphoto`,{profile:photo},{withCredentials:true,headers:{
+                let response = await axios.post(`https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/api/v1/brands/uploadphoto`,{profile:photo},{withCredentials:true,headers:{
                     "Content-Type":'multipart/form-data'
                 }})
                 if(response.data){
@@ -35,7 +35,7 @@ const Brands = () => {
     const getBrands = async():Promise<void>=>{
                 setloader(true)
                 try{
-                let response = await axios.get(`http://13.211.135.249:8000/api/v1/brands/getAllbrands`,{withCredentials:true})
+                let response = await axios.get(`https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/api/v1/brands/getAllbrands`,{withCredentials:true})
             if(response.data){
                 setloader(false)
                 setbrands(response.data.brands)
@@ -49,7 +49,7 @@ const Brands = () => {
     const deleteBrand = async(id:string):Promise<void>=>{
         try{
             setloader(true)
-            let response = await axios.delete(`http://13.211.135.249:8000/api/v1/brands/deletebrand/${id}`,{withCredentials:true})
+            let response = await axios.delete(`https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/api/v1/brands/deletebrand/${id}`,{withCredentials:true})
             if(response.data){
                 setloader(false)
                 alert(response.data.message)
@@ -67,7 +67,7 @@ const Brands = () => {
             data.logo = uphoto?.url
             data.logoId = uphoto?.id
             try{
-                let response = await axios.post(`http://13.211.135.249:8000/api/v1/brands/AddBrand`,data,{withCredentials:true})
+                let response = await axios.post(`https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/api/v1/brands/AddBrand`,data,{withCredentials:true})
                 if(response.data){
                     setloader(false)
                     setbrands([response.data.brand,...brands])

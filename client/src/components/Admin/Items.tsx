@@ -26,7 +26,7 @@ const Items = () => {
     console.log(page)
     const [totalproducts,settotalproducts] = useState<number>(0)
     const getProducts = async():Promise<void>=>{
-        let query = `http://13.211.135.249:8000/api/v1/item/getAllitems?page=${page}&limit=10&sort="-publishedAt"&fields=_id,price,title,coverphoto,discount`
+        let query = `https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/api/v1/item/getAllitems?page=${page}&limit=10&sort="-publishedAt"&fields=_id,price,title,coverphoto,discount`
         try{
             setloader(true)
             let response = await axios.get(query,{withCredentials:true})

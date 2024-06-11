@@ -9,7 +9,7 @@ const Order =()=>{
     const getOrder =async(status:string):Promise<void>=>{
         try{
             setloader(true)
-            let response = await axios.get(`http://13.211.135.249:8000/api/v1/Orders/myOrders?status=${status}`,{withCredentials:true})
+            let response = await axios.get(`https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/api/v1/Orders/myOrders?status=${status}`,{withCredentials:true})
             if(response.data){
                 setOrders(response.data.orders)
                 setloader(false)

@@ -38,7 +38,7 @@ const Cart =()=>{
     const [cart,setCart] = useState<cart | null | undefined>();
     const getcart = async():Promise<void>=>{
         try{
-            let response = await axios.get(`http://13.211.135.249:8000/api/v1/cart/getCart`,{withCredentials:true})
+            let response = await axios.get(`https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/api/v1/cart/getCart`,{withCredentials:true})
             if(response.data){
                 setCart(response.data.cart);
             }
@@ -49,7 +49,7 @@ const Cart =()=>{
     const removeItem = async(id:string):Promise<void>=>{
         try{
             setloader(true)
-            let response = await axios.post(`http://13.211.135.249:8000/api/v1/cart/removeItem`,{itemId:id,cartId:cart?.id},{withCredentials:true})
+            let response = await axios.post(`https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/api/v1/cart/removeItem`,{itemId:id,cartId:cart?.id},{withCredentials:true})
             if(response.data){
                 setloader(false)
                 setCart(response.data.cart)
@@ -62,7 +62,7 @@ const Cart =()=>{
     const checkout = async():Promise<void>=>{
         try{
             setloader(true)
-            let response = await axios.post(`http://13.211.135.249:8000/api/v1/checkout`,{item:cart},{withCredentials:true})
+            let response = await axios.post(`https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/api/v1/checkout`,{item:cart},{withCredentials:true})
             console.log(response.data)
             if(response.data){
                 setloader(false)
@@ -77,7 +77,7 @@ const Cart =()=>{
     const addItem = async(id:string,price:number):Promise<void>=>{
         try{
             setloader(true)
-            let response = await axios.post(`http://13.211.135.249:8000/api/v1/cart/addItem`,{item:id,pricetopay:price},{withCredentials:true})
+            let response = await axios.post(`https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/api/v1/cart/addItem`,{item:id,pricetopay:price},{withCredentials:true})
             setCart(response.data.cart)
             setloader(false)
         }catch(err){

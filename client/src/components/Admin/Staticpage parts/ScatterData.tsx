@@ -52,7 +52,7 @@ const ScatterData = () => {
     }
     const getStates =async():Promise<void>=>{
         try{
-            let response = await axios.get(`http://13.211.135.249:8000/api/v1/Orders/statics?year=${year}`)
+            let response = await axios.get(`https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/api/v1/Orders/statics?year=${year}`)
             if(response.data){
                 settotalshares(response.data.totalShareofYear[0])
                 setrender(2)
