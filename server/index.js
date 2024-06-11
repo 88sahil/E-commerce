@@ -26,6 +26,10 @@ const {CartItem,Cart} = require('./models/Cart')
 const checkasync = require('./Controllers/CheckAync')
 const stripe = require('stripe')(process.env.Stripe_secret)
 //databse
+App.use(cors({
+  origin:["*"],
+  credentials:true,
+}))
 DB()
 App.use(helmet())
 //google auth
@@ -34,10 +38,7 @@ App.use(express.json())
 
 //cookie parsers
 App.use(cookieparser())
-App.use(cors({
-  origin:["https://mpfstore.vercel.app/"],
-  credentials:true
-}))
+
 App.use(ratelimit({
     window:60*1000*60,
     limit:100
