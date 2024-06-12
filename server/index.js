@@ -27,7 +27,7 @@ const stripe = require('stripe')(process.env.Stripe_secret)
 DB()
 //google auth
 App.use(cors({
-  origin:["https://mpfstore.vercel.app"],
+  origin:"https://mpfstore.vercel.app",
   methods:["GET","POST","PATCH","DELETE"],
   credentials:true
 }))
