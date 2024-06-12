@@ -77,11 +77,11 @@ const EditItem = () => {
   const [loader,setloader] = useState<boolean>(false)
   let findCategoryAndbrand =async():Promise<void>=>{
     try{
-        let category = await axios.get(`https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/api/v1/category`)
+        let category = await axios.get(`/api/v1/category`)
         if(category.data){
             setcategory(category.data.categories)
         }
-        let brands = await axios.get('https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/api/v1/brands/getAllbrands')
+        let brands = await axios.get('/api/v1/brands/getAllbrands')
         if(brands.data){
             setbrands(brands.data.brands)
         }
@@ -92,7 +92,7 @@ const EditItem = () => {
 const updateData =async(data:FieldValues):Promise<void>=>{
     try{
         setloader(true)
-        let resposne = await axios.patch(`https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/api/v1/item/update/${item?._id}`,data,{withCredentials:true});
+        let resposne = await axios.patch(`/api/v1/item/update/${item?._id}`,data,{withCredentials:true});
         if(resposne.data){
             setitem(resposne.data.item)
             setloader(false)
@@ -105,7 +105,7 @@ const updateData =async(data:FieldValues):Promise<void>=>{
 const deletephoto =async(id:string):Promise<void>=>{
     try{
         setloader(true)
-        let response = await axios.get(`https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/api/v1/item/removephoto/${item?._id}?photoid=${id}`,{withCredentials:true})
+        let response = await axios.get(`/api/v1/item/removephoto/${item?._id}?photoid=${id}`,{withCredentials:true})
         if(response.data){
             setloader(false)
             setitem(response.data.item)
@@ -120,7 +120,7 @@ const updateCoverphoto =async():Promise<void>=>{
     if(photo){
         try{
             setloader(true)
-            let response = await axios.patch(`https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/api/v1/item/updateCoverphoto/${item?._id}`,{profile:photo},{withCredentials:true,headers:{'Content-Type':'multipart/form-data'}})
+            let response = await axios.patch(`/api/v1/item/updateCoverphoto/${item?._id}`,{profile:photo},{withCredentials:true,headers:{'Content-Type':'multipart/form-data'}})
             if(response.data){
                 setitem(response.data.item)
                 setphoto(null);
@@ -146,7 +146,7 @@ const updatephotos =async():Promise<void>=>{
         }
         try{
             setloader(true)
-            let response = await axios.patch(`https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/api/v1/item/uploadphoto/${item?._id}`,formData,{withCredentials:true,headers:{
+            let response = await axios.patch(`/api/v1/item/uploadphoto/${item?._id}`,formData,{withCredentials:true,headers:{
                  'Content-Type': 'multipart/form-data',
             }})
             if(response.data){
@@ -166,7 +166,7 @@ const updatephotos =async():Promise<void>=>{
   const getItem =async():Promise<void>=>{
     try{
         setloader(true);
-        let response = await axios.get(`https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/api/v1/item/getItem/${id}`,{withCredentials:true})
+        let response = await axios.get(`/api/v1/item/getItem/${id}`,{withCredentials:true})
         if(response.data.item){
             setitem(response.data.item)
             setloader(false)

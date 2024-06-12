@@ -9,7 +9,7 @@ const Category = () => {
     const getCategory =async():Promise<void>=>{
         try{
             setloader(true)
-            let response = await axios.get(`https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/api/v1/category`);
+            let response = await axios.get(`/api/v1/category`);
             if(response.data){
                 setcategory(response.data.categories)
                 setloader(false)
@@ -22,7 +22,7 @@ const Category = () => {
     const addCategory =async(data:FieldValues):Promise<void>=>{
         try{
             setloader(true)
-            let response = await axios.post(`https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/api/v1/category`,data,{withCredentials:true})
+            let response = await axios.post(`/api/v1/category`,data,{withCredentials:true})
             if(response.data){
                 setloader(false)
                 setcategory([...category,response.data.categ])

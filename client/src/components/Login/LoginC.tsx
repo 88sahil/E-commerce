@@ -15,7 +15,7 @@ const SignUp = ()=>{
     const HandleSignUp =async(data:FieldValues)=>{
         try{
             setloader(true);
-            let response = await axios.post("https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/api/v1/user",data,{withCredentials:true});
+            let response = await axios.post("/api/v1/user",data,{withCredentials:true});
             if(response.data){
                 dispatch(login(response.data.user))
                 setloader(false);
@@ -91,7 +91,7 @@ export const Login = ()=>{
     const handleLogin=async(data:FieldValues):Promise<void>=>{
         try{
             setloader(true)
-            let response = await axios.post('https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/api/v1/user/login',data,{withCredentials:true})
+            let response = await axios.post('/api/v1/user/login',data,{withCredentials:true})
             if(response.data){
                 dispatch(login(response.data.user))
                 setloader(false)
