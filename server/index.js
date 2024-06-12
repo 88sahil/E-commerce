@@ -33,12 +33,6 @@ App.use(express.json())
 //cookie parsers
 App.set('trust proxy', true);
 App.use(cookieparser())
-App.use(cors({
-  origin: ['https://mpfstore-git-master-88sahils-projects.vercel.app/'], // specify the allowed origin
-  credentials: true, // allow credentials (e.g., cookies)
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Origin', 'Content-Type', 'Accept', 'Authorization', 'X-Request-With'],
-}));
 App.use(session({
   secret:'myname',
   resave:'false',
