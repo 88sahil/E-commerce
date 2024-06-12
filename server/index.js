@@ -38,14 +38,8 @@ App.use(express.json())
 
 //cookie parsers
 App.use(cookieparser())
-<<<<<<< HEAD
 
-=======
-App.use(cors({
-  origin:"*",
-  credentials:true
-}))
->>>>>>> 67c83ab8fef160159e41fd224bff48351037906a
+App.use(cors())
 App.use(ratelimit({
     window:60*1000*60,
     limit:100
