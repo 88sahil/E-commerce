@@ -42,7 +42,7 @@ App.use(cookieparser())
 
 =======
 App.use(cors({
-  origin:["https://mpfstore.vercel.app"],
+  origin:"*",
   credentials:true
 }))
 >>>>>>> 67c83ab8fef160159e41fd224bff48351037906a

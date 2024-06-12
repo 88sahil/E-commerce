@@ -1,6 +1,8 @@
+
 {
     "rewrites": [
-        { "source": "/ai/:path(.*)", "destination": "http://13.211.135.249:8000/:path" },
+        { "source": "/ai/:path(.*)", "destination": "http://https://e-commerce-wvh2.vercel.app/:path" },
         { "source": "/(.*)", "destination": "/index.html" }
     ]
 }
+
