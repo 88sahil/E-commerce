@@ -30,7 +30,7 @@ App.use(cors({
   origin:"https://mpfstore.vercel.app",
   methods:["GET","POST","PATCH","DELETE"],
   credentials:true
-}))
+}));
 App.use(express.json())
 //error middleware"
 
