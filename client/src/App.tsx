@@ -10,7 +10,7 @@ function App() {
   const navigate = useNavigate();
   const verifyUser =async()=>{
     try{
-      let response = await axios.get('https://e-commerce-wvh2.vercel.app/api/v1/user/verify',{withCredentials:true})
+      let response = await axios.get('https://e-commerce-psi-cyan.vercel.app/api/v1/user/verify',{withCredentials:true})
       if(response.data){
           dispatch(login(response.data.user));
       }
