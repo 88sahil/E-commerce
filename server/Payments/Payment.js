@@ -29,8 +29,8 @@ module.exports.checkout = async(req,res,next)=>{
             shipping_address_collection: {
                 allowed_countries: ['IN'],
               },
-            success_url:`https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/success/${order._id}`,
-            cancel_url:`https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/cancel/${order._id}`,
+            success_url:`https://mpfserver.vercel.app/success/${order._id}`,
+            cancel_url:`https://mpfserver.vercel.app/cancel/${order._id}`,
         })
         order.paymentsessionId = session.id;
         await order.save();
