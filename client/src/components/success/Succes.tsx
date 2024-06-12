@@ -20,7 +20,7 @@ const Success =()=>{
     
     const checkPayment = async():Promise<void>=>{
         try{
-            let response = await axios.get(`https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/api/v1/Orders/getOrder/${id}`,{withCredentials:true})
+            let response = await axios.get(`https://e-commerce-wvh2.vercel.app/api/v1/Orders/getOrder/${id}`,{withCredentials:true})
             if(response.data){
                 if(response.data.orders.paymentstatus==="success"){
                     setorderf(true)

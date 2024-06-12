@@ -25,7 +25,8 @@ const checkasync = require('./Controllers/CheckAync')
 const stripe = require('stripe')(process.env.Stripe_secret)
 App.use(cors({
   origin: ["https://mpfstore.vercel.app","https://mpfstore-q9huaqq8y-88sahils-projects.vercel.app"],
-  optionsSuccessStatus:200
+  optionsSuccessStatus:200,
+  credentials:true
 }));
 //databse
 DB()

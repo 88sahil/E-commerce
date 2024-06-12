@@ -11,7 +11,7 @@ const Changepassword = () => {
         const forgotpassword=async(data:FieldValues):Promise<void>=>{
             try{
                 setloader(true)
-                let response = await axios.patch(`/api/v1/user/updatepassword/${str}`,data,{withCredentials:true})
+                let response = await axios.patch(`https://e-commerce-wvh2.vercel.app/api/v1/user/updatepassword/${str}`,data,{withCredentials:true})
                 if(response.data){
                     setloader(false)
                     alert(response.data.message)

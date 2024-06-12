@@ -14,7 +14,7 @@ const TopRated = () => {
     const [limit,setlimit] = useState<number>(10)
     const getItems =async():Promise<void>=>{
         try{
-            let respone = await axios.get(`/api/v1/item/getAllitems?AverageRating[gt]=0&sort=-AverageRating,-NoofRating&limit=${limit}&fields=title,coverphoto,AverageRating,NoofRating`,{withCredentials:true})
+            let respone = await axios.get(`https://e-commerce-wvh2.vercel.app/api/v1/item/getAllitems?AverageRating[gt]=0&sort=-AverageRating,-NoofRating&limit=${limit}&fields=title,coverphoto,AverageRating,NoofRating`,{withCredentials:true})
             if(respone.data){
                 setproducts(respone.data.items)
             }

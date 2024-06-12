@@ -7,7 +7,7 @@ const [loader,setloader] = useState<boolean>(false)
 const forgotpassword=async(data:FieldValues)=>{
     try{
         setloader(true)
-        let response = await axios.get(`https://e-commerce-wvh2-qw50sstcd-88sahils-projects.vercel.app/api/v1/user/forgotpassword?email=${data.email}`,{withCredentials:true})
+        let response = await axios.get(`https://e-commerce-wvh2.vercel.app/api/v1/user/forgotpassword?email=${data.email}`,{withCredentials:true})
         if(response.data){
             setloader(false)
             alert("password reset Link successfully sent")

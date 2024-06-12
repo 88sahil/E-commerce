@@ -16,7 +16,7 @@ const ItemCard = (props:{item:Item,key:number})=>{
     const [liked,setliked] = useState(isLiked? true:false);
     const LikeItem =async(id:string)=>{
         try{
-            let response = await axios.get(`/api/v1/user/LikeItem?Itemid=${id}`,{withCredentials:true})
+            let response = await axios.get(`https://e-commerce-wvh2.vercel.app/api/v1/user/LikeItem?Itemid=${id}`,{withCredentials:true})
             if(response.data){
                 alert(`${props.item.title} ${liked? "disliked":"liked"} successfully`);
             }

@@ -11,7 +11,7 @@ const Home =()=>{
             <ImageSlider images={Images} />
             <Menus/>
             <h1 className="text-center font-extrabold text-3xl">Items In Store</h1>
-            <CardPages query={"/api/v1/item/getAllitems?fields=_id,price,title,coverphoto,discount&limit=10&page=1"} />
+            <CardPages query={"https://e-commerce-wvh2.vercel.app/api/v1/item/getAllitems?fields=_id,price,title,coverphoto,discount&limit=10&page=1"} />
             <Features />
         </div>
     )
