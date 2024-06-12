@@ -26,6 +26,10 @@ const stripe = require('stripe')(process.env.Stripe_secret)
 //databse
 DB()
 //google auth
+App.use(cors({
+  origin:"*",
+  credentials:true
+}))
 App.use(express.json())
 //error middleware"
 
