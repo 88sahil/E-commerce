@@ -32,6 +32,11 @@ App.use(express.json())
 
 //cookie parsers
 App.set('trust proxy', true);
+App.use(cors({
+  origin: 'https://mpfstore.vercel.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  headers: ['Content-Type', 'Authorization']
+}));
 App.use(cookieparser())
 App.use(session({
   secret:'myname',
