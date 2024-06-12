@@ -38,7 +38,7 @@ const PieData = () => {
     }
     const getData = async():Promise<void>=>{
         try{
-            let response = await axios.get(`https://e-commerce-wvh2.vercel.app/api/v1/Orders/propstatics?bytype=${type}&year=${year}`,{withCredentials:true})
+            let response = await axios.get(`https://mpfserver.vercel.app/api/v1/Orders/propstatics?bytype=${type}&year=${year}`,{withCredentials:true})
             if(response.data){
                 setResData(response.data.pie)
             }

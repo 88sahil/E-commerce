@@ -33,7 +33,7 @@ const AdminOrder = () => {
     const [orders,setorders] = useState<Torder[]>([])
     let GetOrders=async():Promise<void>=>{
         try{
-            let response = await axios.get(`https://e-commerce-wvh2.vercel.app/api/v1/Orders/getAllOrder?type=${status}`)
+            let response = await axios.get(`https://mpfserver.vercel.app/api/v1/Orders/getAllOrder?type=${status}`)
             if(response.data){
                 setorders(response.data.orders);
                 setresults(response.data.results);

@@ -29,7 +29,7 @@ const Header=()=>{
             }
         setTimeout(async()=>{
             try{
-                let searchitem = await axios.get(`https://e-commerce-wvh2.vercel.app/api/v1/item/getListing?title=${Event.target.value}`)
+                let searchitem = await axios.get(`https://mpfserver.vercel.app/api/v1/item/getListing?title=${Event.target.value}`)
                 if(searchitem.data){
                     setsearchItem(searchitem.data.items);
                 }
@@ -40,7 +40,7 @@ const Header=()=>{
     }
     const handleLogout =async()=>{
             try{
-                let res =await axios.get("https://e-commerce-wvh2.vercel.app/logout",{withCredentials:true})
+                let res =await axios.get("https://mpfserver.vercel.app/logout",{withCredentials:true})
                 console.log(res)
                 if(res.data){
                     dispatch(logout())

@@ -28,7 +28,7 @@ const OrderPage = () => {
     const getOrder =  async():Promise<void>=>{
         try{
             setloader(true)
-            let response=await axios.get(`https://e-commerce-wvh2.vercel.app/api/v1/Orders/getOrder/${id}`,{withCredentials:true})
+            let response=await axios.get(`https://mpfserver.vercel.app/api/v1/Orders/getOrder/${id}`,{withCredentials:true})
             if(response.data){
                 setorder(response.data.orders)
                 setloader(false)
@@ -41,7 +41,7 @@ const OrderPage = () => {
     const updateOrder =async(data:string):Promise<void>=>{
       try{
           setloader(true)
-          let response = await axios.get(`https://e-commerce-wvh2.vercel.app/api/v1/orders/statusUpdate/${order?.id}?status=${data}`,{withCredentials:true})
+          let response = await axios.get(`https://mpfserver.vercel.app/api/v1/orders/statusUpdate/${order?.id}?status=${data}`,{withCredentials:true})
           if(response.data){
             console.log(response.data)
               setloader(false)

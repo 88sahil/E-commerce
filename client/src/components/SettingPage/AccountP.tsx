@@ -61,7 +61,7 @@ const AccountPre=()=>{
         try{
             if(img){
                 setloader(true)
-                let response = await axios.patch('https://e-commerce-wvh2.vercel.app/api/v1/user/uploadprofile',{profile:img},{
+                let response = await axios.patch('https://mpfserver.vercel.app/api/v1/user/uploadprofile',{profile:img},{
                     withCredentials:true,
                     headers:{
                         'Content-Type':'multipart/form-data'
@@ -85,7 +85,7 @@ const AccountPre=()=>{
         try{
             setisDisable(true)
             setloader(true)
-            let response = await axios.patch("https://e-commerce-wvh2.vercel.app/api/v1/user/updateMe",data,{withCredentials:true})
+            let response = await axios.patch("https://mpfserver.vercel.app/api/v1/user/updateMe",data,{withCredentials:true})
             if(response.data){
                 setloader(false)
                 dispatch(login(response.data.user))
@@ -112,7 +112,7 @@ const AccountPre=()=>{
         }
         try{
             setloader(true)
-            let response = await axios.patch("https://e-commerce-wvh2.vercel.app/api/v1/user/updateMe",{location:AddressObj},{withCredentials:true})
+            let response = await axios.patch("https://mpfserver.vercel.app/api/v1/user/updateMe",{location:AddressObj},{withCredentials:true})
             if(response.data){
                 setloader(false)
                 dispatch(login(response.data.user))
