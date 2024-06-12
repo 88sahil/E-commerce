@@ -7,7 +7,7 @@ export default defineConfig({
    server: {
     proxy: {
       '/api': {
-        target:"http://13.211.135.249:8000",
+        target:"https://e-commerce-wvh2.vercel.app",
         changeOrigin: true,
       },
     },
