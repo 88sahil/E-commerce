@@ -23,11 +23,6 @@ const {Order,OrderItem} = require('./models/OrderModel')
 const {CartItem,Cart} = require('./models/Cart')
 const checkasync = require('./Controllers/CheckAync')
 const stripe = require('stripe')(process.env.Stripe_secret)
-App.use(cors({
-  origin: ["https://mpfstore.vercel.app"],
-  optionsSuccessStatus:200,
-  credentials:true
-}));
 //databse
 DB()
 //google auth
@@ -35,11 +30,6 @@ App.use(express.json())
 //error middleware"
 
 //cookie parsers
-App.set('trust proxy', true);
-App.use(cors({
-  origin: ["https://mpfstore.vercel.app"],
-  optionsSuccessStatus:200
-}));
 App.use(cookieparser())
 App.use(session({
   secret:'myname',
