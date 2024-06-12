@@ -12,7 +12,7 @@
             "dest": "/index.js",
             "methods":["GET","PUT","POST","PATCH","OPTIONS"],
             "headers":{
-                "Access-Control-Allow-Origin":"*",
+                "Access-Control-Allow-Origin":["http://localhost:5173"],
                 "Access-Control-Allow-Credentials": "true"
             }
         }
