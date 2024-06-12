@@ -37,8 +37,9 @@ App.use(express.json())
 //error middleware"
 
 //cookie parsers
+App.set('trust proxy', true);
 App.use(cookieparser())
-app.use(cors({
+App.use(cors({
   origin: ['https://mpfstore.vercel.app'], // specify the allowed origin
   credentials: true, // allow credentials (e.g., cookies)
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
