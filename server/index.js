@@ -24,7 +24,7 @@ const {CartItem,Cart} = require('./models/Cart')
 const checkasync = require('./Controllers/CheckAync')
 const stripe = require('stripe')(process.env.Stripe_secret)
 App.use(cors({
-  origin: ["*"],
+  origin: ["https://mpfstore.vercel.app"],
   optionsSuccessStatus:200,
   credentials:true
 }));
