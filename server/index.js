@@ -16,7 +16,6 @@ const BrandR = require('./Routes/BrandRoute')
 const CategoryRoute = require('./Routes/CategoryRoute');
 const CartRoute = require('./Routes/Cart');
 const ReviewRoute = require('./Routes/ReviewRoute')
-const ratelimit=require('express-rate-limit')
 require('./Controllers/OauthController')
 const {checkout}=require('./Payments/Payment');
 const AppError = require('./utils/AppError');
@@ -45,10 +44,6 @@ App.use(cors({
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Origin', 'Content-Type', 'Accept', 'Authorization', 'X-Request-With'],
 }));
-App.use(ratelimit({
-    window:60*1000*60,
-    limit:100
-}))
 App.use(session({
   secret:'myname',
   resave:'false',
