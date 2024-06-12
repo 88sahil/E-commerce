@@ -25,12 +25,7 @@ const {CartItem,Cart} = require('./models/Cart')
 const checkasync = require('./Controllers/CheckAync')
 const stripe = require('stripe')(process.env.Stripe_secret)
 //databse
-App.use(cors({
-  origin:["*"],
-  credentials:true,
-}))
 DB()
-App.use(helmet())
 //google auth
 App.use(express.json())
 //error middleware"
