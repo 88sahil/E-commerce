@@ -28,7 +28,7 @@ const ScatterData = () => {
             let updatedArray = [...pData]
             for(let ele of monthly){
                 updatedArray = updatedArray.map((el,index)=>{
-                    if(index === ele._id){
+                    if(index+1 === ele._id){
                         el = ele.totalSalesbyMoney
                     }
                     return el
@@ -40,7 +40,7 @@ const ScatterData = () => {
             let updatedArray = [...pData]
             for(let ele of monthly){
                 updatedArray = updatedArray.map((el,index)=>{
-                    if(index === ele._id){
+                    if(index+1 === ele._id){
                         el = ele.totalSalesbynumber
                     }
                     return el
