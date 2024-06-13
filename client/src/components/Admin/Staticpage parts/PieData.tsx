@@ -53,7 +53,7 @@ const PieData = () => {
     <div className='flex gap-8 flex-wrap max-md:justify-center'>
         <div className='w-[900px] max-md:w-full'>
             <div className='p-4 flex'>
-                <h1 className='w-full  text-xl font-extrabold text-start px-2'>Statics by {type} of {year}</h1>
+                <h1 className='w-full  text-xl max-md:text-sm max-md:font-bold font-extrabold text-start px-2'>Statics by {type} of {year}</h1>
                 <select className='p-sel' value={bytype} onChange={(e)=>setbytype(e.target.value)}>
                     <option value="Amount">Amount</option>
                     <option value="Order">Order</option>
@@ -76,7 +76,7 @@ const PieData = () => {
           data: deriveData(),
         },
       ]}
-      width={500}
+      width={350}
       height={300}
     />
         </div>
