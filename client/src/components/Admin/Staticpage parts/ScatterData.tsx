@@ -54,6 +54,7 @@ const ScatterData = () => {
         try{
             let response = await axios.get(`https://mpfserver.vercel.app/api/v1/Orders/statics?year=${year}`)
             if(response.data){
+                console.log(response.data)
                 settotalshares(response.data.totalShareofYear[0])
                 setrender(2)
                 setmonthly(response.data.yearState)

@@ -78,9 +78,11 @@ const AllProduct =()=>{
         }
     }
     const showLeft=()=>{
-        let div:any | null | undefined  = document.getElementById("leftdiv")
+
+        let div:HTMLElement | null | undefined  = document.getElementById("leftdiv")
         div?.classList.toggle("left-show")
         div?.classList.toggle("left")
+        console.log(div)
     }
     useEffect(()=>{
         getBrandAndCate()
@@ -105,7 +107,7 @@ const AllProduct =()=>{
     }
     return(
         <section className="flex">
-               { <div className="leftf" id="leftdiv">
+               { <div className="left" id="leftdiv">
                         <div className="sort w-full p-2">
                             <h1>Sort Item</h1>
                             <input type="radio" name="sort" value="price" onChange={(e)=>checked(e)}/> <a>price:Low to High</a>
