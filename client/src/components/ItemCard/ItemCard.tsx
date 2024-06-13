@@ -9,7 +9,7 @@ type Item={
     coverphoto:string,
     title:string,
     discount:number
-}
+};
 const ItemCard = (props:{item:Item,key:number})=>{
     const userLikes = useSelector((state:any)=>state.auth.user)
     let isLiked = userLikes?.likes.find((ele:string)=>ele===props.item._id) || false;
