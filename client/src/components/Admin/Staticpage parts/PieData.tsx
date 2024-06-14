@@ -1,5 +1,5 @@
 import  { useEffect, useState } from 'react'
-import { PieChart } from '@mui/x-charts/PieChart';
+import { PieChart, pieArcLabelClasses  } from '@mui/x-charts/PieChart';
 import axios from 'axios';
 const PieData = () => {
     type Tdata = {
@@ -52,8 +52,8 @@ const PieData = () => {
   return (
     <div className='flex gap-8 flex-wrap max-md:justify-center'>
         <div className='w-[900px] max-md:w-full'>
-            <div className='p-4 flex'>
-                <h1 className='w-full  text-xl font-extrabold text-start px-2'>Statics by {type} of {year}</h1>
+            <div className='p-4 flex flex-wrap'>
+                <h1 className='w-full  text-xl max-md:text-sm max-md:font-bold font-extrabold text-start px-2'>Statics by {type} of {year}</h1>
                 <select className='p-sel' value={bytype} onChange={(e)=>setbytype(e.target.value)}>
                     <option value="Amount">Amount</option>
                     <option value="Order">Order</option>
@@ -70,15 +70,26 @@ const PieData = () => {
                     }
                 </select>
             </div>
-        <PieChart
-      series={[
+           <div className='flex flex-wrap'>
+            <PieChart
+              series={[
         {
           data: deriveData(),
+          highlightScope: { faded: 'global', highlighted: 'item' },
+          faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
         },
       ]}
+      
+      sx={{
+        [`& .${pieArcLabelClasses.root}`]: {
+          fill: 'white',
+          fontWeight: 'bold',
+        },
+    }}
       width={500}
-      height={300}
+      height={250}
     />
+            </div>
         </div>
         <div id='ordertable' className='h-[400px]'>
             <div className='flex sticky'>

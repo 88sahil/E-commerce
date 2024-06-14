@@ -64,7 +64,7 @@ const Items = () => {
                 }
             </div>
             <div className="mt-2 w-full justify-center p-2">
-                        <Pagination onChange={(e,page)=>{e;setpage(page)}}  count={totalproducts/10>1? (totalproducts/10):(1)}/>
+                        <Pagination onChange={(e,page)=>{e;setpage(page)}}  count={totalproducts/10>1? (Math.ceil(totalproducts/10)):(1)}/>
             </div>
         </div>
        {loader && <div className="loader"></div>}

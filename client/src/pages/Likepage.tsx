@@ -1,7 +1,10 @@
 import { CardPages } from "../components";
 const LikePage =()=>{
     return(
-        <CardPages query="https://e-commerce-wvh2.vercel.app/api/v1/user/getLikeItem" />
+        <div className="max-md:py-12 p-2">
+             <CardPages query="https://mpfserver.vercel.app/api/v1/user/getLikeItem" />
+        </div>
+       
     )
 }
 export default LikePage
