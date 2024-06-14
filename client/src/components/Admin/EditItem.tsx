@@ -102,18 +102,6 @@ const updateData =async(data:FieldValues):Promise<void>=>{
         console.log(err)
     }
 }
-const navigate = useNavigate()
-const deleteItem = async(id:string):Promise<void>=>{
-    try{
-        let response = await  axios.get(`https://mpfserver.vercel.app/api/v1/item/deleteItem/${id}`,{withCredentials:true})
-        if(response.data){
-           
-            navigate('/')
-        }
-    }catch(err){
-        console.log(err)
-    }
-}
 const deletephoto =async(id:string):Promise<void>=>{
     try{
         setloader(true)
@@ -273,7 +261,6 @@ useEffect(()=>{
             </span>
             <button>Update</button>
         </form>
-        <button className='bg-red-500 text-white p-2' onClick={()=>deleteItem(item? (item._id):"")}>Delete</button>
         <div>
             <h1 className='text-gray-500 text-xl font-bolder'>ChangeCoverphoto</h1>
             <div className='w-[500px]  h-[400px] rounded-md max-md:w-[400px]'>

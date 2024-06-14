@@ -19,7 +19,7 @@ const CardPages =(props:{query:string})=>{
         GetItems()
     },[])
     return(
-        <div className="cardpage flex flex-wrap gap-2 max-md:justify-center">
+        <div className="cardpage flex flex-wrap gap-2 justify-center">
             {
                 Item?.length>0?(
                     Item.map((ele,index)=><ItemCard key={index} item={ele}  />)

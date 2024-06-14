@@ -28,7 +28,7 @@ const ScatterData = () => {
             let updatedArray = [...pData]
             for(let ele of monthly){
                 updatedArray = updatedArray.map((el,index)=>{
-                    if(index+1 === ele._id){
+                    if(index === ele._id){
                         el = ele.totalSalesbyMoney
                     }
                     return el
@@ -40,7 +40,7 @@ const ScatterData = () => {
             let updatedArray = [...pData]
             for(let ele of monthly){
                 updatedArray = updatedArray.map((el,index)=>{
-                    if(index+1 === ele._id){
+                    if(index === ele._id){
                         el = ele.totalSalesbynumber
                     }
                     return el
@@ -123,7 +123,7 @@ const ScatterData = () => {
         </div>
     <div className='w-[900px] max-md:w-full'>
     <LineChart
-      height={500}
+      height={600}
       colors={[`rgb(124,171,124)`]}
       series={[
         { data: pData, label: `${lable}` },

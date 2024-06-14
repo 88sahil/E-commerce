@@ -35,7 +35,7 @@ const TopSelling = () => {
     },[year,limit])
   return (
     <div className='top p-4'>
-        <div className='top-head w-[900px] max-md:w-full items-center flex justify-between flex-wrap gap-2'>
+        <div className='top-head w-[900px] max-md:w-full items-center flex justify-between'>
         <h1 className='text-start flex items-center text-xl'><RiAwardFill size={25}/>Top selling Products</h1>
         <div>
         <select value={year} onChange={(e)=>setyear(Number.parseInt(e.target.value))}>

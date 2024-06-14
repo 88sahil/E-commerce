@@ -47,7 +47,7 @@ const AdminOrder = () => {
     <main className='w-full flex max-md:justify-start justify-center'>
         <div className='w-[900px] max-md:w-full p-2'>
             <div className='flex justify-between items-center'>
-                <h1 className='text-xl max-md:text-[16px] font-bold'>OrderStatus:<span className={`${status==="delivered"? "text-green-600":(status==="rejected"? "text-red-600":"text-blue-700")}`}>{status || "All"}</span></h1>
+                <h1 className='text-xl max-md:text-[16px] font-bold max-md:text-md'>OrderStatus:<span className={`${status==="delivered"? "text-green-600":(status==="rejected"? "text-red-600":"text-blue-700")}`}>{status || "All"}</span></h1>
                 <h1 className='text-xl max-md:text-[16px] font-bold'>Results:{results}</h1>
                 <select name="status" id="" className='p-sel' value={status} onChange={(e)=>setstatus(e.target.value)}>
                     <option value="">All</option>
@@ -64,7 +64,7 @@ const AdminOrder = () => {
                             <h1 className=' max-md:text-sm'>#{ele.id}</h1>
                             <span className='flex items-center gap-1'>
                                 <img className='w-[50px] h-[50px] rounded-full max-md:w-[30px] max-md:h-[30px]' src={ele?.user?.photo || noimg } alt="" />
-                                <h1 className="max-md:hidden">{ele.user?.username}</h1>
+                                <h1>{ele.user?.username}</h1>
                             </span>
                             <h1 className='max-md:hidden'>₹{ele.totalbill}</h1>
                             <button><FaEye/></button>
