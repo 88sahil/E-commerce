@@ -1,5 +1,5 @@
 import  { useEffect, useState } from 'react'
-import { PieChart } from '@mui/x-charts/PieChart';
+import { PieChart, pieArcLabelClasses  } from '@mui/x-charts/PieChart';
 import axios from 'axios';
 const PieData = () => {
     type Tdata = {
