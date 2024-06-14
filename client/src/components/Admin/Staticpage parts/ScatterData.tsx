@@ -123,7 +123,7 @@ const ScatterData = () => {
         </div>
     <div className='w-[900px] max-md:w-full'>
     <LineChart
-      height={600}
+      height={500}
       colors={[`rgb(124,171,124)`]}
       series={[
         { data: pData, label: `${lable}` },
