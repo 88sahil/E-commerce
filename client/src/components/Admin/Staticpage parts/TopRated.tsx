@@ -28,7 +28,7 @@ const TopRated = () => {
   return (
     <div className='top p-4'>
     <div className='top-head w-[900px] max-md:w-full items-center flex justify-between'>
-    <h1 className='text-start flex items-center text-xl'><RiAwardFill size={25}/>Top Rated Products</h1>
+    <h1 className='text-start flex items-center text-xl max-md:text-[16px]'><RiAwardFill size={25}/>Top Rated Products</h1>
     <div>
     <select value={limit} onChange={(e)=>setlimit(Number.parseInt(e.target.value))}>
         <option value={10}>Top 10</option>
