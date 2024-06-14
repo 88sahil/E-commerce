@@ -70,15 +70,26 @@ const PieData = () => {
                     }
                 </select>
             </div>
-        <PieChart
-      series={[
+           <div className='flex flex-wrap'>
+            <PieChart
+              series={[
         {
           data: deriveData(),
+          highlightScope: { faded: 'global', highlighted: 'item' },
+          faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
         },
       ]}
-      width={350}
-      height={300}
+      
+      sx={{
+        [`& .${pieArcLabelClasses.root}`]: {
+          fill: 'white',
+          fontWeight: 'bold',
+        },
+    }}
+      width={500}
+      height={250}
     />
+            </div>
         </div>
         <div id='ordertable' className='h-[400px]'>
             <div className='flex sticky'>
