@@ -105,7 +105,7 @@ const updateData =async(data:FieldValues):Promise<void>=>{
 const navigate = useNavigate()
 const deleteItem = async(id:string):Promise<void>=>{
     try{
-        let response = await  axios.get(`/api/v1/item/deleteItem/${id}`,{withCredentials:true})
+        let response = await  axios.get(`https://mpfserver.vercel.app/api/v1/item/deleteItem/${id}`,{withCredentials:true})
         if(response.data){
            
             navigate('/')
